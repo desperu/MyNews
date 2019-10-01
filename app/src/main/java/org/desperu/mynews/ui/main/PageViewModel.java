@@ -25,10 +25,6 @@ public class PageViewModel extends ViewModel {
         }
     });
 
-    public void fuckTravisbug() {
-        String travis ="Fuck it";
-    }
-
     public void setIndex(int index) {
         mIndex.setValue(index);
     }
