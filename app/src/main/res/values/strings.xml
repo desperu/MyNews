@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">My News</string>
+
+    <!-- Fragments names -->
     <string name="tab_text_1">Top Stories</string>
     <string name="tab_text_2">Most Popular</string>
     <string name="tab_text_3">Business</string>
+
+    <!-- Menu items names -->
+    <string name="menu_item_params">Parameters</string>
 </resources>

@@ -1,0 +1,51 @@
+package org.desperu.mynews.Controllers.Fragments;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+
+import org.jetbrains.annotations.NotNull;
+
+import butterknife.ButterKnife;
+import icepick.Icepick;
+
+public abstract class BaseFragment extends Fragment {
+
+    // --------------
+    // BASE METHODS
+    // --------------
+
+    protected abstract BaseFragment getNewInstance();
+    protected abstract int getFragmentLayout();
+    protected abstract void configureDesign();
+    protected abstract void updateDesign();
+
+    // -----------------
+    // METHODS OVERRIDE
+    // -----------------
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(getFragmentLayout(), container, false);
+        ButterKnife.bind(this, view);
+        this.configureDesign();
+        return(view);
+    }
+
+    // TODO check if need icepick
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
+        this.updateDesign();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
+    }
+}
