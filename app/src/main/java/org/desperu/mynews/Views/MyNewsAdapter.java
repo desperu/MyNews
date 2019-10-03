@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import org.desperu.mynews.Controllers.Fragments.MainFragment;
 import org.desperu.mynews.R;
-import org.jetbrains.annotations.NotNull;
 
 public class MyNewsAdapter extends FragmentPagerAdapter {
 
@@ -27,7 +26,6 @@ public class MyNewsAdapter extends FragmentPagerAdapter {
         return 3; // TODO constant page number
     }
 
-    @NotNull
     @Override
     public Fragment getItem(int position) {
         switch(position) {

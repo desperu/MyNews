@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import org.jetbrains.annotations.NotNull;
-
 import butterknife.ButterKnife;
 import icepick.Icepick;
 
@@ -44,7 +42,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(@NotNull Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
     }
