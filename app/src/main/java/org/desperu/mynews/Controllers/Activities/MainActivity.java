@@ -9,10 +9,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.desperu.mynews.Controllers.Fragments.TopStoriesFragment;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Views.MyNewsAdapter;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements TopStoriesFragment.OnClickedArticleListener {
 
     // --------------
     // BASE METHODS
@@ -63,5 +64,14 @@ public class MainActivity extends BaseActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    // -----------------
+    // ACTION
+    // -----------------
+
+    @Override
+    public void onClickedArticle(String clickedArticle) {
+        Toast.makeText(getBaseContext(), "You clicked on an Article !", Toast.LENGTH_SHORT).show();
     }
 }

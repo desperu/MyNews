@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import org.desperu.mynews.Controllers.Fragments.MainFragment;
+import org.desperu.mynews.Controllers.Fragments.TopStoriesFragment;
+import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 
 public class MyNewsAdapter extends FragmentPagerAdapter {
@@ -23,14 +25,14 @@ public class MyNewsAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3; // TODO constant page number
+        return MyNewsTools.Constant.numberOfPage;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch(position) {
             case 0:
-                return MainFragment.newInstance();
+                return TopStoriesFragment.newInstance();
             case 1:
                 return MainFragment.newInstance();
             case 2:

@@ -60,14 +60,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         if (ab != null) ab.setDisplayHomeAsUpEnabled(true);
     }
-
-    // --------------
-    // FRAGMENTS
-    // --------------
-
-//    protected void showFragment(BaseFragment fragment, int layout){
-//        getSupportFragmentManager().beginTransaction()
-//                .add(layout, fragment)
-//                .commit();
-//    }
 }
