@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 
-import org.desperu.mynews.Models.NYTTopStories.TopStoriesResult;
+import org.desperu.mynews.Models.NyTimesResults;
 import org.desperu.mynews.R;
 
 import butterknife.BindView;
@@ -26,11 +26,18 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void updateWithArticle(TopStoriesResult topStoriesResult, RequestManager glide) {
-        this.textViewTitle.setText(topStoriesResult.getTitle());
-        this.texViewAbstract.setText(topStoriesResult.getAbstract());
-        this.textViewSection.setText(topStoriesResult.getSection() + ">" + topStoriesResult.getSubsection());
-        if (!topStoriesResult.getMultimedia().isEmpty())
-        glide.load(topStoriesResult.getMultimedia().get(0).getUrl()).into(imageView);
+    public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide) {
+        this.textViewTitle.setText(nyTimesResults.getTitle());
+        this.texViewAbstract.setText(nyTimesResults.getAbstract());
+        if (nyTimesResults.getSubsection() != null)// || nyTimesResults.getSubsection() != " ")
+            this.textViewSection.setText(String.format(nyTimesResults.getSection() + " > " + nyTimesResults.getSubsection(), "%d"));
+        else this.textViewSection.setText(nyTimesResults.getSection());
+//        this.textViewSection.setText(topStoriesResult.getSection() + " > " + topStoriesResult.getSubsection()); //TODO to check
+        if (nyTimesResults.getMultimedia() != null) {
+            if (!nyTimesResults.getMultimedia().isEmpty())
+                glide.load(nyTimesResults.getMultimedia().get(0).getUrl()).into(imageView);
+        }
+        else if (nyTimesResults.getMedia() != null)
+            glide.load(nyTimesResults.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(imageView);
     }
 }

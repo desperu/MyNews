@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 
-import org.desperu.mynews.Models.NYTTopStories.TopStoriesResult;
+import org.desperu.mynews.Models.NyTimesResults;
 import org.desperu.mynews.R;
 
 import java.util.List;
@@ -17,12 +17,12 @@ import java.util.List;
 public class NYTAdapter extends RecyclerView.Adapter<NYTViewHolder> {
 
     // FOR DATA
-    private List<TopStoriesResult> topStoriesResults;
+    private List<NyTimesResults> nyTimesResults;
     private RequestManager glide;
 
     // CONSTRUCTOR
-    public NYTAdapter(List<TopStoriesResult> topStoriesResults, RequestManager glide) {
-        this.topStoriesResults = topStoriesResults;
+    public NYTAdapter(List<NyTimesResults> nyTimesResults, RequestManager glide) {
+        this.nyTimesResults = nyTimesResults;
         this.glide = glide;
     }
 
@@ -39,14 +39,14 @@ public class NYTAdapter extends RecyclerView.Adapter<NYTViewHolder> {
     // UPDATE VIEW HOLDER WITH A NEW YORK TIMES ARTICLE
     @Override
     public void onBindViewHolder(NYTViewHolder viewHolder, int position) {
-        viewHolder.updateWithArticle(this.topStoriesResults.get(position), this.glide);
+        viewHolder.updateWithArticle(this.nyTimesResults.get(position), this.glide);
     }
 
     // RETURN THE TOTAL COUNT OF ITEMS IN THE LIST
     @Override
     public int getItemCount() {
-        return this.topStoriesResults.size();
+        return this.nyTimesResults.size();
     }
 
-    public TopStoriesResult getArticle(int position) { return this.topStoriesResults.get(position); }
+    public NyTimesResults getArticle(int position) { return this.nyTimesResults.get(position); }
 }

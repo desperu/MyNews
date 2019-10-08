@@ -9,11 +9,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.desperu.mynews.Controllers.Fragments.MostPopularFragment;
 import org.desperu.mynews.Controllers.Fragments.TopStoriesFragment;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Views.MyNewsAdapter;
 
-public class MainActivity extends BaseActivity implements TopStoriesFragment.OnClickedArticleListener {
+public class MainActivity extends BaseActivity implements TopStoriesFragment.OnClickedArticleListener, MostPopularFragment.OnClickedArticleListener {
 
     // --------------
     // BASE METHODS

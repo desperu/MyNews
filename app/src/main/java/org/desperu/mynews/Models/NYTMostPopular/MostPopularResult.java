@@ -10,7 +10,7 @@ public class MostPopularResult {
     @SerializedName("url")
     @Expose
     private String url;
-    @SerializedName("adx_keywords")
+    @SerializedName("adx_keywords") // no
     @Expose
     private String adxKeywords;
     @SerializedName("column")
@@ -22,7 +22,7 @@ public class MostPopularResult {
     @SerializedName("byline")
     @Expose
     private String byline;
-    @SerializedName("type")
+    @SerializedName("type") // item_type
     @Expose
     private String type;
     @SerializedName("title")
@@ -34,7 +34,7 @@ public class MostPopularResult {
     @SerializedName("published_date")
     @Expose
     private String publishedDate;
-    @SerializedName("source")
+    @SerializedName("source") // no
     @Expose
     private String source;
     @SerializedName("id")
@@ -43,7 +43,7 @@ public class MostPopularResult {
     @SerializedName("asset_id")
     @Expose
     private Integer assetId;
-    @SerializedName("views")
+    @SerializedName("views") // no
     @Expose
     private Integer views;
     @SerializedName("des_facet")
@@ -61,7 +61,7 @@ public class MostPopularResult {
     @SerializedName("media")
     @Expose
     private List<MostPopularMedium> media = null;
-    @SerializedName("uri")
+    @SerializedName("uri") // no
     @Expose
     private String uri;
 
@@ -77,9 +77,7 @@ public class MostPopularResult {
         return adxKeywords;
     }
 
-    public void setAdxKeywords(String adxKeywords) {
-        this.adxKeywords = adxKeywords;
-    }
+    public void setAdxKeywords(String adxKeywords) { this.adxKeywords = adxKeywords; }
 
     public Object getColumn() {
         return column;
@@ -109,9 +107,7 @@ public class MostPopularResult {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    public void setType(String type) { this.type = type; }
 
     public String getTitle() {
         return title;
@@ -189,9 +185,7 @@ public class MostPopularResult {
         return perFacet;
     }
 
-    public void setPerFacet(List<String> perFacet) {
-        this.perFacet = perFacet;
-    }
+    public void setPerFacet(List<String> perFacet) { this.perFacet = perFacet; }
 
     public String getGeoFacet() {
         return geoFacet;
@@ -209,9 +203,7 @@ public class MostPopularResult {
         this.media = media;
     }
 
-    public String getUri() {
-        return uri;
-    }
+    public String getUri() { return uri; }
 
     public void setUri(String uri) {
         this.uri = uri;

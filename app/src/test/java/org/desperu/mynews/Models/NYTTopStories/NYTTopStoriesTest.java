@@ -2,6 +2,7 @@ package org.desperu.mynews.Models.NYTTopStories;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -16,7 +17,7 @@ public class NYTTopStoriesTest {
     private String section = "Section";
     private String lastUpdated = "20191010";
     private int numResults = 33;
-    private List<TopStoriesResult> test = null;
+    private List<TopStoriesResult> test = new ArrayList<>();
     private String output;
 
     @Test

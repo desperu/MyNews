@@ -30,9 +30,7 @@ public class MostpopularMediaMetadatum {
         return format;
     }
 
-    public void setFormat(String format) {
-        this.format = format;
-    }
+    public void setFormat(String format) { this.format = format; }
 
     public Integer getHeight() {
         return height;
@@ -42,9 +40,7 @@ public class MostpopularMediaMetadatum {
         this.height = height;
     }
 
-    public Integer getWidth() {
-        return width;
-    }
+    public Integer getWidth() { return width; }
 
     public void setWidth(Integer width) {
         this.width = width;

@@ -1,7 +1,6 @@
 package org.desperu.mynews.Utils;
 
-import org.desperu.mynews.Models.NYTMostPopular.NYTMostPopular;
-import org.desperu.mynews.Models.NYTTopStories.NYTTopStories;
+import org.desperu.mynews.Models.NyTimesAPI;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +10,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NYTStreams {
 
-    public static Observable<NYTTopStories> streamFetchNYTTopStories(String category){
+    public static Observable<NyTimesAPI> streamFetchNYTTopStories(String category){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getNYTTopStories(category)
                 .subscribeOn(Schedulers.io())
@@ -19,7 +18,7 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-    public static Observable<NYTMostPopular> streamFetchNYTMostPopular(){
+    public static Observable<NyTimesAPI> streamFetchNYTMostPopular(){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getNYTMostPopular()
                 .subscribeOn(Schedulers.io())

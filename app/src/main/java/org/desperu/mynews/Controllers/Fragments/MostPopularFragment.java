@@ -22,7 +22,7 @@ import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-public class TopStoriesFragment extends BaseFragment {
+public class MostPopularFragment extends BaseFragment{
 
     // FOR DESIGN
     @BindView(R.id.fragment_top_stories_recycler_view) RecyclerView recyclerView;
@@ -38,14 +38,15 @@ public class TopStoriesFragment extends BaseFragment {
         void onClickedArticle(String clickedArticle);
     }
 
-    private OnClickedArticleListener mCallback;
+    private TopStoriesFragment.OnClickedArticleListener mCallback;
+
 
     // --------------
     // BASE METHODS
     // --------------
 
     @Override
-    protected BaseFragment getNewInstance() { return TopStoriesFragment.newInstance(); }
+    protected BaseFragment getNewInstance() { return MostPopularFragment.newInstance(); }
 
     @Override
     protected int getFragmentLayout() { return R.layout.fragment_articles_list; }
@@ -62,7 +63,7 @@ public class TopStoriesFragment extends BaseFragment {
     @Override
     protected void updateDesign() { }
 
-    public static TopStoriesFragment newInstance() { return new TopStoriesFragment(); }
+    public static MostPopularFragment newInstance() { return new MostPopularFragment(); }
 
     @Override
     public void onDestroy() {
@@ -91,7 +92,7 @@ public class TopStoriesFragment extends BaseFragment {
 
     private void createCallbackToParentActivity(){
         try {
-            mCallback = (OnClickedArticleListener) getActivity();
+            mCallback = (TopStoriesFragment.OnClickedArticleListener) getActivity();
         } catch (ClassCastException e) {
             throw new ClassCastException(e.toString()+ " must implement OnClickedArticleListener");
         }
@@ -125,7 +126,7 @@ public class TopStoriesFragment extends BaseFragment {
     // -------------------
 
     private void executeHttpRequestWithRetrofit(){
-        this.disposable = NYTStreams.streamFetchNYTTopStories("home").subscribeWith(new DisposableObserver<NyTimesAPI>() {
+        this.disposable = NYTStreams.streamFetchNYTMostPopular().subscribeWith(new DisposableObserver<NyTimesAPI>() {
             @Override
             public void onNext(NyTimesAPI nyTimesAPI) {
                 updateUI(nyTimesAPI.getResults());
@@ -147,9 +148,9 @@ public class TopStoriesFragment extends BaseFragment {
     // UPDATE UI
     // -------------------
 
-    private void updateUI(List<NyTimesResults> topStoriesResults){
+    private void updateUI(List<NyTimesResults> nyTimesResults){
         this.nyTimesResults.clear();
-        this.nyTimesResults.addAll(topStoriesResults);
+        this.nyTimesResults.addAll(nyTimesResults);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }

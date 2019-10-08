@@ -1,11 +1,14 @@
-package org.desperu.mynews.Models.NYTTopStories;
+package org.desperu.mynews.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.desperu.mynews.Models.NYTMostPopular.MostPopularMedium;
+import org.desperu.mynews.Models.NYTTopStories.TopStoriesMultimedium;
+
 import java.util.List;
 
-public class TopStoriesResult {
+public class NyTimesResults {
 
     @SerializedName("section")
     @Expose
@@ -43,21 +46,26 @@ public class TopStoriesResult {
     @SerializedName("kicker")
     @Expose
     private String kicker;
-    @SerializedName("des_facet")
-    @Expose
-    private List<String> desFacet = null;
-    @SerializedName("org_facet")
-    @Expose
-    private List<String> orgFacet = null;
-    @SerializedName("per_facet")
-    @Expose
-    private List<String> perFacet = null;
-    @SerializedName("geo_facet")
-    @Expose
-    private List<String> geoFacet = null;
+//    @SerializedName("des_facet")
+//    @Expose
+//    private List<String> desFacet = null;
+//    @SerializedName("org_facet")
+//    @Expose
+//    private List<String> orgFacet = null;
+//    @SerializedName("per_facet")
+//    @Expose
+//    private List<String> perFacet = null;
+//    @SerializedName("geo_facet")
+//    @Expose
+//    private List<String> geoFacet = null;
     @SerializedName("multimedia")
     @Expose
     private List<TopStoriesMultimedium> multimedia = null;
+
+    @SerializedName("media")
+    @Expose
+    private List<MostPopularMedium> media = null;
+
     @SerializedName("short_url")
     @Expose
     private String shortUrl;
@@ -156,37 +164,21 @@ public class TopStoriesResult {
         this.kicker = kicker;
     }
 
-    public List<String> getDesFacet() {
-        return desFacet;
-    }
+//    public List<String> getDesFacet() { return desFacet; }
+//
+//    public void setDesFacet(List<String> desFacet) { this.desFacet = desFacet; }
+//
+//    public List<String> getOrgFacet() { return orgFacet; }
+//
+//    public void setOrgFacet(List<String> orgFacet) { this.orgFacet = orgFacet; }
+//
+//    public List<String> getPerFacet() { return perFacet; }
+//
+//    public void setPerFacet(List<String> perFacet) { this.perFacet = perFacet; }
 
-    public void setDesFacet(List<String> desFacet) {
-        this.desFacet = desFacet;
-    }
-
-    public List<String> getOrgFacet() {
-        return orgFacet;
-    }
-
-    public void setOrgFacet(List<String> orgFacet) {
-        this.orgFacet = orgFacet;
-    }
-
-    public List<String> getPerFacet() {
-        return perFacet;
-    }
-
-    public void setPerFacet(List<String> perFacet) {
-        this.perFacet = perFacet;
-    }
-
-    public List<String> getGeoFacet() {
-        return geoFacet;
-    }
-
-    public void setGeoFacet(List<String> geoFacet) {
-        this.geoFacet = geoFacet;
-    }
+//    public List<String> getGeoFacet() { return geoFacet; }
+//
+//    public void setGeoFacet(List<String> geoFacet) { this.geoFacet = geoFacet; }
 
     public List<TopStoriesMultimedium> getMultimedia() {
         return multimedia;
@@ -194,10 +186,17 @@ public class TopStoriesResult {
 
     public void setMultimedia(List<TopStoriesMultimedium> multimedia) { this.multimedia = multimedia; }
 
+    public List<MostPopularMedium> getMedia() {
+        return media;
+    }
+
+    public void setMedia(List<MostPopularMedium> media) {
+        this.media = media;
+    }
+
     public String getShortUrl() {
         return shortUrl;
     }
 
     public void setShortUrl(String shortUrl) { this.shortUrl = shortUrl; }
-
 }
