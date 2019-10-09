@@ -22,7 +22,7 @@ import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-public class MostPopularFragment extends BaseFragment{
+public class SciencesFragment extends BaseFragment {
 
     // FOR DESIGN
     @BindView(R.id.fragment_articles_list_recycler_view) RecyclerView recyclerView;
@@ -38,18 +38,21 @@ public class MostPopularFragment extends BaseFragment{
         void onClickedArticle(String clickedArticle);
     }
 
-    private MostPopularFragment.OnClickedArticleListener mCallback; // TODO WeakReference??
-
+    private SciencesFragment.OnClickedArticleListener mCallback;
 
     // --------------
     // BASE METHODS
     // --------------
 
     @Override
-    protected BaseFragment getNewInstance() { return MostPopularFragment.newInstance(); }
+    protected BaseFragment getNewInstance() {
+        return SciencesFragment.newInstance();
+    }
 
     @Override
-    protected int getFragmentLayout() { return R.layout.fragment_articles_list; }
+    protected int getFragmentLayout() {
+        return R.layout.fragment_articles_list;
+    }
 
     @Override
     protected void configureDesign() {
@@ -61,9 +64,12 @@ public class MostPopularFragment extends BaseFragment{
     }
 
     @Override
-    protected void updateDesign() { }
+    protected void updateDesign() {
+    }
 
-    public static MostPopularFragment newInstance() { return new MostPopularFragment(); }
+    public static SciencesFragment newInstance() {
+        return new SciencesFragment();
+    }
 
     @Override
     public void onDestroy() {
@@ -75,7 +81,7 @@ public class MostPopularFragment extends BaseFragment{
     // ACTION
     // -----------------
 
-    private void configureOnClickRecyclerView(){
+    private void configureOnClickRecyclerView() {
         ItemClickSupport.addTo(recyclerView, R.layout.fragment_article_item)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
@@ -90,11 +96,11 @@ public class MostPopularFragment extends BaseFragment{
     // FRAGMENT SUPPORT
     // --------------
 
-    private void createCallbackToParentActivity(){
+    private void createCallbackToParentActivity() {
         try {
             mCallback = (OnClickedArticleListener) getActivity();
         } catch (ClassCastException e) {
-            throw new ClassCastException(e.toString()+ " must implement OnClickedArticleListener");
+            throw new ClassCastException(e.toString() + " must implement OnClickedArticleListener");
         }
     }
 
@@ -102,7 +108,7 @@ public class MostPopularFragment extends BaseFragment{
     // CONFIGURATION
     // -----------------
 
-    private void configureRecyclerView(){
+    private void configureRecyclerView() {
         this.nyTimesResults = new ArrayList<>();
         // Create adapter passing in the sample user data
         this.adapter = new NYTAdapter(this.nyTimesResults, Glide.with(this));
@@ -112,7 +118,7 @@ public class MostPopularFragment extends BaseFragment{
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    private void configureSwipeRefreshLayout(){
+    private void configureSwipeRefreshLayout() { // TODO Leak problem
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -125,22 +131,24 @@ public class MostPopularFragment extends BaseFragment{
     // HTTP (RxJAVA)
     // -------------------
 
-    private void executeHttpRequestWithRetrofit(){
-        this.disposable = NYTStreams.streamFetchNYTMostPopular().subscribeWith(new DisposableObserver<NyTimesAPI>() {
+    private void executeHttpRequestWithRetrofit() {
+        this.disposable = NYTStreams.streamFetchNYTTopStories("science").subscribeWith(new DisposableObserver<NyTimesAPI>() {
             @Override
             public void onNext(NyTimesAPI nyTimesAPI) {
                 updateUI(nyTimesAPI.getResults());
             } //TODO add a progressBar
 
             @Override
-            public void onError(Throwable e) { }
+            public void onError(Throwable e) {
+            }
 
             @Override
-            public void onComplete() { }
+            public void onComplete() {
+            }
         });
     }
 
-    private void disposeWhenDestroy(){
+    private void disposeWhenDestroy() {
         if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose();
     }
 
@@ -148,7 +156,7 @@ public class MostPopularFragment extends BaseFragment{
     // UPDATE UI
     // -------------------
 
-    private void updateUI(List<NyTimesResults> nyTimesResults){
+    private void updateUI(List<NyTimesResults> nyTimesResults) {
         this.nyTimesResults.clear();
         this.nyTimesResults.addAll(nyTimesResults);
         adapter.notifyDataSetChanged();

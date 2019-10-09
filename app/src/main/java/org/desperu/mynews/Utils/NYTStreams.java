@@ -10,9 +10,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NYTStreams {
 
-    public static Observable<NyTimesAPI> streamFetchNYTTopStories(String category){
+    public static Observable<NyTimesAPI> streamFetchNYTTopStories(String section){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
-        return nytService.getNYTTopStories(category)
+        return nytService.getNYTTopStories(section)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);

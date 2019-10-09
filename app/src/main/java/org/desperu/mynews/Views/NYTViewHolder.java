@@ -29,12 +29,12 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
     public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide) {
         this.textViewTitle.setText(nyTimesResults.getTitle());
         this.texViewAbstract.setText(nyTimesResults.getAbstract());
-        if (nyTimesResults.getSubsection() != null)// || nyTimesResults.getSubsection() != " ")
+        if (nyTimesResults.getSubsection() != null && nyTimesResults.getSubsection().length() > 0)
             this.textViewSection.setText(String.format(nyTimesResults.getSection() + " > " + nyTimesResults.getSubsection(), "%d"));
         else this.textViewSection.setText(nyTimesResults.getSection());
-//        this.textViewSection.setText(topStoriesResult.getSection() + " > " + topStoriesResult.getSubsection()); //TODO to check
-        if (nyTimesResults.getMultimedia() != null) {
-            if (!nyTimesResults.getMultimedia().isEmpty())
+
+        if (nyTimesResults.getMultimedia() != null && !nyTimesResults.getMultimedia().isEmpty()) { //TODO on test
+//            if (!nyTimesResults.getMultimedia().isEmpty())
                 glide.load(nyTimesResults.getMultimedia().get(0).getUrl()).into(imageView);
         }
         else if (nyTimesResults.getMedia() != null)

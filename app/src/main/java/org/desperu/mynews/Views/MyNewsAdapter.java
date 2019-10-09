@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import org.desperu.mynews.Controllers.Fragments.MainFragment;
+import org.desperu.mynews.Controllers.Fragments.SciencesFragment;
 import org.desperu.mynews.Controllers.Fragments.MostPopularFragment;
 import org.desperu.mynews.Controllers.Fragments.TopStoriesFragment;
 import org.desperu.mynews.MyNewsTools;
@@ -37,7 +37,7 @@ public class MyNewsAdapter extends FragmentPagerAdapter {
             case 1:
                 return MostPopularFragment.newInstance();
             case 2:
-                return MainFragment.newInstance();
+                return SciencesFragment.newInstance();
             default:
                 return null;
         }

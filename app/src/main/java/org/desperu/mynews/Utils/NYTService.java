@@ -14,8 +14,8 @@ public interface NYTService {
     public String apiKey = "rWAsKkWDKqfM3G5yBmm37TmPHTSrLznA";
 
 //    https://api.nytimes.com/svc/topstories/v2/science.json?api-key=rWAsKkWDKqfM3G5yBmm37TmPHTSrLznA
-    @GET("topstories/v2/{category}.json?api-key="+apiKey)
-    Observable<NyTimesAPI> getNYTTopStories(@Path("category") String category);
+    @GET("topstories/v2/{section}.json?api-key="+apiKey)
+    Observable<NyTimesAPI> getNYTTopStories(@Path("section") String section);
 
     //    https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=yourkey
     @GET("mostpopular/v2/viewed/1.json?api-key="+apiKey)

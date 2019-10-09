@@ -25,8 +25,8 @@ import io.reactivex.observers.DisposableObserver;
 public class TopStoriesFragment extends BaseFragment {
 
     // FOR DESIGN
-    @BindView(R.id.fragment_top_stories_recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.fragment_top_stories_swipe_container) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.fragment_articles_list_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.fragment_articles_list_swipe_container) SwipeRefreshLayout swipeRefreshLayout;
 
     //FOR DATA
     private Disposable disposable;
@@ -105,7 +105,7 @@ public class TopStoriesFragment extends BaseFragment {
         this.nyTimesResults = new ArrayList<>();
         // Create adapter passing in the sample user data
         this.adapter = new NYTAdapter(this.nyTimesResults, Glide.with(this));
-        // Attach the adapter to the recyclerview to populate items
+        // Attach the adapter to the recyclerView to populate items
         this.recyclerView.setAdapter(this.adapter);
         // Set layout manager to position the items
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -147,9 +147,9 @@ public class TopStoriesFragment extends BaseFragment {
     // UPDATE UI
     // -------------------
 
-    private void updateUI(List<NyTimesResults> topStoriesResults){
+    private void updateUI(List<NyTimesResults> nyTimesResults){
         this.nyTimesResults.clear();
-        this.nyTimesResults.addAll(topStoriesResults);
+        this.nyTimesResults.addAll(nyTimesResults);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
