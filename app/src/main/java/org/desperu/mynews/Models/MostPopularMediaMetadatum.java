@@ -3,7 +3,7 @@ package org.desperu.mynews.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MostpopularMediaMetadatum {
+public class MostPopularMediaMetadatum {
 
     @SerializedName("url")
     @Expose

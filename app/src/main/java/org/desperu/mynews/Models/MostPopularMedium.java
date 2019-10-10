@@ -22,9 +22,9 @@ public class MostPopularMedium {
     @SerializedName("approved_for_syndication")
     @Expose
     private Integer approvedForSyndication;
-    @SerializedName("media-metadata")
+    @SerializedName("media-metadata") // TODO test create one medium model
     @Expose
-    private List<MostpopularMediaMetadatum> mediaMetadata = null;
+    private List<MostPopularMediaMetadatum> mediaMetadata = null;
 
     public String getType() {
         return type;
@@ -66,11 +66,11 @@ public class MostPopularMedium {
         this.approvedForSyndication = approvedForSyndication;
     }
 
-    public List<MostpopularMediaMetadatum> getMediaMetadata() {
+    public List<MostPopularMediaMetadatum> getMediaMetadata() {
         return mediaMetadata;
     }
 
-    public void setMediaMetadata(List<MostpopularMediaMetadatum> mediaMetadata) {
+    public void setMediaMetadata(List<MostPopularMediaMetadatum> mediaMetadata) {
         this.mediaMetadata = mediaMetadata;
     }
 }
