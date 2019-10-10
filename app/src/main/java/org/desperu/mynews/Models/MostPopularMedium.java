@@ -1,22 +1,12 @@
-package org.desperu.mynews.Models.NYTTopStories;
+package org.desperu.mynews.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TopStoriesMultimedium {
+import java.util.List;
 
-    @SerializedName("url")
-    @Expose
-    private String url;
-    @SerializedName("format")
-    @Expose
-    private String format;
-    @SerializedName("height")
-    @Expose
-    private Integer height;
-    @SerializedName("width")
-    @Expose
-    private Integer width;
+public class MostPopularMedium {
+
     @SerializedName("type")
     @Expose
     private String type;
@@ -29,38 +19,12 @@ public class TopStoriesMultimedium {
     @SerializedName("copyright")
     @Expose
     private String copyright;
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
+    @SerializedName("approved_for_syndication")
+    @Expose
+    private Integer approvedForSyndication;
+    @SerializedName("media-metadata")
+    @Expose
+    private List<MostpopularMediaMetadatum> mediaMetadata = null;
 
     public String getType() {
         return type;
@@ -92,5 +56,21 @@ public class TopStoriesMultimedium {
 
     public void setCopyright(String copyright) {
         this.copyright = copyright;
+    }
+
+    public Integer getApprovedForSyndication() {
+        return approvedForSyndication;
+    }
+
+    public void setApprovedForSyndication(Integer approvedForSyndication) {
+        this.approvedForSyndication = approvedForSyndication;
+    }
+
+    public List<MostpopularMediaMetadatum> getMediaMetadata() {
+        return mediaMetadata;
+    }
+
+    public void setMediaMetadata(List<MostpopularMediaMetadatum> mediaMetadata) {
+        this.mediaMetadata = mediaMetadata;
     }
 }

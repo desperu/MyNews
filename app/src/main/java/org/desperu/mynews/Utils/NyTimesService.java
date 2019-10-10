@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface NYTService {
+public interface NyTimesService {
 
     public String apiKey = "rWAsKkWDKqfM3G5yBmm37TmPHTSrLznA";
 

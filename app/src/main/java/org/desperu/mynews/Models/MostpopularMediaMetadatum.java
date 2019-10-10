@@ -1,4 +1,4 @@
-package org.desperu.mynews.Models.NYTMostPopular;
+package org.desperu.mynews.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

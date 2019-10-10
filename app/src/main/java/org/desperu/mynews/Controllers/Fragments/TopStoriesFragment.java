@@ -12,8 +12,8 @@ import org.desperu.mynews.Models.NyTimesAPI;
 import org.desperu.mynews.Models.NyTimesResults;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.ItemClickSupport;
-import org.desperu.mynews.Utils.NYTStreams;
-import org.desperu.mynews.Views.NYTAdapter;
+import org.desperu.mynews.Utils.NyTimesStreams;
+import org.desperu.mynews.Views.NyTimesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class TopStoriesFragment extends BaseFragment {
     //FOR DATA
     private Disposable disposable;
     private List<NyTimesResults> nyTimesResults;
-    private NYTAdapter adapter;
+    private NyTimesAdapter adapter;
 
     // Callback
     public interface OnClickedArticleListener {
@@ -104,7 +104,7 @@ public class TopStoriesFragment extends BaseFragment {
     private void configureRecyclerView(){
         this.nyTimesResults = new ArrayList<>();
         // Create adapter passing in the sample user data
-        this.adapter = new NYTAdapter(this.nyTimesResults, Glide.with(this));
+        this.adapter = new NyTimesAdapter(this.nyTimesResults, Glide.with(this));
         // Attach the adapter to the recyclerView to populate items
         this.recyclerView.setAdapter(this.adapter);
         // Set layout manager to position the items
@@ -125,7 +125,7 @@ public class TopStoriesFragment extends BaseFragment {
     // -------------------
 
     private void executeHttpRequestWithRetrofit(){
-        this.disposable = NYTStreams.streamFetchNYTTopStories("home").subscribeWith(new DisposableObserver<NyTimesAPI>() {
+        this.disposable = NyTimesStreams.streamFetchNYTTopStories("home").subscribeWith(new DisposableObserver<NyTimesAPI>() {
             @Override
             public void onNext(NyTimesAPI nyTimesAPI) {
                 updateUI(nyTimesAPI.getResults());

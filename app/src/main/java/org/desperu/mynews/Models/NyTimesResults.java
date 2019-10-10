@@ -3,9 +3,6 @@ package org.desperu.mynews.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import org.desperu.mynews.Models.NYTMostPopular.MostPopularMedium;
-import org.desperu.mynews.Models.NYTTopStories.TopStoriesMultimedium;
-
 import java.util.List;
 
 public class NyTimesResults {
@@ -60,7 +57,7 @@ public class NyTimesResults {
 //    private List<String> geoFacet = null;
     @SerializedName("multimedia")
     @Expose
-    private List<TopStoriesMultimedium> multimedia = null;
+    private List<TopStoriesMultiMedium> multimedia = null;
 
     @SerializedName("media")
     @Expose
@@ -180,11 +177,11 @@ public class NyTimesResults {
 //
 //    public void setGeoFacet(List<String> geoFacet) { this.geoFacet = geoFacet; }
 
-    public List<TopStoriesMultimedium> getMultimedia() {
+    public List<TopStoriesMultiMedium> getMultimedia() {
         return multimedia;
     }
 
-    public void setMultimedia(List<TopStoriesMultimedium> multimedia) { this.multimedia = multimedia; }
+    public void setMultimedia(List<TopStoriesMultiMedium> multimedia) { this.multimedia = multimedia; }
 
     public List<MostPopularMedium> getMedia() {
         return media;

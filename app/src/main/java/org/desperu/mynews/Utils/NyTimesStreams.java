@@ -8,19 +8,19 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class NYTStreams {
+public class NyTimesStreams {
 
     public static Observable<NyTimesAPI> streamFetchNYTTopStories(String section){
-        NYTService nytService = NYTService.retrofit.create(NYTService.class);
-        return nytService.getNYTTopStories(section)
+        NyTimesService nyTimesService = NyTimesService.retrofit.create(NyTimesService.class);
+        return nyTimesService.getNYTTopStories(section)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
     }
 
     public static Observable<NyTimesAPI> streamFetchNYTMostPopular(){
-        NYTService nytService = NYTService.retrofit.create(NYTService.class);
-        return nytService.getNYTMostPopular()
+        NyTimesService nyTimesService = NyTimesService.retrofit.create(NyTimesService.class);
+        return nyTimesService.getNYTMostPopular()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);

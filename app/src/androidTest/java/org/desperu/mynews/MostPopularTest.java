@@ -3,7 +3,7 @@ package org.desperu.mynews;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
 import org.desperu.mynews.Models.NyTimesAPI;
-import org.desperu.mynews.Utils.NYTStreams;
+import org.desperu.mynews.Utils.NyTimesStreams;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -17,7 +17,7 @@ public class MostPopularTest {
 
     @Test
     public void fetchNyTimesMostPopular() throws Exception {
-        Observable<NyTimesAPI> nytMostPopularObservable = NYTStreams.streamFetchNYTMostPopular();
+        Observable<NyTimesAPI> nytMostPopularObservable = NyTimesStreams.streamFetchNYTMostPopular();
         TestObserver<NyTimesAPI> testObserver = new TestObserver<>();
 
         nytMostPopularObservable.subscribeWith(testObserver)

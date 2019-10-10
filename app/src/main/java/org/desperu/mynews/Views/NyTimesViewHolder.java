@@ -14,14 +14,14 @@ import org.desperu.mynews.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NYTViewHolder extends RecyclerView.ViewHolder {
+public class NyTimesViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.fragment_article_item_title) TextView textViewTitle;
     @BindView(R.id.fragment_article_item_abstract) TextView texViewAbstract;
     @BindView(R.id.fragment_article_item_image) ImageView imageView;
     @BindView(R.id.fragment_article_item_section_subsection) TextView textViewSection;
 
-    public NYTViewHolder(View itemView) {
+    public NyTimesViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }

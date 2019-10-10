@@ -14,31 +14,31 @@ import org.desperu.mynews.R;
 
 import java.util.List;
 
-public class NYTAdapter extends RecyclerView.Adapter<NYTViewHolder> {
+public class NyTimesAdapter extends RecyclerView.Adapter<NyTimesViewHolder> {
 
     // FOR DATA
     private List<NyTimesResults> nyTimesResults;
     private RequestManager glide;
 
     // CONSTRUCTOR
-    public NYTAdapter(List<NyTimesResults> nyTimesResults, RequestManager glide) {
+    public NyTimesAdapter(List<NyTimesResults> nyTimesResults, RequestManager glide) {
         this.nyTimesResults = nyTimesResults;
         this.glide = glide;
     }
 
     @Override
-    public NYTViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NyTimesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // CREATE VIEW HOLDER AND INFLATING ITS XML LAYOUT
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_article_item, parent, false);
 
-        return new NYTViewHolder(view);
+        return new NyTimesViewHolder(view);
     }
 
     // UPDATE VIEW HOLDER WITH A NEW YORK TIMES ARTICLE
     @Override
-    public void onBindViewHolder(NYTViewHolder viewHolder, int position) {
+    public void onBindViewHolder(NyTimesViewHolder viewHolder, int position) {
         viewHolder.updateWithArticle(this.nyTimesResults.get(position), this.glide);
     }
 
