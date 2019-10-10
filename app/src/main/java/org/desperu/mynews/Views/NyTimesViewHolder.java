@@ -10,6 +10,7 @@ import com.bumptech.glide.RequestManager;
 
 import org.desperu.mynews.Models.NyTimesResults;
 import org.desperu.mynews.R;
+import org.desperu.mynews.Utils.MyNewsUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +21,7 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_article_item_abstract) TextView texViewAbstract;
     @BindView(R.id.fragment_article_item_image) ImageView imageView;
     @BindView(R.id.fragment_article_item_section_subsection) TextView textViewSection;
+    @BindView(R.id.fragment_article_item_updated_date) TextView textViewUpdatedDate;
 
     public NyTimesViewHolder(View itemView) {
         super(itemView);
@@ -34,6 +36,7 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
     public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide) {
         this.textViewTitle.setText(nyTimesResults.getTitle());
         this.texViewAbstract.setText(nyTimesResults.getAbstract());
+        this.textViewUpdatedDate.setText(MyNewsUtils.convertDate(nyTimesResults.getUpdatedDate()));
 
         if (nyTimesResults.getSubsection() != null && nyTimesResults.getSubsection().length() > 0)
             this.textViewSection.setText(String.format(nyTimesResults.getSection() + " > " + nyTimesResults.getSubsection(), "%d"));
@@ -41,7 +44,7 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
 
         if (nyTimesResults.getMultimedia() != null && !nyTimesResults.getMultimedia().isEmpty())
             glide.load(nyTimesResults.getMultimedia().get(0).getUrl()).into(imageView);
-        else if (nyTimesResults.getMedia() != null) // TODO if MediMatadata is empty?
+        else if (nyTimesResults.getMedia() != null) // TODO if MediaMetadatum is empty?
             glide.load(nyTimesResults.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(imageView);
     }
 }

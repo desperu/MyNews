@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:tabIndicatorColor="#8468FF"
-        app:tabIndicatorHeight="3dp"
+        app:tabIndicatorHeight="4dp"
         app:tabTextColor="#BDC8DF"
         app:tabSelectedTextColor="#fff"/>
 
