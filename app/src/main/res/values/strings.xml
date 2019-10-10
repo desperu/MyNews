@@ -8,5 +8,6 @@
 
     <!-- Menu items names -->
     <string name="menu_item_params">Parameters</string>
+    <string name="menu_item_search">Search</string>
 
 </resources>

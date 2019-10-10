@@ -26,18 +26,22 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
+    /**
+     * Update text views and image view for each article.
+     * @param nyTimesResults Information of the article.
+     * @param glide Glide instance from the adapter to download the article's image.
+     */
     public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide) {
         this.textViewTitle.setText(nyTimesResults.getTitle());
         this.texViewAbstract.setText(nyTimesResults.getAbstract());
+
         if (nyTimesResults.getSubsection() != null && nyTimesResults.getSubsection().length() > 0)
             this.textViewSection.setText(String.format(nyTimesResults.getSection() + " > " + nyTimesResults.getSubsection(), "%d"));
         else this.textViewSection.setText(nyTimesResults.getSection());
 
-        if (nyTimesResults.getMultimedia() != null && !nyTimesResults.getMultimedia().isEmpty()) { //TODO on test
-//            if (!nyTimesResults.getMultimedia().isEmpty())
-                glide.load(nyTimesResults.getMultimedia().get(0).getUrl()).into(imageView);
-        }
-        else if (nyTimesResults.getMedia() != null)
+        if (nyTimesResults.getMultimedia() != null && !nyTimesResults.getMultimedia().isEmpty())
+            glide.load(nyTimesResults.getMultimedia().get(0).getUrl()).into(imageView);
+        else if (nyTimesResults.getMedia() != null) // TODO if MediMatadata is empty?
             glide.load(nyTimesResults.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(imageView);
     }
 }

@@ -64,6 +64,10 @@ public class MainActivity extends BaseActivity implements TopStoriesFragment.OnC
                 Toast.makeText(getBaseContext(), "You clicked on params !", Toast.LENGTH_SHORT).show();
 //                this.showParamsActivity();
                 return true;
+            case R.id.menu_activity_main_search:
+                Toast.makeText(getBaseContext(), "You clicked on search !", Toast.LENGTH_SHORT).show();
+//                this.showSearchActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
