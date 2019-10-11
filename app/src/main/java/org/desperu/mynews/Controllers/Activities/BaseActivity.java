@@ -2,6 +2,7 @@ package org.desperu.mynews.Controllers.Activities;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -39,6 +40,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         this.updateDesign();
+    }
+
+    // TODO ontest
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Icepick.restoreInstanceState(this, savedInstanceState);
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override

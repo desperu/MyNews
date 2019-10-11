@@ -5,7 +5,7 @@ import org.desperu.mynews.R;
 
 public class ArticleActivity extends BaseActivity {
 
-    //TODO test butterkniff for framelayout
+    //TODO test butterkniff for framelayout NOT GOOD HEHE
 
     public static final String ARTICLE_URL = "nytimes.com";
     private ArticleWebFragment articleWebFragment;

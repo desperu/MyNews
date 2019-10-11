@@ -1,6 +1,7 @@
 package org.desperu.mynews.Controllers.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -13,11 +14,19 @@ import com.google.android.material.tabs.TabLayout;
 import org.desperu.mynews.Controllers.Fragments.SciencesFragment;
 import org.desperu.mynews.Controllers.Fragments.MostPopularFragment;
 import org.desperu.mynews.Controllers.Fragments.TopStoriesFragment;
+import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Views.MyNewsAdapter;
 
+import butterknife.BindView;
+import icepick.State;
+
 public class MainActivity extends BaseActivity implements TopStoriesFragment.OnClickedArticleListener,
         MostPopularFragment.OnClickedArticleListener, SciencesFragment.OnClickedArticleListener {
+
+    @State int selectedTab = -1;
+
+    @BindView(R.id.activity_main_view_pager) ViewPager viewPager;
 
     // --------------
     // BASE METHODS
@@ -30,22 +39,39 @@ public class MainActivity extends BaseActivity implements TopStoriesFragment.OnC
     protected void configureDesign() {
         this.configureToolbar();
         this.configureViewPagerAndTabs();
+        this.onRestoreTab();
     }
 
     @Override
-    protected void updateDesign() { }
+    protected void updateDesign() {
+
+    }
 
     /**
-     * Configure Tab layout and View pager
+     * Configure Tab layout and View pager.
      */
     private void configureViewPagerAndTabs() {
-        ViewPager viewPager = findViewById(R.id.activity_main_view_pager);
         viewPager.setAdapter(new MyNewsAdapter(getBaseContext(), getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
-// TODO save currently opened tab to back on it when return
+
         TabLayout tabLayout = findViewById(R.id.activity_main_tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+    }
+
+    //TODO do nothing, use sharePref!!!
+    /**
+     * Restore selected tab before switch activity.
+     */
+    private void onRestoreTab() {
+        if (selectedTab >= 0 && selectedTab <= MyNewsTools.Constant.numberOfPage)
+            viewPager.setCurrentItem(selectedTab);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        selectedTab = viewPager.getCurrentItem();
+        super.onSaveInstanceState(outState);
     }
 
     // -----------------
