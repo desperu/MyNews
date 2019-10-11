@@ -1,21 +1,19 @@
 package org.desperu.mynews.Controllers.Activities;
 
-import org.desperu.mynews.Controllers.Fragments.ArticleWebFragment;
+import org.desperu.mynews.Controllers.Fragments.ShowArticleFragment;
 import org.desperu.mynews.R;
 
-public class ArticleActivity extends BaseActivity {
-
-    //TODO test butterkniff for framelayout NOT GOOD HEHE
+public class ShowArticleActivity extends BaseActivity {
 
     public static final String ARTICLE_URL = "nytimes.com";
-    private ArticleWebFragment articleWebFragment;
+    private ShowArticleFragment showArticleFragment;
 
     // --------------
     // BASE METHODS
     // --------------
 
     @Override
-    protected int getActivityLayout() { return R.layout.activity_article; }
+    protected int getActivityLayout() { return R.layout.activity_show_article; }
 
     @Override
     protected void configureDesign() {
@@ -32,12 +30,12 @@ public class ArticleActivity extends BaseActivity {
      * Configure and show article fragment.
      */
     private void configureAndShowArticleWebFragment() {
-        articleWebFragment = (ArticleWebFragment) getSupportFragmentManager().findFragmentById(R.id.activity_article_frame_layout);
+        showArticleFragment = (ShowArticleFragment) getSupportFragmentManager().findFragmentById(R.id.activity_show_article_frame_layout);
 
-        if (articleWebFragment == null) {
-            articleWebFragment = new ArticleWebFragment();
+        if (showArticleFragment == null) {
+            showArticleFragment = new ShowArticleFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_article_frame_layout, articleWebFragment)
+                    .add(R.id.activity_show_article_frame_layout, showArticleFragment)
                     .commit();
         }
     }
@@ -46,7 +44,7 @@ public class ArticleActivity extends BaseActivity {
      * Get article url and give to article fragment.
      */
     private void getArticleUrlIntentAndGiveToArticleFragment() {
-        articleWebFragment.setArticleUrl(getIntent().getStringExtra(ARTICLE_URL));
+        showArticleFragment.setArticleUrl(getIntent().getStringExtra(ARTICLE_URL));
     }
 
     //TODO add share with ActionProvider

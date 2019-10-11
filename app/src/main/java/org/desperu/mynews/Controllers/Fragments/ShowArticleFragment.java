@@ -15,18 +15,18 @@ import org.desperu.mynews.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ArticleWebFragment extends Fragment {
+public class ShowArticleFragment extends Fragment {
 
-    @BindView(R.id.fragment_article_web_view) WebView webView;
-    @BindView(R.id.fragment_articles_web_view_swipe_container) SwipeRefreshLayout swipeRefreshLayout; // TODO a problem??
+    @BindView(R.id.fragment_show_article_web_view) WebView webView;
+    @BindView(R.id.fragment_show_articles_swipe_container) SwipeRefreshLayout swipeRefreshLayout;
 
     private String articleUrl;
 
-    public ArticleWebFragment() { }
+    public ShowArticleFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_article, container, false);
+        View view = inflater.inflate(R.layout.fragment_show_article, container, false);
         ButterKnife.bind(this, view);
         this.configureAndShowWebView(articleUrl);
 
@@ -54,16 +54,5 @@ public class ArticleWebFragment extends Fragment {
      */
     public void setArticleUrl(String articleUrl) {
         this.articleUrl = articleUrl;
-    }
-
-    //TODO needed?
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 }

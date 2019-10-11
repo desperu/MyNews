@@ -24,7 +24,7 @@ import icepick.State;
 public class MainActivity extends BaseActivity implements TopStoriesFragment.OnClickedArticleListener,
         MostPopularFragment.OnClickedArticleListener, SciencesFragment.OnClickedArticleListener {
 
-    @State int selectedTab = -1;
+    @State int selectedTab;
 
     @BindView(R.id.activity_main_view_pager) ViewPager viewPager;
 
@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity implements TopStoriesFragment.OnC
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
-    //TODO do nothing, use sharePref!!!
+    //TODO do nothing, use sharePref!!! because use the same icepick with articleActivity??
     /**
      * Restore selected tab before switch activity.
      */
@@ -118,6 +118,6 @@ public class MainActivity extends BaseActivity implements TopStoriesFragment.OnC
      * @param articleUrl The url's article.
      */
     private void showArticleActivity(String articleUrl) {
-        startActivity(new Intent(this, ArticleActivity.class).putExtra(ArticleActivity.ARTICLE_URL, articleUrl));
+        startActivity(new Intent(this, ShowArticleActivity.class).putExtra(ShowArticleActivity.ARTICLE_URL, articleUrl));
     }
 }

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controllers.Activities.ArticleActivity">
+    tools:context=".Controllers.Activities.ShowArticleActivity">
 
     <include
         layout="@layout/toolbar"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"/>
 
     <FrameLayout
-        android:id="@+id/activity_article_frame_layout"
+        android:id="@+id/activity_show_article_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

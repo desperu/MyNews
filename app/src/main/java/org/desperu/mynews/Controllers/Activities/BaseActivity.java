@@ -2,7 +2,6 @@ package org.desperu.mynews.Controllers.Activities;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -42,13 +41,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.updateDesign();
     }
 
-    // TODO ontest
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        Icepick.restoreInstanceState(this, savedInstanceState);
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -64,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    //TODO restart activity
     protected void configureUpButton(){
         ActionBar ab = getSupportActionBar();
         if (ab != null) ab.setDisplayHomeAsUpEnabled(true);
