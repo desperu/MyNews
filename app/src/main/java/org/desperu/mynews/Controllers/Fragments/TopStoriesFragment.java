@@ -80,7 +80,7 @@ public class TopStoriesFragment extends BaseFragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         NyTimesResults nyTimesResults = adapter.getArticle(position);
-                        mCallback.onClickedArticle(nyTimesResults.getTitle());
+                        mCallback.onClickedArticle(nyTimesResults.getUrl());
                     }
                 });
     }

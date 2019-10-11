@@ -51,12 +51,12 @@
                     android:layout_gravity="start"/>
 
                 <TextView
-                    android:id="@+id/fragment_article_item_updated_date"
+                    android:id="@+id/fragment_article_item_published_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/colorDark"
-                    android:layout_gravity="end"/>
+                    android:gravity="end"/>
 
             </LinearLayout>
 

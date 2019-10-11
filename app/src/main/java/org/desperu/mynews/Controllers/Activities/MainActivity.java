@@ -1,5 +1,6 @@
 package org.desperu.mynews.Controllers.Activities;
 
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity implements TopStoriesFragment.OnC
         ViewPager viewPager = findViewById(R.id.activity_main_view_pager);
         viewPager.setAdapter(new MyNewsAdapter(getBaseContext(), getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
-
+// TODO save currently opened tab to back on it when return
         TabLayout tabLayout = findViewById(R.id.activity_main_tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -79,6 +80,18 @@ public class MainActivity extends BaseActivity implements TopStoriesFragment.OnC
 
     @Override
     public void onClickedArticle(String clickedArticle) {
-        Toast.makeText(getBaseContext(), "You clicked on an Article !", Toast.LENGTH_SHORT).show();
+        this.showArticleActivity(clickedArticle);
+    }
+
+    // -----------------
+    // ACTIVITY
+    // -----------------
+
+    /**
+     * Start article activity.
+     * @param articleUrl The url's article.
+     */
+    private void showArticleActivity(String articleUrl) {
+        startActivity(new Intent(this, ArticleActivity.class).putExtra(ArticleActivity.ARTICLE_URL, articleUrl));
     }
 }

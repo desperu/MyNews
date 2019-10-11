@@ -21,7 +21,7 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_article_item_abstract) TextView texViewAbstract;
     @BindView(R.id.fragment_article_item_image) ImageView imageView;
     @BindView(R.id.fragment_article_item_section_subsection) TextView textViewSection;
-    @BindView(R.id.fragment_article_item_updated_date) TextView textViewUpdatedDate;
+    @BindView(R.id.fragment_article_item_published_date) TextView textViewPublishedDate;
 
     public NyTimesViewHolder(View itemView) {
         super(itemView);
@@ -36,7 +36,9 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
     public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide) {
         this.textViewTitle.setText(nyTimesResults.getTitle());
         this.texViewAbstract.setText(nyTimesResults.getAbstract());
-        this.textViewUpdatedDate.setText(MyNewsUtils.convertDate(nyTimesResults.getUpdatedDate()));
+
+        if (nyTimesResults.getPublishedDate() != null && nyTimesResults.getPublishedDate().length() > 0)
+            this.textViewPublishedDate.setText(MyNewsUtils.convertDate(nyTimesResults.getPublishedDate()));
 
         if (nyTimesResults.getSubsection() != null && nyTimesResults.getSubsection().length() > 0)
             this.textViewSection.setText(String.format(nyTimesResults.getSection() + " > " + nyTimesResults.getSubsection(), "%d"));
