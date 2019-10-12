@@ -1,37 +1,37 @@
 package org.desperu.mynews.Controllers.Fragments;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.desperu.mynews.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class ShowArticleFragment extends Fragment {
+public class ShowArticleFragment extends BaseFragment {
 
     @BindView(R.id.fragment_show_article_web_view) WebView webView;
     @BindView(R.id.fragment_show_articles_swipe_container) SwipeRefreshLayout swipeRefreshLayout;
 
     private String articleUrl;
 
-    public ShowArticleFragment() { }
+    // --------------
+    // BASE METHODS
+    // --------------
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_show_article, container, false);
-        ButterKnife.bind(this, view);
-        this.configureAndShowWebView(articleUrl);
+    protected int getFragmentLayout() { return R.layout.fragment_show_article; }
 
-        return view;
+    @Override
+    protected void configureDesign() {
+        this.configureAndShowWebView(articleUrl);
     }
+
+    @Override
+    protected void updateDesign() { }
+
+    public ShowArticleFragment() { }
 
     /**
      * Configure and show Web View.

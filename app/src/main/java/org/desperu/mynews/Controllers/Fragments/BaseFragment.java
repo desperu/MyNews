@@ -16,7 +16,6 @@ public abstract class BaseFragment extends Fragment {
     // BASE METHODS
     // --------------
 
-    protected abstract BaseFragment getNewInstance(); // TODO useless?
     protected abstract int getFragmentLayout();
     protected abstract void configureDesign();
     protected abstract void updateDesign();

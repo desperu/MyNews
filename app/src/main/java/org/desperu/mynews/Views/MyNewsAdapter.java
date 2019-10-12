@@ -7,9 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import org.desperu.mynews.Controllers.Fragments.SciencesFragment;
-import org.desperu.mynews.Controllers.Fragments.MostPopularFragment;
-import org.desperu.mynews.Controllers.Fragments.TopStoriesFragment;
+import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
 import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 
@@ -30,18 +28,7 @@ public class MyNewsAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
-        switch(position) {
-            case 0:
-                return TopStoriesFragment.newInstance();
-            case 1:
-                return MostPopularFragment.newInstance();
-            case 2:
-                return SciencesFragment.newInstance();
-            default:
-                return null;
-        }
-    }
+    public Fragment getItem(int position) { return ArticleListFragment.newInstance(position); }
 
     @Override
     public CharSequence getPageTitle(int position) {

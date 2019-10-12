@@ -9,10 +9,10 @@ public final class MyNewsTools {
 
         // My News Adapter
         // Number of pages. If you want change it, you must add/del corresponding values in switch of
-        // MyNewsAdapter getItem, it's name in TAB_TITLES, and create the corresponding fragment.
+        // ArticleListFragment executeHttpRequestWithRetrofit, it's name in TAB_TITLES, and create the corresponding request.
         public static final int numberOfPage = 3;
 
-
+        // TODO clean
         // History
         // To set history size (number of days).
         public static final int numberOfDays = 7;

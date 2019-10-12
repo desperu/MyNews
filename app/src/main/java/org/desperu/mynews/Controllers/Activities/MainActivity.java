@@ -1,7 +1,6 @@
 package org.desperu.mynews.Controllers.Activities;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -11,18 +10,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import org.desperu.mynews.Controllers.Fragments.SciencesFragment;
-import org.desperu.mynews.Controllers.Fragments.MostPopularFragment;
-import org.desperu.mynews.Controllers.Fragments.TopStoriesFragment;
-import org.desperu.mynews.MyNewsTools;
+import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Views.MyNewsAdapter;
 
 import butterknife.BindView;
 import icepick.State;
 
-public class MainActivity extends BaseActivity implements TopStoriesFragment.OnClickedArticleListener,
-        MostPopularFragment.OnClickedArticleListener, SciencesFragment.OnClickedArticleListener {
+public class MainActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener {
 
     @State int selectedTab;
 
@@ -39,7 +34,7 @@ public class MainActivity extends BaseActivity implements TopStoriesFragment.OnC
     protected void configureDesign() {
         this.configureToolbar();
         this.configureViewPagerAndTabs();
-        this.onRestoreTab();
+//        this.onRestoreTab();
     }
 
     @Override
@@ -60,19 +55,19 @@ public class MainActivity extends BaseActivity implements TopStoriesFragment.OnC
     }
 
     //TODO do nothing, use sharePref!!! because use the same icepick with articleActivity??
-    /**
-     * Restore selected tab before switch activity.
-     */
-    private void onRestoreTab() {
-        if (selectedTab >= 0 && selectedTab <= MyNewsTools.Constant.numberOfPage)
-            viewPager.setCurrentItem(selectedTab);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        selectedTab = viewPager.getCurrentItem();
-        super.onSaveInstanceState(outState);
-    }
+//    /**
+//     * Restore selected tab before switch activity.
+//     */
+//    private void onRestoreTab() {
+//        if (selectedTab >= 0 && selectedTab <= MyNewsTools.Constant.numberOfPage)
+//            viewPager.setCurrentItem(selectedTab);
+//    }
+//
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        selectedTab = viewPager.getCurrentItem();
+//        super.onSaveInstanceState(outState);
+//    }
 
     // -----------------
     // METHODS OVERRIDE

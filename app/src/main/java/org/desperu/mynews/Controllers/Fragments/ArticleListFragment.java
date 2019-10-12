@@ -1,6 +1,8 @@
 package org.desperu.mynews.Controllers.Fragments;
 
+import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,50 +21,69 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import icepick.Icepick;
+import icepick.State;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-public class TopStoriesFragment extends BaseFragment {
+public class ArticleListFragment extends BaseFragment {
 
     // FOR DESIGN
     @BindView(R.id.fragment_articles_list_recycler_view) RecyclerView recyclerView;
     @BindView(R.id.fragment_articles_list_swipe_container) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.fragment_article_list_progress_bar) ProgressBar progressBar;
 
     //FOR DATA
     private Disposable disposable;
     private List<NyTimesResults> nyTimesResults;
     private NyTimesAdapter adapter;
+    @State int section;
 
     // Callback
     public interface OnClickedArticleListener {
         void onClickedArticle(String clickedArticle);
     }
 
-    private OnClickedArticleListener mCallback;
+    private ArticleListFragment.OnClickedArticleListener mCallback;
+
 
     // --------------
     // BASE METHODS
     // --------------
 
     @Override
-    protected BaseFragment getNewInstance() { return TopStoriesFragment.newInstance(); }
-
-    @Override
     protected int getFragmentLayout() { return R.layout.fragment_articles_list; }
 
     @Override
     protected void configureDesign() {
+        this.configureProgressBar();
         this.createCallbackToParentActivity();
         this.configureRecyclerView();
         this.configureSwipeRefreshLayout();
         this.configureOnClickRecyclerView();
-        this.executeHttpRequestWithRetrofit();
+        this.executeHttpRequestWithRetrofit(section);
     }
 
     @Override
-    protected void updateDesign() { }
+    protected void updateDesign() {  }
 
-    public static TopStoriesFragment newInstance() { return new TopStoriesFragment(); }
+    public ArticleListFragment() {}
+
+    /**
+     * Create a new instance of article list fragment.
+     * @param section Number of the tab section.
+     * @return The new instance.
+     */
+    public static ArticleListFragment newInstance(int section) { // TODO position?
+        ArticleListFragment articleListFragment = new ArticleListFragment();
+        articleListFragment.section = section;
+        Icepick.saveInstanceState(articleListFragment, new Bundle());
+        return articleListFragment;
+    }
+
+    private void configureProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void onDestroy() {
@@ -91,7 +112,7 @@ public class TopStoriesFragment extends BaseFragment {
 
     private void createCallbackToParentActivity(){
         try {
-            mCallback = (OnClickedArticleListener) getActivity();
+            mCallback = (ArticleListFragment.OnClickedArticleListener) getActivity();
         } catch (ClassCastException e) {
             throw new ClassCastException(e.toString()+ " must implement OnClickedArticleListener");
         }
@@ -115,7 +136,7 @@ public class TopStoriesFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                executeHttpRequestWithRetrofit();
+                executeHttpRequestWithRetrofit(section);
             }
         });
     }
@@ -124,19 +145,31 @@ public class TopStoriesFragment extends BaseFragment {
     // HTTP (RxJAVA)
     // -------------------
 
-    private void executeHttpRequestWithRetrofit(){
-        this.disposable = NyTimesStreams.streamFetchNYTTopStories("home").subscribeWith(new DisposableObserver<NyTimesAPI>() {
+    private void executeHttpRequestWithRetrofit(int section) {
+        DisposableObserver<NyTimesAPI> disposableObserver = new DisposableObserver<NyTimesAPI>() {
             @Override
-            public void onNext(NyTimesAPI nyTimesAPI) {
-                updateUI(nyTimesAPI.getResults());
-            } //TODO add a progressBar
+            public void onNext(NyTimesAPI nyTimesAPI) { updateUI(nyTimesAPI.getResults()); }
 
             @Override
             public void onError(Throwable e) { }
 
             @Override
-            public void onComplete() { }
-        });
+            public void onComplete() { progressBar.setVisibility(View.GONE); }
+        };
+
+        switch (section) {
+            case 0:
+                this.disposable = NyTimesStreams.streamFetchNYTTopStories("home").subscribeWith(disposableObserver);
+                break;
+            case 1:
+                this.disposable = NyTimesStreams.streamFetchNYTMostPopular().subscribeWith(disposableObserver);
+                break;
+            case 2:
+                this.disposable = NyTimesStreams.streamFetchNYTTopStories("science").subscribeWith(disposableObserver);
+                break;
+            default:
+                break;
+        }
     }
 
     private void disposeWhenDestroy(){
