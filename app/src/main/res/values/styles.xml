@@ -14,6 +14,11 @@
         <item name="android:textColorPrimary">#fff</item>
     </style>
 
+    <!-- ProgressBarTheme -->
+    <style name="ProgressBarTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

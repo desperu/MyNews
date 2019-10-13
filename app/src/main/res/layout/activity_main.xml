@@ -18,10 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:tabIndicatorColor="#8468FF"
-        app:tabIndicatorHeight="4dp"
-        app:tabTextColor="#BDC8DF"
-        app:tabSelectedTextColor="#fff"/>
+        app:tabIndicatorColor="@color/colorYellow"
+        app:tabTextColor="@color/colorPrimaryLight"
+        app:tabSelectedTextColor="@color/colorTabSelected"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/activity_main_view_pager"

@@ -1,7 +1,9 @@
 package org.desperu.mynews.Controllers.Fragments;
 
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -13,6 +15,7 @@ public class ShowArticleFragment extends BaseFragment {
 
     @BindView(R.id.fragment_show_article_web_view) WebView webView;
     @BindView(R.id.fragment_show_articles_swipe_container) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.fragment_show_article_progress_bar) ProgressBar progressBar;
 
     private String articleUrl;
 
@@ -26,6 +29,7 @@ public class ShowArticleFragment extends BaseFragment {
     @Override
     protected void configureDesign() {
         this.configureAndShowWebView(articleUrl);
+        this.configureSwipeRefreshLayout();
     }
 
     @Override
@@ -38,14 +42,38 @@ public class ShowArticleFragment extends BaseFragment {
      * @param articleUrl The url's article.
      */
     private void configureAndShowWebView(String articleUrl) {
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setProgress(webView.getProgress()); // TODO to perform
+
         webView.loadUrl(articleUrl);
+        webView.getSettings().setDisplayZoomControls(true);
 
         // Enable javascript.
 //        WebSettings webSettings = webView.getSettings();
 //        webSettings.setJavaScriptEnabled(true);
 
         // Force links and redirects to open in the WebView or in a browser.
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    /**
+     * Configure swipe refresh layout.
+     */
+    private void configureSwipeRefreshLayout(){
+        swipeRefreshLayout.getViewTreeObserver().addOnScrollChangedListener(() -> swipeRefreshLayout.setEnabled(webView.getScrollY() == 0));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                configureAndShowWebView(articleUrl);
+            }
+        });
     }
 
     /**

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#00BBD3</color>
+    <color name="colorPrimaryDark">#008ba2</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- MyNews colors -->
     <color name="colorDark">#C4000000</color>
+    <color name="colorYellow">#ffee58</color>
+    <color name="colorPrimaryLight">#AEE4EB</color>
+    <color name="colorTabSelected">#fff</color>
 </resources>
