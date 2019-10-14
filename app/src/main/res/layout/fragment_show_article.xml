@@ -17,8 +17,7 @@
             android:layout_height="wrap_content"
             android:theme="@style/ProgressBarTheme"
             android:layout_gravity="center"
-            android:visibility="gone"
-            android:indeterminateOnly="true"/>
+            android:visibility="gone"/>
 
         <WebView
             android:id="@+id/fragment_show_article_web_view"

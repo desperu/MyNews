@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -132,7 +133,10 @@ public class ArticleListFragment extends BaseFragment {
         // Set layout manager to position the items
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         // Add separator between each item. // TODO to customise
-        this.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_divider));
+        this.recyclerView.addItemDecoration(itemDecoration);
+
     }
 
     private void configureSwipeRefreshLayout(){

@@ -1,6 +1,8 @@
 package org.desperu.mynews.Controllers.Fragments;
 
+import android.graphics.Bitmap;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -28,7 +30,7 @@ public class ShowArticleFragment extends BaseFragment {
 
     @Override
     protected void configureDesign() {
-        this.configureAndShowWebView(articleUrl);
+        this.configureAndShowWebViewWithProgressBar(articleUrl);
         this.configureSwipeRefreshLayout();
     }
 
@@ -38,22 +40,30 @@ public class ShowArticleFragment extends BaseFragment {
     public ShowArticleFragment() { }
 
     /**
-     * Configure and show Web View.
+     * Configure and show Web View with Progress Bar.
      * @param articleUrl The url's article.
      */
-    private void configureAndShowWebView(String articleUrl) {
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setProgress(webView.getProgress()); // TODO to perform
+    private void configureAndShowWebViewWithProgressBar(String articleUrl) {
 
-        webView.loadUrl(articleUrl);
-        webView.getSettings().setDisplayZoomControls(true);
+        // Set progress bar with page loading.
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setMax(100);
+                progressBar.setProgress(newProgress);
+            }
+        });
 
-        // Enable javascript.
-//        WebSettings webSettings = webView.getSettings();
-//        webSettings.setJavaScriptEnabled(true);
-
-        // Force links and redirects to open in the WebView or in a browser.
+        // Force links and redirects to open in the WebView.
         webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                progressBar.setProgress(0);
+            }
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -61,6 +71,8 @@ public class ShowArticleFragment extends BaseFragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        webView.loadUrl(articleUrl);
     }
 
     /**
@@ -71,7 +83,7 @@ public class ShowArticleFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                configureAndShowWebView(articleUrl);
+                configureAndShowWebViewWithProgressBar(articleUrl);
             }
         });
     }
