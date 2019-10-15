@@ -41,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.updateDesign();
     }
 
+    // TODO useless
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

@@ -25,6 +25,10 @@
             android:name=".Controllers.Activities.ShowArticleActivity"
             android:label="@string/app_name"
             android:parentActivityName=".Controllers.Activities.MainActivity" />
+        <activity
+            android:name=".Controllers.Activities.SearchArticlesActivity"
+            android:label="@string/search_activity"
+            android:parentActivityName=".Controllers.Activities.MainActivity" />
     </application>
 
 </manifest>

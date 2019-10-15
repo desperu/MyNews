@@ -39,7 +39,7 @@ public class ArticleListFragment extends BaseFragment {
     private Disposable disposable;
     private List<NyTimesResults> nyTimesResults;
     private NyTimesAdapter adapter;
-    @State int section;
+    @State int position;
 
     // Callback
     public interface OnClickedArticleListener {
@@ -63,7 +63,7 @@ public class ArticleListFragment extends BaseFragment {
         this.configureRecyclerView();
         this.configureSwipeRefreshLayout();
         this.configureOnClickRecyclerView();
-        this.executeHttpRequestWithRetrofit(section);
+        this.executeHttpRequestWithRetrofit(position);
     }
 
     @Override
@@ -73,16 +73,19 @@ public class ArticleListFragment extends BaseFragment {
 
     /**
      * Create a new instance of article list fragment.
-     * @param section Number of the tab section.
+     * @param position Number of the tab position.
      * @return The new instance.
      */
-    public static ArticleListFragment newInstance(int section) { // TODO position?
+    public static ArticleListFragment newInstance(int position) {
         ArticleListFragment articleListFragment = new ArticleListFragment();
-        articleListFragment.section = section;
+        articleListFragment.position = position;
         Icepick.saveInstanceState(articleListFragment, new Bundle());
         return articleListFragment;
     }
 
+    /**
+     * Configure progress bar.
+     */
     private void configureProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
     }
@@ -97,6 +100,9 @@ public class ArticleListFragment extends BaseFragment {
     // ACTION
     // -----------------
 
+    /**
+     * Configure click on an item of recycler view.
+     */
     private void configureOnClickRecyclerView(){
         ItemClickSupport.addTo(recyclerView, R.layout.fragment_article_item)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -112,6 +118,9 @@ public class ArticleListFragment extends BaseFragment {
     // FRAGMENT SUPPORT
     // --------------
 
+    /**
+     * Configure callback to parent activity for manage click item.
+     */
     private void createCallbackToParentActivity(){
         try {
             mCallback = (ArticleListFragment.OnClickedArticleListener) getActivity();
@@ -124,6 +133,9 @@ public class ArticleListFragment extends BaseFragment {
     // CONFIGURATION
     // -----------------
 
+    /**
+     * Configure recycler view.
+     */
     private void configureRecyclerView(){
         this.nyTimesResults = new ArrayList<>();
         // Create adapter passing in the sample user data
@@ -132,18 +144,21 @@ public class ArticleListFragment extends BaseFragment {
         this.recyclerView.setAdapter(this.adapter);
         // Set layout manager to position the items
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        // Add separator between each item. // TODO to customise
+        // Add separator between each item.
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_divider));
         this.recyclerView.addItemDecoration(itemDecoration);
 
     }
 
+    /**
+     * Configure swipe to refresh layout.
+     */
     private void configureSwipeRefreshLayout(){
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                executeHttpRequestWithRetrofit(section);
+                executeHttpRequestWithRetrofit(position);
             }
         });
     }
@@ -152,7 +167,11 @@ public class ArticleListFragment extends BaseFragment {
     // HTTP (RxJAVA)
     // -------------------
 
-    private void executeHttpRequestWithRetrofit(int section) {
+    /**
+     * Execute Http request depending position.
+     * @param position Fragment position.
+     */
+    private void executeHttpRequestWithRetrofit(int position) {
         DisposableObserver<NyTimesAPI> disposableObserver = new DisposableObserver<NyTimesAPI>() {
             @Override
             public void onNext(NyTimesAPI nyTimesAPI) { updateUI(nyTimesAPI.getResults()); }
@@ -164,7 +183,7 @@ public class ArticleListFragment extends BaseFragment {
             public void onComplete() { progressBar.setVisibility(View.GONE); }
         };
 
-        switch (section) {
+        switch (position) {
             case 0:
                 this.disposable = NyTimesStreams.streamFetchNYTTopStories("home").subscribeWith(disposableObserver);
                 break;
@@ -179,6 +198,9 @@ public class ArticleListFragment extends BaseFragment {
         }
     }
 
+    /**
+     * Close disposable when destroy fragment.
+     */
     private void disposeWhenDestroy(){
         if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose();
     }
@@ -187,6 +209,10 @@ public class ArticleListFragment extends BaseFragment {
     // UPDATE UI
     // -------------------
 
+    /**
+     * Update UI with articles list.
+     * @param nyTimesResults Articles list.
+     */
     private void updateUI(List<NyTimesResults> nyTimesResults){
         this.nyTimesResults.clear();
         this.nyTimesResults.addAll(nyTimesResults);

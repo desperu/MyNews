@@ -1,5 +1,7 @@
 <resources>
+    <!-- Activities labels -->
     <string name="app_name">My News</string>
+    <string name="search_activity">Search Articles</string>
 
     <!-- Fragments names -->
     <string name="tab_text_1">Top Stories</string>
@@ -9,5 +11,21 @@
     <!-- Menu items names -->
     <string name="menu_item_params">Parameters</string>
     <string name="menu_item_search">Search</string>
+
+    <!-- Search fragment -->
+    <string name="fragment_search_articles_edit_text_hint">Search query term</string>
+    <!-- text view -->
+    <string name="fragment_search_articles_text_view_begin_date">Begin Date</string>
+    <string name="fragment_search_articles_text_view">End Date</string>
+    <!-- check box -->
+    <string name="fragment_search_articles_checkbox_arts">Arts</string>
+    <string name="fragment_search_articles_checkbox_Business">Business</string>
+    <string name="fragment_search_articles_checkbox_entrepreneurs">Entrepreneurs</string>
+    <string name="fragment_search_articles_checkbox_politics">Politics</string>
+    <string name="fragment_search_articles_checkbox_sports">Sports</string>
+    <string name="fragment_search_articles_checkbox_travel">Travel</string>
+    <!-- button and spinner -->
+    <string name="fragment_search_articles_button_search">Search</string>
+    <string name="fragment_search_articles_switch">Enable notifications (once per day)</string>
 
 </resources>

@@ -34,4 +34,13 @@ public final class MyNewsTools {
         // One day un millis -> (24 * 60 * 60 * 1000) = 86 400 000.
         public static final int oneDayMillis = 86400000;
     }
+
+    /**
+     * Keys for shared preferences.
+     */
+    public static final class Keys {
+
+        // Main activity.
+        public static final String CURRENT_PAGE = "CurrentPage";
+    }
 }

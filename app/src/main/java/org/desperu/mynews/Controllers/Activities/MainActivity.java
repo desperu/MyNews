@@ -11,15 +11,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
+import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
+import org.desperu.mynews.Utils.MyNewsPrefs;
 import org.desperu.mynews.Views.MyNewsAdapter;
 
 import butterknife.BindView;
-import icepick.State;
 
 public class MainActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener {
-
-    @State int selectedTab;
 
     @BindView(R.id.activity_main_view_pager) ViewPager viewPager;
 
@@ -38,9 +37,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     }
 
     @Override
-    protected void updateDesign() {
-
-    }
+    protected void updateDesign() { this.onRestoreTab();}
 
     /**
      * Configure Tab layout and View pager.
@@ -54,22 +51,24 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
-    //TODO do nothing, use sharePref!!! because use the same icepick with articleActivity??
-//    /**
-//     * Restore selected tab before switch activity.
-//     */
-//    private void onRestoreTab() {
-//        if (selectedTab >= 0 && selectedTab <= MyNewsTools.Constant.numberOfPage)
-//            viewPager.setCurrentItem(selectedTab);
-//    }
-//
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        selectedTab = viewPager.getCurrentItem();
-//        super.onSaveInstanceState(outState);
-//    }
+    //TODO check
+    /**
+     * Restore selected tab before switch activity.
+     */
+    private void onRestoreTab() {
+        int selectedTab = MyNewsPrefs.getInt(getBaseContext(), MyNewsTools.Keys.CURRENT_PAGE, -1);
+        if (selectedTab >= 0 && selectedTab <= MyNewsTools.Constant.numberOfPage)
+            viewPager.setCurrentItem(selectedTab);
+    }
 
-    // -----------------
+    // TODO good thing??
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyNewsPrefs.savePref(getBaseContext(), MyNewsTools.Keys.CURRENT_PAGE, viewPager.getCurrentItem());
+    }
+
+// -----------------
     // METHODS OVERRIDE
     // -----------------
 
@@ -87,8 +86,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
 //                this.showParamsActivity();
                 return true;
             case R.id.menu_activity_main_search:
-                Toast.makeText(getBaseContext(), "You clicked on search !", Toast.LENGTH_SHORT).show();
-//                this.showSearchActivity();
+                this.showSearchArticlesActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -114,5 +112,12 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
      */
     private void showArticleActivity(String articleUrl) {
         startActivity(new Intent(this, ShowArticleActivity.class).putExtra(ShowArticleActivity.ARTICLE_URL, articleUrl));
+    }
+
+    /**
+     * Start search articles activity.
+     */
+    private void showSearchArticlesActivity() {
+        startActivity(new Intent(this, SearchArticlesActivity.class));
     }
 }
