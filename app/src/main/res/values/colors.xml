@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#00BBD3</color>
     <color name="colorPrimaryDark">#008ba2</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#008ba2</color>
 
     <!-- MyNews colors -->
     <color name="colorDark">#C4000000</color>

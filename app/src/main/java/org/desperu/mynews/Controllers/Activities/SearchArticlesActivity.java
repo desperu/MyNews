@@ -45,6 +45,9 @@ public class SearchArticlesActivity extends BaseActivity {
         }
     }
 
+    /**
+     * Configure Array adapter for dates spinners.
+     */
     private void configureArrayAdapter() {
         dateListArray = new ArrayList<>();
         arrayAdapter = new ArrayAdapter<>(SearchArticlesActivity.this,

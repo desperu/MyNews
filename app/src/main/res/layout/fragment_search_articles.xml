@@ -14,12 +14,14 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
         android:hint="@string/fragment_search_articles_edit_text_hint"
-        android:theme="@style/SearchLayoutTheme"/>
+        android:inputType="text"
+        android:theme="@style/SearchLayoutTheme" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -146,6 +148,7 @@
         android:id="@+id/fragment_search_articles_bottom_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="@color/colorDark" />

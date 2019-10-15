@@ -1,5 +1,6 @@
 package org.desperu.mynews.Controllers.Fragments;
 
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -10,24 +11,28 @@ import android.widget.Switch;
 import org.desperu.mynews.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 
 public class SearchArticlesFragment extends BaseFragment {
 
+    // Edit text to enter query search terms
     @BindView(R.id.fragment_search_articles_edit_text) EditText editText;
-
+    // Spinners for begin date and end date
     @BindView(R.id.fragment_search_articles_spinner_begin) Spinner spinnerBegin;
     @BindView(R.id.fragment_search_articles_spinner_end) Spinner spinnerEnd;
-
+    // Check boxes to select section.
     @BindView(R.id.fragment_search_articles_checkbox_arts) CheckBox checkBoxArts;
     @BindView(R.id.fragment_search_articles_checkbox_business) CheckBox checkBoxBusiness;
     @BindView(R.id.fragment_search_articles_checkbox_entrepreneurs) CheckBox checkBoxEntrepreneurs;
     @BindView(R.id.fragment_search_articles_checkbox_politics) CheckBox checkBoxPolitics;
     @BindView(R.id.fragment_search_articles_checkbox_sports) CheckBox checkBoxSports;
     @BindView(R.id.fragment_search_articles_checkbox_travel) CheckBox checkBoxTravel;
+    // Button, switch, and separator.
     @BindView(R.id.fragment_search_articles_button_search) Button buttonSearch;
     @BindView(R.id.fragment_search_articles_switch_notifications) Switch switchNotifications;
+    @BindView(R.id.fragment_search_articles_bottom_divider) View bottomDivider;
 
     private ArrayList<String> dateListArray;
     private ArrayAdapter<String> arrayAdapter;
@@ -42,6 +47,7 @@ public class SearchArticlesFragment extends BaseFragment {
     @Override
     protected void configureDesign() {
         this.configureSpinners();
+        this.hideUnusedItems();
     }
 
     @Override
@@ -58,9 +64,21 @@ public class SearchArticlesFragment extends BaseFragment {
         this.arrayAdapter = arrayAdapter;
     }
 
+    /**
+     * Hide unused items.
+     */
+    private void hideUnusedItems() {
+        // TODO switch between search and notifications
+        bottomDivider.setVisibility(View.GONE);
+        switchNotifications.setVisibility(View.GONE);
+    }
+
     private void configureSpinners() {
-        dateListArray.add(0, "20/10/2019");
-        dateListArray.add(1, "19/10/2019");
+        dateListArray.add(0, "");
+        int currentDate = new Date().getDate();
+        for (int i = 1; i <= 50; i++) {
+            dateListArray.add(i, String.valueOf(currentDate - i +1));
+        }
         arrayAdapter.notifyDataSetChanged();
         spinnerBegin.setAdapter(arrayAdapter);
         spinnerBegin.setSelection(0);
