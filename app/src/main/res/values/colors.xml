@@ -8,5 +8,5 @@
     <color name="colorDark">#C4000000</color>
     <color name="colorYellow">#ffee58</color>
     <color name="colorPrimaryLight">#AEE4EB</color>
-    <color name="colorTabSelected">#fff</color>
+    <color name="colorWhite">#fff</color>
 </resources>

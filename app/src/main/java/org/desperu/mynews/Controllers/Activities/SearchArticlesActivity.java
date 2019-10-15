@@ -1,11 +1,17 @@
 package org.desperu.mynews.Controllers.Activities;
 
+import android.widget.ArrayAdapter;
+
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
 import org.desperu.mynews.R;
+
+import java.util.ArrayList;
 
 public class SearchArticlesActivity extends BaseActivity {
 
     private SearchArticlesFragment searchArticlesFragment;
+    private ArrayList<String> dateListArray;
+    private ArrayAdapter<String> arrayAdapter;
 
     // --------------
     // BASE METHODS
@@ -16,7 +22,8 @@ public class SearchArticlesActivity extends BaseActivity {
 
     @Override
     protected void configureDesign() {
-//        this.configureAndShowSearchFragment();
+        this.configureArrayAdapter();
+        this.configureAndShowSearchFragment();
         this.configureToolbar();
         this.configureUpButton();
     }
@@ -31,10 +38,16 @@ public class SearchArticlesActivity extends BaseActivity {
         searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_frame_layout);
 
         if (searchArticlesFragment == null) {
-            searchArticlesFragment = new SearchArticlesFragment();
+            searchArticlesFragment = new SearchArticlesFragment(dateListArray, arrayAdapter);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_search_frame_layout, searchArticlesFragment)
                     .commit();
         }
+    }
+
+    private void configureArrayAdapter() {
+        dateListArray = new ArrayList<>();
+        arrayAdapter = new ArrayAdapter<>(SearchArticlesActivity.this,
+                R.layout.layout_spinner, dateListArray);
     }
 }

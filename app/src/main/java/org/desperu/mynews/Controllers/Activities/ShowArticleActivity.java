@@ -40,6 +40,7 @@ public class ShowArticleActivity extends BaseActivity {
         }
     }
 
+    // TODO use a constructor??
     /**
      * Get article url and give to article fragment.
      */

@@ -9,8 +9,12 @@
         android:id="@+id/fragment_search_articles_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:hint="@string/fragment_search_articles_edit_text_hint"/>
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:hint="@string/fragment_search_articles_edit_text_hint"
+        android:theme="@style/SearchLayoutTheme"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,37 +26,52 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/fragment_search_articles_text_view_begin_date"/>
+                android:layout_marginStart="10dp"
+                android:text="@string/fragment_search_articles_text_view_begin_date" />
 
             <Spinner
                 android:id="@+id/fragment_search_articles_spinner_begin"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_marginStart="5dp"
+                android:spinnerMode="dropdown"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorDark" />
 
             <CheckBox
                 android:id="@+id/fragment_search_articles_checkbox_arts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_search_articles_checkbox_arts"/>
+                android:layout_margin="5dp"
+                android:theme="@style/SearchLayoutTheme"
+                android:text="@string/fragment_search_articles_checkbox_arts" />
 
             <CheckBox
                 android:id="@+id/fragment_search_articles_checkbox_business"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_search_articles_checkbox_Business"/>
+                android:layout_margin="5dp"
+                android:theme="@style/SearchLayoutTheme"
+                android:text="@string/fragment_search_articles_checkbox_Business" />
 
             <CheckBox
                 android:id="@+id/fragment_search_articles_checkbox_entrepreneurs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_search_articles_checkbox_entrepreneurs"/>
+                android:layout_margin="5dp"
+                android:theme="@style/SearchLayoutTheme"
+                android:text="@string/fragment_search_articles_checkbox_entrepreneurs" />
 
         </LinearLayout>
 
@@ -61,36 +80,51 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/fragment_search_articles_text_view_begin_date"/>
+                android:layout_marginStart="10dp"
+                android:text="@string/fragment_search_articles_text_view_end_date"/>
 
             <Spinner
                 android:id="@+id/fragment_search_articles_spinner_end"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_marginStart="5dp"
+                android:spinnerMode="dropdown"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorDark" />
 
             <CheckBox
                 android:id="@+id/fragment_search_articles_checkbox_politics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:theme="@style/SearchLayoutTheme"
                 android:text="@string/fragment_search_articles_checkbox_politics"/>
 
             <CheckBox
                 android:id="@+id/fragment_search_articles_checkbox_sports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:theme="@style/SearchLayoutTheme"
                 android:text="@string/fragment_search_articles_checkbox_sports"/>
 
             <CheckBox
                 android:id="@+id/fragment_search_articles_checkbox_travel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:theme="@style/SearchLayoutTheme"
                 android:text="@string/fragment_search_articles_checkbox_travel"/>
 
         </LinearLayout>
@@ -103,7 +137,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="@string/fragment_search_articles_button_search"/>
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:text="@string/fragment_search_articles_button_search" />
+
+    <View
+        android:id="@+id/fragment_search_articles_bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorDark" />
 
     <Switch
         android:id="@+id/fragment_search_articles_switch_notifications"
@@ -111,6 +156,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="@string/fragment_search_articles_switch"/>
+        android:textSize="16sp"
+        android:theme="@style/SearchLayoutTheme"
+        android:text="@string/fragment_search_articles_switch" />
 
 </LinearLayout>

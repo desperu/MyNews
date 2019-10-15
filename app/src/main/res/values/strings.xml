@@ -16,7 +16,7 @@
     <string name="fragment_search_articles_edit_text_hint">Search query term</string>
     <!-- text view -->
     <string name="fragment_search_articles_text_view_begin_date">Begin Date</string>
-    <string name="fragment_search_articles_text_view">End Date</string>
+    <string name="fragment_search_articles_text_view_end_date">End Date</string>
     <!-- check box -->
     <string name="fragment_search_articles_checkbox_arts">Arts</string>
     <string name="fragment_search_articles_checkbox_Business">Business</string>

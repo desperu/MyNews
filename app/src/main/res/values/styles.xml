@@ -11,12 +11,17 @@
     <!-- TOOLBAR THEME -->
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <!-- Color of the title text in the Toolbar  -->
-        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
     </style>
 
-    <!-- ProgressBarTheme -->
+    <!-- Progress Bar Theme -->
     <style name="ProgressBarTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
+
+    <!-- Search Layout Theme -->
+    <style name="SearchLayoutTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
