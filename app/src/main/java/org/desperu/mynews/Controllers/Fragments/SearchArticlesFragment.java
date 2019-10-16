@@ -38,8 +38,14 @@ public class SearchArticlesFragment extends BaseFragment {
     @BindView(R.id.fragment_search_articles_switch_notifications) Switch switchNotifications;
     @BindView(R.id.fragment_search_articles_bottom_divider) View bottomDivider;
 
+    // For spinner
     private ArrayList<String> dateListArray;
     private ArrayAdapter<String> arrayAdapter;
+    // For data
+    private String searchTerm;
+    private String beginDate;
+    private String endDate;
+    private ArrayList<String> sections;
 
     // --------------
     // BASE METHODS
@@ -81,7 +87,7 @@ public class SearchArticlesFragment extends BaseFragment {
      * Configure spinners with dates.
      */
     private void configureSpinners() {
-        dateListArray.add(0, getString(R.string.spinners_no_limit_date));
+        dateListArray.add(0, "");
         for (int i = 0; i <= 365; i++) { // TODO use tools
             Date currentDate = new Date();
             Calendar cal = Calendar.getInstance();
@@ -94,39 +100,70 @@ public class SearchArticlesFragment extends BaseFragment {
         spinnerBegin.setSelection(0);
         spinnerEnd.setAdapter(arrayAdapter);
         spinnerEnd.setSelection(0);
-        // TODO edit dates
-//        spinnerBegin.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                AlertDialog.Builder editDate = new AlertDialog.Builder(getContext(), R.style.AppTheme);
-//                editDate.setTitle("toto");
-//
-//                editDate.show();
-//
-//                return true;
-//            }
-//        });
+        spinnerBegin.setOnLongClickListener(spinnerOnLongClickListener(0));
     }
 
-    public void searchOnClickListener() {
-        String searchTerm = String.valueOf(searchEditText.getText());
-//        String beginDate = spinnerBegin.getOnItemClickListener();
-//        String endDate = spinnerEnd.getSelectedItemPosition();
-        this.getCheckboxesStatus();
+    // TODO to check, and need two date list...
+    private View.OnLongClickListener spinnerOnLongClickListener(int spinner) {
+        new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder editDate = new AlertDialog.Builder(getContext());
+                if (spinner == 0) editDate.setTitle(R.string.dialog_spinners_edit_begin_date);
+                if (spinner == 1) editDate.setTitle(R.string.dialog_spinners_edit_end_date);
+                final EditText editText = new EditText(getContext());
+                editDate.setView(editText);
+                editDate.setPositiveButton(R.string.dialog_spinners_edit_date_positive_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dateListArray.set(0, String.valueOf(editText.getText()));
+                        arrayAdapter.notifyDataSetChanged();
+                        dialog.cancel();
+                    }
+                });
+                editDate.show();
+                return true;
+            }
+        };
+        return View::getKeepScreenOn;
+    }
+
+    /**
+     * Configure search button on click listener.
+     */
+    public void searchOnClickListener() { // TODO change call, not from xml
+        this.getSearchQueryTerms();
+        this.getSpinnersDates();
+        this.getCheckboxesSections();
+    }
+
+    /**
+     * Get search query terms.
+     */
+    private void getSearchQueryTerms() {
+        searchTerm = String.valueOf(searchEditText.getText());
+    }
+
+    /**
+     * Get spinners dates selected.
+     */
+    private void getSpinnersDates() {
+        beginDate = dateListArray.get(spinnerBegin.getSelectedItemPosition());
+        endDate = dateListArray.get(spinnerEnd.getSelectedItemPosition());
     }
 
     /**
      * Get check boxes status.
      */
-    private void getCheckboxesStatus() {
-        ArrayList<String> sections = new ArrayList<>();
-        if (checkBoxArts.isActivated()) sections.add(getString(R.string.fragment_search_articles_checkbox_arts));
-        if (checkBoxBusiness.isActivated()) sections.add(getString(R.string.fragment_search_articles_checkbox_business));
-        if (checkBoxEntrepreneurs.isActivated()) sections.add(getString(R.string.fragment_search_articles_checkbox_entrepreneurs));
-        if (checkBoxPolitics.isActivated()) sections.add(getString(R.string.fragment_search_articles_checkbox_politics));
-        if (checkBoxSports.isActivated()) sections.add(getString(R.string.fragment_search_articles_checkbox_sports));
-        if (checkBoxTravel.isActivated()) sections.add(getString(R.string.fragment_search_articles_checkbox_travel));
-        if (sections.isEmpty()) this.errorNoSectionSelectedDialog(); // TODO empty not function
+    private void getCheckboxesSections() {
+        sections = new ArrayList<>();
+        if (checkBoxArts.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_arts));
+        if (checkBoxBusiness.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_business));
+        if (checkBoxEntrepreneurs.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_entrepreneurs));
+        if (checkBoxPolitics.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_politics));
+        if (checkBoxSports.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_sports));
+        if (checkBoxTravel.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_travel));
+        if (sections.isEmpty()) this.errorNoSectionSelectedDialog();
     }
 
     /**

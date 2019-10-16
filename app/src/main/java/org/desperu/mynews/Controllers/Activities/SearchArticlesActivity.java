@@ -24,7 +24,7 @@ public class SearchArticlesActivity extends BaseActivity {
     @Override
     protected void configureDesign() {
         this.configureArrayAdapter();
-        this.configureAndShowSearchFragment();
+        this.configureAndShowSearchArticlesFragment();
         this.configureToolbar();
         this.configureUpButton();
     }
@@ -33,9 +33,9 @@ public class SearchArticlesActivity extends BaseActivity {
     protected void updateDesign() { }
 
     /**
-     * Configure and show article fragment.
+     * Configure and show search articles fragment.
      */
-    private void configureAndShowSearchFragment() {
+    private void configureAndShowSearchArticlesFragment() {
         searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_frame_layout);
 
         if (searchArticlesFragment == null) {
