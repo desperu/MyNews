@@ -1,5 +1,6 @@
 package org.desperu.mynews.Controllers.Activities;
 
+import android.view.View;
 import android.widget.ArrayAdapter;
 
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
@@ -52,5 +53,13 @@ public class SearchArticlesActivity extends BaseActivity {
         dateListArray = new ArrayList<>();
         arrayAdapter = new ArrayAdapter<>(SearchArticlesActivity.this,
                 R.layout.layout_spinner, dateListArray);
+    }
+
+    /**
+     * Search button on click listener.
+     * @param view The clicked view.
+     */
+    public void searchOnClickListener(View view) {
+        searchArticlesFragment.searchOnClickListener();
     }
 }
