@@ -11,6 +11,7 @@ import android.widget.Switch;
 import org.desperu.mynews.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -75,9 +76,12 @@ public class SearchArticlesFragment extends BaseFragment {
 
     private void configureSpinners() {
         dateListArray.add(0, "");
-        int currentDate = new Date().getDate();
-        for (int i = 1; i <= 50; i++) {
-            dateListArray.add(i, String.valueOf(currentDate - i +1));
+        Date currentDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        for (int i = 0; i <= 50; i++) {
+            cal.setTime(currentDate);
+            cal.add(Calendar.DATE, -i);
+            dateListArray.add(i + 1, String.valueOf(cal));
         }
         arrayAdapter.notifyDataSetChanged();
         spinnerBegin.setAdapter(arrayAdapter);

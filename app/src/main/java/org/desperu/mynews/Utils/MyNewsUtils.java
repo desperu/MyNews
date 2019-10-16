@@ -33,4 +33,9 @@ public class MyNewsUtils {
 
         return returnDate;
     }
+
+    public static String dateToString(Date givenDate) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return simpleDateFormat.format(givenDate);
+    }
 }

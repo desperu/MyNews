@@ -63,12 +63,12 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
 
     // TODO good thing??
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         MyNewsPrefs.savePref(getBaseContext(), MyNewsTools.Keys.CURRENT_PAGE, viewPager.getCurrentItem());
     }
 
-// -----------------
+    // -----------------
     // METHODS OVERRIDE
     // -----------------
 
