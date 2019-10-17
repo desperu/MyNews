@@ -3,7 +3,7 @@ package org.desperu.mynews.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TopStoriesMultiMedium {
+public class MultiMedium {
 
     @SerializedName("url")
     @Expose

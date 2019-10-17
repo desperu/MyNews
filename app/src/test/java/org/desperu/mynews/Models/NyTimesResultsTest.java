@@ -11,26 +11,11 @@ public class NyTimesResultsTest {
 
     private NyTimesResults nyTimesResults = new NyTimesResults();
 
-    private String section = "Section";
-    private String subSection = "Subsection";
-    private String title = "Title";
-    private String Abstract = "Article description";
-    private String url = "www.an-url.org";
-    private String byline = "author";
-    private String itemType = "Item Type";
-    private String updatedDate = "2019/10/10";
-    private String createdDate = "2019/10/08";
-    private String publishedDate = "2019/10/09";
-    private String materialTypeFacet = "Material Type";
-    private String kicker = "kicker";
-    private List<TopStoriesMultiMedium> topStoriesMultiMedia = new ArrayList<>();
-    private List<MostPopularMedium> mostPopularMedia = new ArrayList<>();
-    private String shortUrl = "www.a-shorturl.org";
-
     private String output;
 
     @Test
     public void Given_setSection_When_getJson_Then_checkGetSection() {
+        String section = "Section";
         nyTimesResults.setSection(section);
         output = nyTimesResults.getSection();
 
@@ -39,6 +24,7 @@ public class NyTimesResultsTest {
 
     @Test
     public void Given_setSubSection_When_getJson_Then_checkGetSubsection() {
+        String subSection = "Subsection";
         nyTimesResults.setSubsection(subSection);
         output = nyTimesResults.getSubsection();
 
@@ -47,6 +33,7 @@ public class NyTimesResultsTest {
 
     @Test
     public void Given_setTitle_When_getJson_Then_checkGetTitle() {
+        String title = "Title";
         nyTimesResults.setTitle(title);
         output = nyTimesResults.getTitle();
 
@@ -54,15 +41,26 @@ public class NyTimesResultsTest {
     }
 
     @Test
+    public void Given_setHeadline_When_getJson_Then_checkGetHeadline() {
+        Headline headline = new Headline();
+        nyTimesResults.setHeadline(headline);
+        Headline output = nyTimesResults.getHeadline();
+
+        assertEquals(headline, output);
+    }
+
+    @Test
     public void Given_setAbstract_When_getJson_Then_checkGetAbstract() {
-        nyTimesResults.setAbstract(Abstract);
+        String anAbstract = "Article description";
+        nyTimesResults.setAbstract(anAbstract);
         output = nyTimesResults.getAbstract();
 
-        assertEquals(Abstract, output);
+        assertEquals(anAbstract, output);
     }
 
     @Test
     public void Given_setUrl_When_getJson_Then_checkGetUrl() {
+        String url = "www.an-url.org";
         nyTimesResults.setUrl(url);
         output = nyTimesResults.getUrl();
 
@@ -70,15 +68,8 @@ public class NyTimesResultsTest {
     }
 
     @Test
-    public void Given_setByline_When_getJson_Then_checkGetByline() {
-        nyTimesResults.setByline(byline);
-        output = nyTimesResults.getByline();
-
-        assertEquals(byline, output);
-    }
-
-    @Test
     public void Given_setItemType_When_getJson_Then_checkGetItemType() {
+        String itemType = "Item Type";
         nyTimesResults.setItemType(itemType);
         output = nyTimesResults.getItemType();
 
@@ -87,6 +78,7 @@ public class NyTimesResultsTest {
 
     @Test
     public void Given_setUpdatedDate_When_getJson_Then_checkGetUpdatedDate() {
+        String updatedDate = "2019/10/10";
         nyTimesResults.setUpdatedDate(updatedDate);
         output = nyTimesResults.getUpdatedDate();
 
@@ -95,6 +87,7 @@ public class NyTimesResultsTest {
 
     @Test
     public void Given_setCreatedDate_When_getJson_Then_checkGetCreatedDate() {
+        String createdDate = "2019/10/08";
         nyTimesResults.setCreatedDate(createdDate);
         output = nyTimesResults.getCreatedDate();
 
@@ -103,6 +96,7 @@ public class NyTimesResultsTest {
 
     @Test
     public void Given_setPublishedDate_When_getJson_Then_checkGetPublishedDate() {
+        String publishedDate = "2019/10/09";
         nyTimesResults.setPublishedDate(publishedDate);
         output = nyTimesResults.getPublishedDate();
 
@@ -111,6 +105,7 @@ public class NyTimesResultsTest {
 
     @Test
     public void Given_setMaterialTypeFacet_When_getJson_Then_checkGetMaterialTypeFacet() {
+        String materialTypeFacet = "Material Type";
         nyTimesResults.setMaterialTypeFacet(materialTypeFacet);
         output = nyTimesResults.getMaterialTypeFacet();
 
@@ -119,6 +114,7 @@ public class NyTimesResultsTest {
 
     @Test
     public void Given_setKicker_When_getJson_Then_checkGetKicker() {
+        String kicker = "kicker";
         nyTimesResults.setKicker(kicker);
         output = nyTimesResults.getKicker();
 
@@ -127,14 +123,16 @@ public class NyTimesResultsTest {
 
     @Test
     public void Given_setMultimedia_When_getJson_Then_checkGetMultimedia() {
-        nyTimesResults.setMultimedia(topStoriesMultiMedia);
-        List<TopStoriesMultiMedium> output = nyTimesResults.getMultimedia();
+        List<MultiMedium> multiMedia = new ArrayList<>();
+        nyTimesResults.setMultimedia(multiMedia);
+        List<MultiMedium> output = nyTimesResults.getMultimedia();
 
-        assertEquals(topStoriesMultiMedia, output);
+        assertEquals(multiMedia, output);
     }
 
     @Test
     public void Given_setMedia_When_getJson_Then_checkGetMedia() {
+        List<MostPopularMedium> mostPopularMedia = new ArrayList<>();
         nyTimesResults.setMedia(mostPopularMedia);
         List<MostPopularMedium> output = nyTimesResults.getMedia();
 
@@ -143,6 +141,7 @@ public class NyTimesResultsTest {
 
     @Test
     public void Given_setShortUrl_When_getJson_Then_checkGetShortUrl() {
+        String shortUrl = "www.a-shorturl.org";
         nyTimesResults.setShortUrl(shortUrl);
         output = nyTimesResults.getShortUrl();
 

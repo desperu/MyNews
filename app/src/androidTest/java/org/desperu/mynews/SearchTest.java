@@ -33,6 +33,6 @@ public class SearchTest {
 
         NyTimesAPI searchFetched = testObserver.values().get(0);
 
-        assertThat("Something was downloaded !", searchFetched.getResponse().getDocs() != null);
+        assertThat("Something was downloaded !", searchFetched.getResponse().getResults() != null);
     }
 }

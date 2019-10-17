@@ -1,4 +1,4 @@
-package org.desperu.mynews.Models.Search;
+package org.desperu.mynews.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -43,9 +43,7 @@ public class Headline {
         this.kicker = kicker;
     }
 
-    public Object getContentKicker() {
-        return contentKicker;
-    }
+    public Object getContentKicker() { return contentKicker; }
 
     public void setContentKicker(Object contentKicker) {
         this.contentKicker = contentKicker;
@@ -75,9 +73,7 @@ public class Headline {
         this.seo = seo;
     }
 
-    public Object getSub() {
-        return sub;
-    }
+    public Object getSub() { return sub; }
 
     public void setSub(Object sub) {
         this.sub = sub;

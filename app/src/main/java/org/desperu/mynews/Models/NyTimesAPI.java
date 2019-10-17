@@ -3,8 +3,6 @@ package org.desperu.mynews.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import org.desperu.mynews.Models.Search.SearchResponse;
-
 import java.util.List;
 
 public class NyTimesAPI {
@@ -23,7 +21,7 @@ public class NyTimesAPI {
     private List<NyTimesResults> results = null;
     @SerializedName("response")
     @Expose
-    private SearchResponse response;
+    private NyTimesAPI response;
 
     public String getStatus() {
         return status;
@@ -53,7 +51,7 @@ public class NyTimesAPI {
         this.results = results;
     }
 
-    public SearchResponse getResponse() { return response; }
+    public NyTimesAPI getResponse() { return response; }
 
-    public void setResponse(SearchResponse response) { this.response = response; }
+    public void setResponse(NyTimesAPI response) { this.response = response; }
 }

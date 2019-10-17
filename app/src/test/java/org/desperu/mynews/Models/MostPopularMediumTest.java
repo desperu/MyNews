@@ -11,17 +11,11 @@ public class MostPopularMediumTest {
 
     private MostPopularMedium mostPopularMedium = new MostPopularMedium();
 
-    private String type = "Image";
-    private String subType = "Photo";
-    private String caption = "A description";
-    private String copyright = "Copyright rules";
-    private int approvedForSyndication = 1;
-    private List<MostPopularMediaMetadatum> mostPopularMediaMetadata = new ArrayList<>();
-
     private String output;
 
     @Test
     public void Given_setType_When_getJson_Then_checkGetType() {
+        String type = "Image";
         mostPopularMedium.setType(type);
         output = mostPopularMedium.getType();
 
@@ -30,6 +24,7 @@ public class MostPopularMediumTest {
 
     @Test
     public void Given_setSubType_When_getJson_Then_checkGetSubType() {
+        String subType = "Photo";
         mostPopularMedium.setSubtype(subType);
         output = mostPopularMedium.getSubtype();
 
@@ -38,6 +33,7 @@ public class MostPopularMediumTest {
 
     @Test
     public void Given_setCaption_When_getJson_Then_checkGetCaption() {
+        String caption = "A description";
         mostPopularMedium.setCaption(caption);
         output = mostPopularMedium.getCaption();
 
@@ -46,6 +42,7 @@ public class MostPopularMediumTest {
 
     @Test
     public void Given_setCopyright_When_getJson_Then_checkGetCopyright() {
+        String copyright = "Copyright rules";
         mostPopularMedium.setCopyright(copyright);
         output = mostPopularMedium.getCopyright();
 
@@ -54,6 +51,7 @@ public class MostPopularMediumTest {
 
     @Test
     public void Given_setApprovedForSyndication_When_getJson_Then_checkGetApprovedForSyndication() {
+        int approvedForSyndication = 1;
         mostPopularMedium.setApprovedForSyndication(approvedForSyndication);
         int output = mostPopularMedium.getApprovedForSyndication();
 
@@ -62,6 +60,7 @@ public class MostPopularMediumTest {
 
     @Test
     public void Given_setMediaMetadata_When_getJson_Then_checkGetMediaMetadata() {
+        List<MostPopularMediaMetadatum> mostPopularMediaMetadata = new ArrayList<>();
         mostPopularMedium.setMediaMetadata(mostPopularMediaMetadata);
         List<MostPopularMediaMetadatum> output = mostPopularMedium.getMediaMetadata();
 

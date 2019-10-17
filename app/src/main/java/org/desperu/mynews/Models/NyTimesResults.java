@@ -7,7 +7,7 @@ import java.util.List;
 
 public class NyTimesResults {
 
-    @SerializedName("section")
+    @SerializedName(value = "section", alternate = "section_name")
     @Expose
     private String section;
     @SerializedName("subsection")
@@ -16,15 +16,15 @@ public class NyTimesResults {
     @SerializedName("title")
     @Expose
     private String title;
+    @SerializedName("headline")
+    @Expose
+    private Headline headline;
     @SerializedName("abstract")
     @Expose
     private String _abstract;
-    @SerializedName("url")
+    @SerializedName(value = "url", alternate = "web_url")
     @Expose
     private String url;
-    @SerializedName("byline")
-    @Expose
-    private String byline;
     @SerializedName("item_type")
     @Expose
     private String itemType;
@@ -34,7 +34,7 @@ public class NyTimesResults {
     @SerializedName("created_date")
     @Expose
     private String createdDate;
-    @SerializedName("published_date")
+    @SerializedName(value = "published_date", alternate = "pub_date")
     @Expose
     private String publishedDate;
     @SerializedName("material_type_facet")
@@ -45,7 +45,7 @@ public class NyTimesResults {
     private String kicker;
     @SerializedName("multimedia")
     @Expose
-    private List<TopStoriesMultiMedium> multimedia = null;
+    private List<MultiMedium> multimedia = null;
     @SerializedName("media")
     @Expose
     private List<MostPopularMedium> media = null;
@@ -77,6 +77,14 @@ public class NyTimesResults {
         this.title = title;
     }
 
+    public Headline getHeadline() {
+        return headline;
+    }
+
+    public void setHeadline(Headline headline) {
+        this.headline = headline;
+    }
+
     public String getAbstract() {
         return _abstract;
     }
@@ -91,14 +99,6 @@ public class NyTimesResults {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getByline() {
-        return byline;
-    }
-
-    public void setByline(String byline) {
-        this.byline = byline;
     }
 
     public String getItemType() {
@@ -147,11 +147,11 @@ public class NyTimesResults {
         this.kicker = kicker;
     }
 
-    public List<TopStoriesMultiMedium> getMultimedia() {
+    public List<MultiMedium> getMultimedia() {
         return multimedia;
     }
 
-    public void setMultimedia(List<TopStoriesMultiMedium> multimedia) { this.multimedia = multimedia; }
+    public void setMultimedia(List<MultiMedium> multimedia) { this.multimedia = multimedia; }
 
     public List<MostPopularMedium> getMedia() {
         return media;
@@ -166,4 +166,5 @@ public class NyTimesResults {
     }
 
     public void setShortUrl(String shortUrl) { this.shortUrl = shortUrl; }
+
 }

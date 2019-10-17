@@ -1,6 +1,5 @@
 package org.desperu.mynews.Models;
 
-import org.desperu.mynews.Models.Search.SearchResponse;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,16 +11,11 @@ public class NyTimesAPITest {
 
     private NyTimesAPI nyTimesAPI = new NyTimesAPI();
 
-    private String status = "OK";
-    private String copyright = "Copyright rules";
-    private int numResults = 33;
-    private List<NyTimesResults> test = new ArrayList<>();
-    private SearchResponse response = new SearchResponse();
-
     private String output;
 
     @Test
     public void Given_setStatus_When_getJson_Then_checkGetStatus() {
+        String status = "OK";
         nyTimesAPI.setStatus(status);
         output = nyTimesAPI.getStatus();
 
@@ -30,6 +24,7 @@ public class NyTimesAPITest {
 
     @Test
     public void Given_setCopyright_When_getJson_Then_checkGetCopyright() {
+        String copyright = "Copyright rules";
         nyTimesAPI.setCopyright(copyright);
         output = nyTimesAPI.getCopyright();
 
@@ -38,6 +33,7 @@ public class NyTimesAPITest {
 
     @Test
     public void Given_setNumResults_When_getJson_Then_checkNumResults() {
+        int numResults = 33;
         nyTimesAPI.setNumResults(numResults);
         int output = nyTimesAPI.getNumResults();
 
@@ -46,6 +42,7 @@ public class NyTimesAPITest {
 
     @Test
     public void Given_setResults_When_getJson_Then_checkGetResults() {
+        List<NyTimesResults> test = new ArrayList<>();
         nyTimesAPI.setResults(test);
         List<NyTimesResults> output = nyTimesAPI.getResults();
 
@@ -54,8 +51,9 @@ public class NyTimesAPITest {
 
     @Test
     public void Given_setResponse_When_getJson_Then_checkGetResponse() {
+        NyTimesAPI response = new NyTimesAPI();
         nyTimesAPI.setResponse(response);
-        SearchResponse output = nyTimesAPI.getResponse();
+        NyTimesAPI output = nyTimesAPI.getResponse();
 
         assertEquals(response, output);
     }
