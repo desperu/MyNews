@@ -16,7 +16,7 @@ public class NyTimesAPI {
     @SerializedName("num_results")
     @Expose
     private Integer numResults;
-    @SerializedName("results")
+    @SerializedName(value = "results", alternate = "response")
     @Expose
     private List<NyTimesResults> results = null;
 

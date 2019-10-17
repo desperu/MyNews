@@ -8,20 +8,48 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface NyTimesService {
 
-    public String apiKey = "rWAsKkWDKqfM3G5yBmm37TmPHTSrLznA";
+    /**
+     * Request get for Top Stories.
+     * @param section Section name.
+     * @param apiKey Api key of this application.
+     * @return An Observable object of NyTimesAPI model.
+     */
+    @GET("topstories/v2/{section}.json")
+    Observable<NyTimesAPI> getNyTimesTopStories(@Path("section") String section,
+                                                @Query("api-key") String apiKey);
 
-//    https://api.nytimes.com/svc/topstories/v2/science.json?api-key=rWAsKkWDKqfM3G5yBmm37TmPHTSrLznA
-    @GET("topstories/v2/{section}.json?api-key="+apiKey)
-    Observable<NyTimesAPI> getNYTTopStories(@Path("section") String section);
+    /**
+     * Request get for Most Popular.
+     * @param apiKey Api key of this application.
+     * @return An Observable object of NyTimesAPI model.
+     */
+    @GET("mostpopular/v2/viewed/1.json")
+    Observable<NyTimesAPI> getNyTimesMostPopular(@Query("api-key") String apiKey);
 
-    //    https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=yourkey
-    @GET("mostpopular/v2/viewed/1.json?api-key="+apiKey)
-    Observable<NyTimesAPI> getNYTMostPopular();
+    /**
+     * Request get for New York Times Search.
+     * @param queryTerms Search query terms.
+     * @param beginDate Begin date to search.
+     * @param endDate End date to search.
+     * @param sections Sections into search.
+     * @param apiKey Api key of this application.
+     * @return An Observable object of NyTimesAPI model.
+     */
+    @GET("search/v2/articlesearch.json")
+    Observable<NyTimesAPI> getNyTimesSearch(@Query(value = "q", encoded = true) String queryTerms,
+                                            @Query("begin_date") String beginDate,
+                                            @Query("end_date") String endDate,
+                                            @Query("fq") String sections,
+                                            @Query("api-key") String apiKey);
 
-    public static final Retrofit retrofit = new Retrofit.Builder()
+    /**
+     * Build retrofit request with Gson converter and Rxjava adapter.
+     */
+    Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

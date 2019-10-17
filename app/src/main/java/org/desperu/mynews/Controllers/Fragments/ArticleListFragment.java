@@ -185,13 +185,13 @@ public class ArticleListFragment extends BaseFragment {
 
         switch (position) {
             case 0:
-                this.disposable = NyTimesStreams.streamFetchNYTTopStories("home").subscribeWith(disposableObserver);
+                this.disposable = NyTimesStreams.streamFetchNyTimesTopStories("home").subscribeWith(disposableObserver);
                 break;
             case 1:
-                this.disposable = NyTimesStreams.streamFetchNYTMostPopular().subscribeWith(disposableObserver);
+                this.disposable = NyTimesStreams.streamFetchNyTimesMostPopular().subscribeWith(disposableObserver);
                 break;
             case 2:
-                this.disposable = NyTimesStreams.streamFetchNYTTopStories("science").subscribeWith(disposableObserver);
+                this.disposable = NyTimesStreams.streamFetchNyTimesTopStories("science").subscribeWith(disposableObserver);
                 break;
             default:
                 break;

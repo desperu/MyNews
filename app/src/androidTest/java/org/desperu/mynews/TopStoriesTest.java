@@ -17,7 +17,7 @@ public class TopStoriesTest {
 
     @Test
     public void fetchNyTimesTopStories() throws Exception {
-        Observable<NyTimesAPI> nytTopStoriesObservable = NyTimesStreams.streamFetchNYTTopStories("home");
+        Observable<NyTimesAPI> nytTopStoriesObservable = NyTimesStreams.streamFetchNyTimesTopStories("home");
         TestObserver<NyTimesAPI> testObserver = new TestObserver<>();
 
         nytTopStoriesObservable.subscribeWith(testObserver)

@@ -13,20 +13,26 @@ import io.reactivex.observers.TestObserver;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
-public class MostPopularTest {
+public class SearchTest {
 
     @Test
-    public void fetchNyTimesMostPopular() throws Exception {
-        Observable<NyTimesAPI> nytMostPopularObservable = NyTimesStreams.streamFetchNyTimesMostPopular();
+    public void fetchNyTimesSearch() throws Exception {
+        String queryTerms = "trump";
+        String beginDate = "20190101";
+        String endDate = "20191016";
+        String sections = "news_desk:(\"politics\")";
+
+        Observable<NyTimesAPI> nytTopStoriesObservable = NyTimesStreams.streamFetchNyTimesSearch(
+                queryTerms, beginDate, endDate, sections);
         TestObserver<NyTimesAPI> testObserver = new TestObserver<>();
 
-        nytMostPopularObservable.subscribeWith(testObserver)
+        nytTopStoriesObservable.subscribeWith(testObserver)
                 .assertNoErrors()
                 .assertNoTimeout()
                 .awaitTerminalEvent();
 
-        NyTimesAPI mostPopularFetched = testObserver.values().get(0);
+        NyTimesAPI searchFetched = testObserver.values().get(0);
 
-        assertThat("Something was downloaded !", mostPopularFetched.getResults() != null);
+        assertThat("Something was downloaded !", searchFetched.getResults() != null);
     }
 }
