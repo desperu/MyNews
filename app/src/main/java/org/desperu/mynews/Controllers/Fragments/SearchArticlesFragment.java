@@ -94,7 +94,7 @@ public class SearchArticlesFragment extends BaseFragment {
     // --------------
 
     /**
-     * Configure fragment and hide unused items.
+     * Configure fragment search or notifications and hide unused items.
      * @param fragment Fragment id.
      */
     private void configureAskedFragment(int fragment) {

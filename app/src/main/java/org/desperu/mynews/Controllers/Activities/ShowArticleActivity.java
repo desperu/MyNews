@@ -6,6 +6,7 @@ import org.desperu.mynews.R;
 public class ShowArticleActivity extends BaseActivity {
 
     public static final String ARTICLE_URL = "nytimes.com";
+
     private ShowArticleFragment showArticleFragment;
 
     // --------------
@@ -18,7 +19,6 @@ public class ShowArticleActivity extends BaseActivity {
     @Override
     protected void configureDesign() {
         this.configureAndShowArticleWebFragment();
-        this.getArticleUrlIntentAndGiveToArticleFragment();
         this.configureToolbar();
         this.configureUpButton();
     }
@@ -33,19 +33,18 @@ public class ShowArticleActivity extends BaseActivity {
         showArticleFragment = (ShowArticleFragment) getSupportFragmentManager().findFragmentById(R.id.activity_show_article_frame_layout);
 
         if (showArticleFragment == null) {
-            showArticleFragment = new ShowArticleFragment();
+            showArticleFragment = new ShowArticleFragment(getArticleUrlIntent());
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_show_article_frame_layout, showArticleFragment)
                     .commit();
         }
     }
 
-    // TODO use a constructor??
     /**
-     * Get article url and give to article fragment.
+     * Get article url.
      */
-    private void getArticleUrlIntentAndGiveToArticleFragment() {
-        showArticleFragment.setArticleUrl(getIntent().getStringExtra(ARTICLE_URL));
+    private String getArticleUrlIntent() {
+        return getIntent().getStringExtra(ARTICLE_URL);
     }
 
     //TODO add share with ActionProvider

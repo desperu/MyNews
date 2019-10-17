@@ -75,6 +75,10 @@ public class ArticleListFragment extends BaseFragment {
 
     public ArticleListFragment() {}
 
+    public ArticleListFragment(String queryTerms, String beginDate, String endDate, String sections) {
+
+    }
+
     /**
      * Create a new instance of article list fragment.
      * @param position Number of the tab position.

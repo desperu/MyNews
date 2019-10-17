@@ -37,7 +37,7 @@ public class ShowArticleFragment extends BaseFragment {
     @Override
     protected void updateDesign() { }
 
-    public ShowArticleFragment() { }
+    public ShowArticleFragment(String articleUrl) { this.articleUrl = articleUrl; }
 
     /**
      * Configure and show Web View with Progress Bar.
@@ -79,20 +79,8 @@ public class ShowArticleFragment extends BaseFragment {
      * Configure swipe refresh layout.
      */
     private void configureSwipeRefreshLayout(){
-        swipeRefreshLayout.getViewTreeObserver().addOnScrollChangedListener(() -> swipeRefreshLayout.setEnabled(webView.getScrollY() == 0));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                configureAndShowWebViewWithProgressBar(articleUrl);
-            }
-        });
-    }
-
-    /**
-     * Setter for url's article.
-     * @param articleUrl The url's article.
-     */
-    public void setArticleUrl(String articleUrl) {
-        this.articleUrl = articleUrl;
+        swipeRefreshLayout.getViewTreeObserver().addOnScrollChangedListener(() ->
+                swipeRefreshLayout.setEnabled(webView.getScrollY() == 0));
+        swipeRefreshLayout.setOnRefreshListener(() -> configureAndShowWebViewWithProgressBar(articleUrl));
     }
 }
