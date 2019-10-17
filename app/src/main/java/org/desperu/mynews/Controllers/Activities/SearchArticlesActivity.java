@@ -1,9 +1,9 @@
 package org.desperu.mynews.Controllers.Activities;
 
-import android.view.View;
 import android.widget.ArrayAdapter;
 
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
+import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 
 import java.util.ArrayList;
@@ -11,8 +11,11 @@ import java.util.ArrayList;
 public class SearchArticlesActivity extends BaseActivity {
 
     private SearchArticlesFragment searchArticlesFragment;
-    private ArrayList<String> dateListArray;
-    private ArrayAdapter<String> arrayAdapter;
+    // For spinners
+    private ArrayList<String> beginDateListArray;
+    private ArrayAdapter<String> beginDateArrayAdapter;
+    private ArrayList<String> endDateListArray;
+    private ArrayAdapter<String> endDateArrayAdapter;
 
     // --------------
     // BASE METHODS
@@ -39,7 +42,8 @@ public class SearchArticlesActivity extends BaseActivity {
         searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_frame_layout);
 
         if (searchArticlesFragment == null) {
-            searchArticlesFragment = new SearchArticlesFragment(dateListArray, arrayAdapter);
+            searchArticlesFragment = new SearchArticlesFragment(MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT,
+                    beginDateListArray, beginDateArrayAdapter, endDateListArray, endDateArrayAdapter);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_search_frame_layout, searchArticlesFragment)
                     .commit();
@@ -50,16 +54,11 @@ public class SearchArticlesActivity extends BaseActivity {
      * Configure Array adapter for dates spinners.
      */
     private void configureArrayAdapter() {
-        dateListArray = new ArrayList<>();
-        arrayAdapter = new ArrayAdapter<>(SearchArticlesActivity.this,
-                R.layout.layout_spinner, dateListArray);
-    }
-
-    /**
-     * Search button on click listener.
-     * @param view The clicked view.
-     */
-    public void searchOnClickListener(View view) {
-        searchArticlesFragment.searchOnClickListener();
+        beginDateListArray = new ArrayList<>();
+        beginDateArrayAdapter = new ArrayAdapter<>(SearchArticlesActivity.this,
+                R.layout.layout_spinner, beginDateListArray);
+        endDateListArray = new ArrayList<>();
+        endDateArrayAdapter = new ArrayAdapter<>(SearchArticlesActivity.this,
+                R.layout.layout_spinner, endDateListArray);
     }
 }

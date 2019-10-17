@@ -1,7 +1,6 @@
 package org.desperu.mynews.Controllers.Fragments;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.MyNewsUtils;
 
@@ -35,12 +35,16 @@ public class SearchArticlesFragment extends BaseFragment {
     @BindView(R.id.fragment_search_articles_checkbox_travel) CheckBox checkBoxTravel;
     // Button, switch, and separator.
     @BindView(R.id.fragment_search_articles_button_search) Button buttonSearch;
-    @BindView(R.id.fragment_search_articles_switch_notifications) Switch switchNotifications;
     @BindView(R.id.fragment_search_articles_bottom_divider) View bottomDivider;
+    @BindView(R.id.fragment_search_articles_switch_notifications) Switch switchNotifications;
 
+    // Switch between fragment
+    private int fragment;
     // For spinner
-    private ArrayList<String> dateListArray;
-    private ArrayAdapter<String> arrayAdapter;
+    private ArrayList<String> beginDateListArray;
+    private ArrayAdapter<String> beginDateArrayAdapter;
+    private ArrayList<String> endDateListArray;
+    private ArrayAdapter<String> endDateArrayAdapter;
     // For data
     private String searchTerm;
     private String beginDate;
@@ -55,10 +59,7 @@ public class SearchArticlesFragment extends BaseFragment {
     protected int getFragmentLayout() { return R.layout.fragment_search_articles; }
 
     @Override
-    protected void configureDesign() {
-        this.configureSpinners();
-        this.hideUnusedItems();
-    }
+    protected void configureDesign() { this.configureAskedFragment(fragment); }
 
     @Override
     protected void updateDesign() { }
@@ -69,84 +70,130 @@ public class SearchArticlesFragment extends BaseFragment {
 
     public SearchArticlesFragment() {}
 
-    public SearchArticlesFragment(ArrayList<String> dateListArray, ArrayAdapter<String> arrayAdapter) {
-        this.dateListArray = dateListArray;
-        this.arrayAdapter = arrayAdapter;
+    public SearchArticlesFragment(int fragment) { this.fragment = fragment; }
+
+    public SearchArticlesFragment(int fragment, ArrayList<String> beginDateListArray, ArrayAdapter<String> beginDateArrayAdapter,
+                                  ArrayList<String> endDateListArray, ArrayAdapter<String> endDateArrayAdapter) {
+        this.fragment = fragment;
+        this.beginDateListArray = beginDateListArray;
+        this.beginDateArrayAdapter = beginDateArrayAdapter;
+        this.endDateListArray = endDateListArray;
+        this.endDateArrayAdapter = endDateArrayAdapter;
+    }
+
+    // --------------
+    // CONFIGURE ASKED FRAGMENT
+    // --------------
+
+    /**
+     * Configure fragment and hide unused items.
+     * @param fragment Fragment id.
+     */
+    private void configureAskedFragment(int fragment) {
+        switch (fragment) {
+            case MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT :
+                this.configureDateSpinners(spinnerBegin, beginDateListArray, beginDateArrayAdapter);
+                this.configureDateSpinners(spinnerEnd, endDateListArray, endDateArrayAdapter);
+                this.configureSearchOnClickListener();
+                bottomDivider.setVisibility(View.GONE);
+                switchNotifications.setVisibility(View.GONE);
+                break;
+            case MyNewsTools.FragmentsKeys.NOTIFICATION_FRAGMENT :
+
+                spinnerBegin.setVisibility(View.GONE);
+                spinnerEnd.setVisibility(View.GONE);
+                buttonSearch.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    // --------------
+    // SEARCH FRAGMENT
+    // --------------
+
+    // SPINNERS
+
+    /**
+     * Configure date spinners.
+     */
+    private void configureDateSpinners(Spinner spinner, ArrayList<String> dateArrayList,
+                                       ArrayAdapter<String> arrayAdapter) {
+        this.configureDateArrayList(dateArrayList);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(0);
+        spinner.setOnLongClickListener(v -> {
+            editDateDialog(v, dateArrayList, arrayAdapter);
+            return true;
+        });
     }
 
     /**
-     * Hide unused items.
+     * Configure array list date.
+     * @param dateArrayList Array list to configure.
      */
-    private void hideUnusedItems() {
-        // TODO switch between search and notifications
-        bottomDivider.setVisibility(View.GONE);
-        switchNotifications.setVisibility(View.GONE);
-    }
-
-    /**
-     * Configure spinners with dates.
-     */
-    private void configureSpinners() {
-        dateListArray.add(0, "");
+    private void configureDateArrayList(ArrayList<String> dateArrayList) {
+        dateArrayList.add(0, "");
         for (int i = 0; i <= 365; i++) { // TODO use tools
             Date currentDate = new Date();
             Calendar cal = Calendar.getInstance();
             cal.setTime(currentDate);
             cal.add(Calendar.DATE, -i);
-            dateListArray.add(i + 1, MyNewsUtils.dateToString(cal.getTime()));
+            dateArrayList.add(i + 1, MyNewsUtils.dateToString(cal.getTime()));
         }
-        arrayAdapter.notifyDataSetChanged();
-        spinnerBegin.setAdapter(arrayAdapter);
-        spinnerBegin.setSelection(0);
-        spinnerEnd.setAdapter(arrayAdapter);
-        spinnerEnd.setSelection(0);
-        spinnerBegin.setOnLongClickListener(spinnerOnLongClickListener);
     }
 
-    // TODO to check, and need two date list...
-    private View.OnLongClickListener spinnerOnLongClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            AlertDialog.Builder editDate = new AlertDialog.Builder(getContext());
-//            if (spinner == 0) editDate.setTitle(R.string.dialog_spinners_edit_begin_date);
-//            if (spinner == 1) editDate.setTitle(R.string.dialog_spinners_edit_end_date);
-            final EditText editText = new EditText(getContext());
-            editDate.setView(editText);
-            editDate.setPositiveButton(R.string.dialog_spinners_edit_date_positive_button, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dateListArray.set(0, String.valueOf(editText.getText()));
-                    arrayAdapter.notifyDataSetChanged();
-                    dialog.cancel();
-                }
-            });
-            editDate.show();
-            return true;
-        }
-    };
+    /**
+     * Edit spinner date dialog.
+     * @param v Spinner view from this method is called.
+     * @param dateArrayList Date array list given.
+     * @param arrayAdapter Array adapter given.
+     */
+    private void editDateDialog(View v, ArrayList<String> dateArrayList, ArrayAdapter<String> arrayAdapter) {
+        AlertDialog.Builder editDate = new AlertDialog.Builder(getContext());
+        if (v.getId() == spinnerBegin.getId()) editDate.setTitle(R.string.dialog_spinners_edit_begin_date_title);
+        if (v.getId() == spinnerEnd.getId()) editDate.setTitle(R.string.dialog_spinners_edit_end_date_title);
+        editDate.setMessage(R.string.dialog_spinners_edit_date_message);
+        final EditText editText = new EditText(getContext());
+        editDate.setView(editText);
+        editDate.setPositiveButton(R.string.dialog_spinners_edit_date_positive_button, (dialog, which) -> {
+            dateArrayList.set(0, String.valueOf(editText.getText()));
+            arrayAdapter.notifyDataSetChanged();
+            dialog.cancel();
+        });
+        editDate.setNegativeButton(R.string.dialog_spinners_edit_date_negative_button, (dialog, which) -> dialog.cancel());
+        editDate.show();
+    }
+
+    // SEARCH BUTTON CLICK
 
     /**
      * Configure search button on click listener.
      */
-    public void searchOnClickListener() { // TODO change call, not from xml
-        this.getSearchQueryTerms();
-        this.getSpinnersDates();
-        this.getCheckboxesSections();
-    }
-
-    /**
-     * Get search query terms.
-     */
-    private void getSearchQueryTerms() {
-        searchTerm = String.valueOf(searchEditText.getText());
+    private void configureSearchOnClickListener() { // TODO change call, not from xml
+        buttonSearch.setOnClickListener(v -> {
+            getSearchQueryTerms();
+            getSpinnersDates();
+            getCheckboxesSections();
+        });
     }
 
     /**
      * Get spinners dates selected.
      */
     private void getSpinnersDates() {
-        beginDate = dateListArray.get(spinnerBegin.getSelectedItemPosition());
-        endDate = dateListArray.get(spinnerEnd.getSelectedItemPosition());
+        beginDate = beginDateListArray.get(spinnerBegin.getSelectedItemPosition());
+        endDate = beginDateListArray.get(spinnerEnd.getSelectedItemPosition());
+    }
+
+    // --------------
+    // FOR THE TWO FRAGMENTS
+    // --------------
+
+    /**
+     * Get search query terms.
+     */
+    private void getSearchQueryTerms() {
+        searchTerm = String.valueOf(searchEditText.getText());
     }
 
     /**

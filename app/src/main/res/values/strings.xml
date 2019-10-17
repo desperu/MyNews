@@ -29,8 +29,9 @@
     <string name="fragment_search_articles_button_search">Search</string>
     <string name="fragment_search_articles_switch">Enable notifications (once per day)</string>
     <!-- Dialog edit spinners date-->
-    <string name="dialog_spinners_edit_begin_date">Enter begin date</string>
-    <string name="dialog_spinners_edit_end_date">Enter end date</string>
+    <string name="dialog_spinners_edit_begin_date_title">Enter begin date</string>
+    <string name="dialog_spinners_edit_end_date_title">Enter end date</string>
+    <string name="dialog_spinners_edit_date_message">You must use 01/10/2019 date format !</string>
     <string name="dialog_spinners_edit_date_positive_button">OK</string>
     <string name="dialog_spinners_edit_date_negative_button">Cancel</string>
     <!-- Dialog no section -->

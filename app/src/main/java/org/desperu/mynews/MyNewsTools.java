@@ -25,4 +25,13 @@ public final class MyNewsTools {
         // Main activity.
         public static final String CURRENT_PAGE = "CurrentPage";
     }
+
+    public static final class FragmentsKeys {
+
+        // Search Fragment
+        public static final int SEARCH_FRAGMENT = 1;
+
+        // Notification Fragment
+        public static final int NOTIFICATION_FRAGMENT = 2;
+    }
 }

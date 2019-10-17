@@ -142,8 +142,7 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:textSize="16sp"
-        android:text="@string/fragment_search_articles_button_search"
-        android:onClick="searchOnClickListener"/>
+        android:text="@string/fragment_search_articles_button_search" />
 
     <View
         android:id="@+id/fragment_search_articles_bottom_divider"
