@@ -40,7 +40,7 @@ public class SearchArticlesFragment extends BaseFragment {
 
     // Switch between fragment
     private int fragment;
-    // For spinner
+    // For spinners
     private ArrayList<String> beginDateListArray;
     private ArrayAdapter<String> beginDateArrayAdapter;
     private ArrayList<String> endDateListArray;
@@ -169,7 +169,7 @@ public class SearchArticlesFragment extends BaseFragment {
     /**
      * Configure search button on click listener.
      */
-    private void configureSearchOnClickListener() { // TODO change call, not from xml
+    private void configureSearchOnClickListener() {
         buttonSearch.setOnClickListener(v -> {
             getSearchQueryTerms();
             getSpinnersDates();
