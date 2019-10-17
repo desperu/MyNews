@@ -2,6 +2,7 @@ package org.desperu.mynews.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -56,5 +57,25 @@ public class MyNewsUtils {
             e.printStackTrace();
             return "An error occurred !";
         }
+    }
+
+    /**
+     * Concatenate array list of sections to good string format for API request.
+     * @param arrayList The given sections array list;
+     * @return String good format for API request.
+     */
+    public static String concatenateStringSectionsFromArrayList(ArrayList<String> arrayList) {
+        StringBuilder sections;
+        String sectionFilterName = "news_desk.contains:(";
+        if (arrayList.isEmpty()) return "";
+        else sections = new StringBuilder(sectionFilterName);
+        for (int i = 0; i < arrayList.size(); i++) {
+            sections.append("\"");
+            sections.append(arrayList.get(i));
+            sections.append("\"");
+            if ((i + 1) < arrayList.size()) sections.append(" ");
+        }
+        sections.append(")");
+        return sections.toString();
     }
 }

@@ -10,7 +10,7 @@ public class NyTimesResults {
     @SerializedName(value = "section", alternate = "section_name")
     @Expose
     private String section;
-    @SerializedName("subsection")
+    @SerializedName(value = "subsection", alternate = "subsection_name")
     @Expose
     private String subsection;
     @SerializedName("title")

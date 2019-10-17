@@ -45,11 +45,6 @@ public class SearchArticlesFragment extends BaseFragment {
     private ArrayAdapter<String> beginDateArrayAdapter;
     private ArrayList<String> endDateListArray;
     private ArrayAdapter<String> endDateArrayAdapter;
-    // For data
-    private String searchTerm;
-    private String beginDate;
-    private String endDate;
-    private ArrayList<String> sections;
 
     // --------------
     // BASE METHODS
@@ -72,8 +67,10 @@ public class SearchArticlesFragment extends BaseFragment {
 
     public SearchArticlesFragment(int fragment) { this.fragment = fragment; }
 
-    public SearchArticlesFragment(int fragment, ArrayList<String> beginDateListArray, ArrayAdapter<String> beginDateArrayAdapter,
-                                  ArrayList<String> endDateListArray, ArrayAdapter<String> endDateArrayAdapter) {
+    public SearchArticlesFragment(int fragment, ArrayList<String> beginDateListArray,
+                                  ArrayAdapter<String> beginDateArrayAdapter,
+                                  ArrayList<String> endDateListArray,
+                                  ArrayAdapter<String> endDateArrayAdapter) {
         this.fragment = fragment;
         this.beginDateListArray = beginDateListArray;
         this.beginDateArrayAdapter = beginDateArrayAdapter;
@@ -94,7 +91,7 @@ public class SearchArticlesFragment extends BaseFragment {
             case MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT :
                 this.configureDateSpinners(spinnerBegin, beginDateListArray, beginDateArrayAdapter);
                 this.configureDateSpinners(spinnerEnd, endDateListArray, endDateArrayAdapter);
-                this.configureSearchOnClickListener();
+                this.configureSearchButtonOnClickListener();
                 bottomDivider.setVisibility(View.GONE);
                 switchNotifications.setVisibility(View.GONE);
                 break;
@@ -133,7 +130,7 @@ public class SearchArticlesFragment extends BaseFragment {
      */
     private void configureDateArrayList(ArrayList<String> dateArrayList) {
         dateArrayList.add(0, "");
-        for (int i = 0; i <= 365; i++) { // TODO use tools
+        for (int i = 0; i <= MyNewsTools.Constant.DATE_LIMIT; i++) {
             Date currentDate = new Date();
             Calendar cal = Calendar.getInstance();
             cal.setTime(currentDate);
@@ -169,10 +166,13 @@ public class SearchArticlesFragment extends BaseFragment {
     /**
      * Configure search button on click listener.
      */
-    private void configureSearchOnClickListener() {
+    private void configureSearchButtonOnClickListener() {
         buttonSearch.setOnClickListener(v -> {
+            // TODO if no section selected display an error
+//            if (sections.isEmpty()) this.errorNoSectionSelectedDialog();
             getSearchQueryTerms();
-            getSpinnersDates();
+            getSpinnersDates(spinnerBegin, beginDateListArray);
+            getSpinnersDates(spinnerEnd, endDateListArray);
             getCheckboxesSections();
         });
     }
@@ -180,9 +180,15 @@ public class SearchArticlesFragment extends BaseFragment {
     /**
      * Get spinners dates selected.
      */
-    private void getSpinnersDates() {
-        beginDate = beginDateListArray.get(spinnerBegin.getSelectedItemPosition());
-        endDate = beginDateListArray.get(spinnerEnd.getSelectedItemPosition());
+    private String getSpinnersDates(Spinner spinner, ArrayList<String> dateArrayList) {
+        String selectedDate = dateArrayList.get(spinner.getSelectedItemPosition());
+        if (selectedDate.length() == 0) {
+            if (spinner.getId() == spinnerBegin.getId())
+                selectedDate = MyNewsTools.Constant.BEGIN_DATE_DEFAULT;
+            if (spinner.getId() == spinnerEnd.getId())
+                selectedDate = MyNewsUtils.dateToString(new Date());
+        }
+        return MyNewsUtils.changeDateFormat(selectedDate);
     }
 
     // --------------
@@ -192,22 +198,23 @@ public class SearchArticlesFragment extends BaseFragment {
     /**
      * Get search query terms.
      */
-    private void getSearchQueryTerms() {
-        searchTerm = String.valueOf(searchEditText.getText());
+    private String getSearchQueryTerms() {
+        return String.valueOf(searchEditText.getText());
     }
 
     /**
      * Get check boxes status.
      */
-    private void getCheckboxesSections() {
-        sections = new ArrayList<>();
+    private String getCheckboxesSections() {
+        ArrayList<String> sections = new ArrayList<>();
         if (checkBoxArts.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_arts));
         if (checkBoxBusiness.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_business));
         if (checkBoxEntrepreneurs.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_entrepreneurs));
         if (checkBoxPolitics.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_politics));
         if (checkBoxSports.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_sports));
         if (checkBoxTravel.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_travel));
-        if (sections.isEmpty()) this.errorNoSectionSelectedDialog();
+
+        return MyNewsUtils.concatenateStringSectionsFromArrayList(sections);
     }
 
     /**

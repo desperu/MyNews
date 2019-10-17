@@ -15,6 +15,13 @@ public final class MyNewsTools {
         // NyTimes Streams
         // Application api key for New York Times API.
         public static final String apiKey = "rWAsKkWDKqfM3G5yBmm37TmPHTSrLznA";
+
+        // SearchArticlesFragment
+        // Spinner date limit search in past, in days.
+        public static final int DATE_LIMIT = 365;
+
+        // Spinner begin, default date.
+        public static final String BEGIN_DATE_DEFAULT = "01/10/1000";
     }
 
     /**

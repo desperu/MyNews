@@ -2,6 +2,7 @@ package org.desperu.mynews.Utils;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -72,5 +73,28 @@ public class MyNewsUtilsTest {
         output = MyNewsUtils.changeDateFormat(givenDate);
 
         assertEquals(errorDateFormat, output);
+    }
+
+    @Test
+    public void Given_sectionsArrayList_When_askConcatenateStringSectionsFromArrayList_Then_checkString() {
+        String expected = "news_desk.contains:(\"Politics\" \"Business\" \"Entrepreneurs\")";
+        ArrayList<String> sections = new ArrayList<>();
+        sections.add("Politics");
+        sections.add("Business");
+        sections.add("Entrepreneurs");
+
+        output = MyNewsUtils.concatenateStringSectionsFromArrayList(sections);
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void Given_emptySectionsArrayList_When_askConcatenateStringSectionsFromArrayList_Then_checkEmptyString() {
+        String expected = "";
+        ArrayList<String> sections = new ArrayList<>();
+
+        output = MyNewsUtils.concatenateStringSectionsFromArrayList(sections);
+
+        assertEquals(expected, output);
     }
 }

@@ -36,7 +36,7 @@
     <string name="dialog_spinners_edit_date_negative_button">Cancel</string>
     <!-- Dialog no section -->
     <string name="dialog_no_section_title">Error no section selected</string>
-    <string name="dialog_no_section_message">You must select a least one section !\n(Arts, Travel, …)</string>
+    <string name="dialog_no_section_message">You must select at least one section !\n(Arts, Travel, …)</string>
     <string name="dialog_no_section_positive_button">OK</string>
 
 </resources>
