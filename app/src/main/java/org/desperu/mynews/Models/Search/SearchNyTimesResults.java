@@ -1,4 +1,4 @@
-package org.desperu.mynews.Models;
+package org.desperu.mynews.Models.Search;
 
 public class SearchNyTimesResults {
 //    -----------------------------------com.example.Byline.java-----------------------------------

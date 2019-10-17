@@ -100,33 +100,30 @@ public class SearchArticlesFragment extends BaseFragment {
         spinnerBegin.setSelection(0);
         spinnerEnd.setAdapter(arrayAdapter);
         spinnerEnd.setSelection(0);
-        spinnerBegin.setOnLongClickListener(spinnerOnLongClickListener(0));
+        spinnerBegin.setOnLongClickListener(spinnerOnLongClickListener);
     }
 
     // TODO to check, and need two date list...
-    private View.OnLongClickListener spinnerOnLongClickListener(int spinner) {
-        new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                AlertDialog.Builder editDate = new AlertDialog.Builder(getContext());
-                if (spinner == 0) editDate.setTitle(R.string.dialog_spinners_edit_begin_date);
-                if (spinner == 1) editDate.setTitle(R.string.dialog_spinners_edit_end_date);
-                final EditText editText = new EditText(getContext());
-                editDate.setView(editText);
-                editDate.setPositiveButton(R.string.dialog_spinners_edit_date_positive_button, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dateListArray.set(0, String.valueOf(editText.getText()));
-                        arrayAdapter.notifyDataSetChanged();
-                        dialog.cancel();
-                    }
-                });
-                editDate.show();
-                return true;
-            }
-        };
-        return View::getKeepScreenOn;
-    }
+    private View.OnLongClickListener spinnerOnLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            AlertDialog.Builder editDate = new AlertDialog.Builder(getContext());
+//            if (spinner == 0) editDate.setTitle(R.string.dialog_spinners_edit_begin_date);
+//            if (spinner == 1) editDate.setTitle(R.string.dialog_spinners_edit_end_date);
+            final EditText editText = new EditText(getContext());
+            editDate.setView(editText);
+            editDate.setPositiveButton(R.string.dialog_spinners_edit_date_positive_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dateListArray.set(0, String.valueOf(editText.getText()));
+                    arrayAdapter.notifyDataSetChanged();
+                    dialog.cancel();
+                }
+            });
+            editDate.show();
+            return true;
+        }
+    };
 
     /**
      * Configure search button on click listener.

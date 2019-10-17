@@ -1,5 +1,6 @@
 package org.desperu.mynews.Models;
 
+import org.desperu.mynews.Models.Search.SearchResponse;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class NyTimesAPITest {
     private String copyright = "Copyright rules";
     private int numResults = 33;
     private List<NyTimesResults> test = new ArrayList<>();
+    private SearchResponse response = new SearchResponse();
 
     private String output;
 
@@ -48,5 +50,13 @@ public class NyTimesAPITest {
         List<NyTimesResults> output = nyTimesAPI.getResults();
 
         assertEquals(test, output);
+    }
+
+    @Test
+    public void Given_setResponse_When_getJson_Then_checkGetResponse() {
+        nyTimesAPI.setResponse(response);
+        SearchResponse output = nyTimesAPI.getResponse();
+
+        assertEquals(response, output);
     }
 }
