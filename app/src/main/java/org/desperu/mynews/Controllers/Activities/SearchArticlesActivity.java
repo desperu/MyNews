@@ -1,5 +1,6 @@
 package org.desperu.mynews.Controllers.Activities;
 
+import android.content.Intent;
 import android.widget.ArrayAdapter;
 
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
@@ -8,9 +9,10 @@ import org.desperu.mynews.R;
 
 import java.util.ArrayList;
 
-public class SearchArticlesActivity extends BaseActivity {
+public class SearchArticlesActivity extends BaseActivity implements SearchArticlesFragment.OnClickedActionListener {
 
     private SearchArticlesFragment searchArticlesFragment;
+
     // For spinners
     private ArrayList<String> beginDateListArray;
     private ArrayAdapter<String> beginDateArrayAdapter;
@@ -34,6 +36,10 @@ public class SearchArticlesActivity extends BaseActivity {
 
     @Override
     protected void updateDesign() { }
+
+    // -----------------
+    // CONFIGURATION
+    // -----------------
 
     /**
      * Configure and show search articles fragment.
@@ -60,5 +66,40 @@ public class SearchArticlesActivity extends BaseActivity {
         endDateListArray = new ArrayList<>();
         endDateArrayAdapter = new ArrayAdapter<>(SearchArticlesActivity.this,
                 R.layout.layout_spinner, endDateListArray);
+    }
+
+    // -----------------
+    // ACTION
+    // -----------------
+
+    @Override
+    public void OnClickedSearchButton(String queryTerms, String beginDate,
+                                      String endDate, String sections) {
+        this.startShowSearchResultsActivity(queryTerms, beginDate, endDate, sections);
+    }
+
+    @Override
+    public void OnClickedNotificationSwitch() {
+
+    }
+
+    // -----------------
+    // ACTIVITY
+    // -----------------
+
+    /**
+     * Start show search results activity.
+     * @param queryTerms Terms of the query.
+     * @param beginDate Begin date for search.
+     * @param endDate End date for search.
+     * @param sections Sections into search.
+     */
+    private void startShowSearchResultsActivity(String queryTerms, String beginDate,
+                                                String endDate, String sections) {
+        startActivity(new Intent(this, ShowSearchResultsActivity.class)
+                .putExtra(ShowSearchResultsActivity.QUERY_TERMS,queryTerms)
+                .putExtra(ShowSearchResultsActivity.BEGIN_DATE,beginDate)
+                .putExtra(ShowSearchResultsActivity.END_DATE,endDate)
+                .putExtra(ShowSearchResultsActivity.SECTIONS,sections));
     }
 }

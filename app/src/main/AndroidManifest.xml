@@ -29,6 +29,10 @@
             android:name=".Controllers.Activities.SearchArticlesActivity"
             android:label="@string/search_activity"
             android:parentActivityName=".Controllers.Activities.MainActivity" />
+        <activity
+            android:name=".Controllers.Activities.ShowSearchResultsActivity"
+            android:label="@string/search_results_activity"
+            android:parentActivityName=".Controllers.Activities.SearchArticlesActivity" />
     </application>
 
 </manifest>

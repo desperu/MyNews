@@ -69,6 +69,10 @@ public class ArticleListFragment extends BaseFragment {
     @Override
     protected void updateDesign() {  }
 
+    // -----------------
+    // CONSTRUCTORS
+    // -----------------
+
     public ArticleListFragment() {}
 
     /**
@@ -81,13 +85,6 @@ public class ArticleListFragment extends BaseFragment {
         articleListFragment.position = position;
         Icepick.saveInstanceState(articleListFragment, new Bundle());
         return articleListFragment;
-    }
-
-    /**
-     * Configure progress bar.
-     */
-    private void configureProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -162,6 +159,11 @@ public class ArticleListFragment extends BaseFragment {
             }
         });
     }
+
+    /**
+     * Configure progress bar.
+     */
+    private void configureProgressBar() { progressBar.setVisibility(View.VISIBLE); }
 
     // -------------------
     // HTTP (RxJAVA)

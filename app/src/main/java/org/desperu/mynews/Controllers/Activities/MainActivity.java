@@ -39,6 +39,10 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     @Override
     protected void updateDesign() { this.onRestoreTab();}
 
+    // -----------------
+    // CONFIGURATION
+    // -----------------
+
     /**
      * Configure Tab layout and View pager.
      */
@@ -107,7 +111,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     // -----------------
 
     /**
-     * Start article activity.
+     * Start show article activity.
      * @param articleUrl The url's article.
      */
     private void showArticleActivity(String articleUrl) {

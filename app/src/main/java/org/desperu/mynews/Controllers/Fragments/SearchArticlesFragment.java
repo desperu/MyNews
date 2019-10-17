@@ -46,6 +46,14 @@ public class SearchArticlesFragment extends BaseFragment {
     private ArrayList<String> endDateListArray;
     private ArrayAdapter<String> endDateArrayAdapter;
 
+    // Callback
+    public interface OnClickedActionListener {
+        void OnClickedSearchButton(String queryTerms, String beginDate, String endDate, String sections);
+        void OnClickedNotificationSwitch();
+    }
+
+    private SearchArticlesFragment.OnClickedActionListener mCallback;
+
     // --------------
     // BASE METHODS
     // --------------
@@ -54,7 +62,10 @@ public class SearchArticlesFragment extends BaseFragment {
     protected int getFragmentLayout() { return R.layout.fragment_search_articles; }
 
     @Override
-    protected void configureDesign() { this.configureAskedFragment(fragment); }
+    protected void configureDesign() {
+        this.configureAskedFragment(fragment);
+        this.createCallbackToParentActivity();
+    }
 
     @Override
     protected void updateDesign() { }
@@ -79,7 +90,7 @@ public class SearchArticlesFragment extends BaseFragment {
     }
 
     // --------------
-    // CONFIGURE ASKED FRAGMENT
+    // CONFIGURATION
     // --------------
 
     /**
@@ -105,10 +116,23 @@ public class SearchArticlesFragment extends BaseFragment {
     }
 
     // --------------
-    // SEARCH FRAGMENT
+    // FRAGMENT SUPPORT
     // --------------
 
+    /**
+     * Configure callback to parent activity for manage click item.
+     */
+    private void createCallbackToParentActivity(){
+        try {
+            mCallback = (SearchArticlesFragment.OnClickedActionListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(e.toString()+ " must implement OnClickedActionListener");
+        }
+    }
+
+    // --------------
     // SPINNERS
+    // --------------
 
     /**
      * Configure date spinners.
@@ -161,38 +185,27 @@ public class SearchArticlesFragment extends BaseFragment {
         editDate.show();
     }
 
-    // SEARCH BUTTON CLICK
+    // -----------------
+    // ACTION
+    // -----------------
 
     /**
      * Configure search button on click listener.
      */
     private void configureSearchButtonOnClickListener() {
         buttonSearch.setOnClickListener(v -> {
-            // TODO if no section selected display an error
-//            if (sections.isEmpty()) this.errorNoSectionSelectedDialog();
-            getSearchQueryTerms();
-            getSpinnersDates(spinnerBegin, beginDateListArray);
-            getSpinnersDates(spinnerEnd, endDateListArray);
-            getCheckboxesSections();
+            if (getCheckboxesSections().isEmpty()) this.errorNoSectionSelectedDialog();
+            else {
+                mCallback.OnClickedSearchButton(getSearchQueryTerms(),
+                        getSpinnersDates(spinnerBegin, beginDateListArray),
+                        getSpinnersDates(spinnerEnd, endDateListArray),
+                        getCheckboxesSections());
+            }
         });
     }
 
-    /**
-     * Get spinners dates selected.
-     */
-    private String getSpinnersDates(Spinner spinner, ArrayList<String> dateArrayList) {
-        String selectedDate = dateArrayList.get(spinner.getSelectedItemPosition());
-        if (selectedDate.length() == 0) {
-            if (spinner.getId() == spinnerBegin.getId())
-                selectedDate = MyNewsTools.Constant.BEGIN_DATE_DEFAULT;
-            if (spinner.getId() == spinnerEnd.getId())
-                selectedDate = MyNewsUtils.dateToString(new Date());
-        }
-        return MyNewsUtils.changeDateFormat(selectedDate);
-    }
-
     // --------------
-    // FOR THE TWO FRAGMENTS
+    // GET LAYOUT INFORMATION
     // --------------
 
     /**
@@ -215,6 +228,20 @@ public class SearchArticlesFragment extends BaseFragment {
         if (checkBoxTravel.isChecked()) sections.add(getString(R.string.fragment_search_articles_checkbox_travel));
 
         return MyNewsUtils.concatenateStringSectionsFromArrayList(sections);
+    }
+
+    /**
+     * Get spinners dates selected.
+     */
+    private String getSpinnersDates(Spinner spinner, ArrayList<String> dateArrayList) {
+        String selectedDate = dateArrayList.get(spinner.getSelectedItemPosition());
+        if (selectedDate.length() == 0) {
+            if (spinner.getId() == spinnerBegin.getId())
+                selectedDate = MyNewsTools.Constant.BEGIN_DATE_DEFAULT;
+            if (spinner.getId() == spinnerEnd.getId())
+                selectedDate = MyNewsUtils.dateToString(new Date());
+        }
+        return MyNewsUtils.changeDateFormat(selectedDate);
     }
 
     /**
