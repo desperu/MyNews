@@ -33,7 +33,9 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
      * @param glide Glide instance from the adapter to download the article's image.
      */
     public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide) {
-        this.textViewTitle.setText(nyTimesResults.getTitle());
+        if (nyTimesResults.getTitle() != null)
+            this.textViewTitle.setText(nyTimesResults.getTitle());
+        else this.textViewTitle.setText(nyTimesResults.getHeadline().getMain());
 
         if (nyTimesResults.getPublishedDate() != null && nyTimesResults.getPublishedDate().length() > 0)
             this.textViewPublishedDate.setText(MyNewsUtils.convertDate(nyTimesResults.getPublishedDate()));

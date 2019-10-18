@@ -24,7 +24,7 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
     // --------------
 
     @Override
-    protected int getActivityLayout() { return R.layout.activity_search_articles; }
+    protected int getActivityLayout() { return R.layout.activity_search; }
 
     @Override
     protected void configureDesign() {
@@ -96,10 +96,10 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
      */
     private void startShowSearchResultsActivity(String queryTerms, String beginDate,
                                                 String endDate, String sections) {
-        startActivity(new Intent(this, ShowSearchResultsActivity.class)
-                .putExtra(ShowSearchResultsActivity.QUERY_TERMS,queryTerms)
-                .putExtra(ShowSearchResultsActivity.BEGIN_DATE,beginDate)
-                .putExtra(ShowSearchResultsActivity.END_DATE,endDate)
-                .putExtra(ShowSearchResultsActivity.SECTIONS,sections));
+        startActivity(new Intent(this, SearchResultsActivity.class)
+                .putExtra(SearchResultsActivity.QUERY_TERMS,queryTerms)
+                .putExtra(SearchResultsActivity.BEGIN_DATE,beginDate)
+                .putExtra(SearchResultsActivity.END_DATE,endDate)
+                .putExtra(SearchResultsActivity.SECTIONS,sections));
     }
 }

@@ -30,7 +30,7 @@
             android:label="@string/search_activity"
             android:parentActivityName=".Controllers.Activities.MainActivity" />
         <activity
-            android:name=".Controllers.Activities.ShowSearchResultsActivity"
+            android:name=".Controllers.Activities.SearchResultsActivity"
             android:label="@string/search_results_activity"
             android:parentActivityName=".Controllers.Activities.SearchArticlesActivity" />
     </application>

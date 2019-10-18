@@ -3,9 +3,10 @@ package org.desperu.mynews.Controllers.Activities;
 import android.content.Intent;
 
 import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
+import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 
-public class ShowSearchResultsActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener {
+public class SearchResultsActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener {
 
     private ArticleListFragment articleListFragment;
 
@@ -14,16 +15,21 @@ public class ShowSearchResultsActivity extends BaseActivity implements ArticleLi
     public static final String BEGIN_DATE = "Begin date";
     public static final String END_DATE = "End date";
     public static final String SECTIONS = "Sections";
+    private String queryTerms;
+    private String beginDate;
+    private String endDate;
+    private String sections;
 
     // --------------
     // BASE METHODS
     // --------------
 
     @Override
-    protected int getActivityLayout() { return R.layout.activity_search_articles; }
+    protected int getActivityLayout() { return R.layout.activity_search; }
 
     @Override
     protected void configureDesign() {
+        this.getIntentDataAndSetToFields();
         this.configureAndShowArticleListFragment();
         this.configureToolbar();
         this.configureUpButton();
@@ -43,11 +49,22 @@ public class ShowSearchResultsActivity extends BaseActivity implements ArticleLi
         articleListFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_frame_layout);
 
         if (articleListFragment == null) {
-            articleListFragment = new ArticleListFragment();
+            articleListFragment = new ArticleListFragment(MyNewsTools.FragmentsKeys.SEARCH_RESULTS_FRAGMENT,
+                    queryTerms, beginDate, endDate, sections);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_search_frame_layout, articleListFragment)
                     .commit();
         }
+    }
+
+    /**
+     * Get intent data and set to fields.
+     */
+    private void getIntentDataAndSetToFields() {
+        this.queryTerms = getIntent().getStringExtra(QUERY_TERMS);
+        this.beginDate = getIntent().getStringExtra(BEGIN_DATE);
+        this.endDate = getIntent().getStringExtra(END_DATE);
+        this.sections = getIntent().getStringExtra(SECTIONS);
     }
 
     // -----------------

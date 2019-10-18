@@ -33,12 +33,27 @@ public final class MyNewsTools {
         public static final String CURRENT_PAGE = "CurrentPage";
     }
 
+    /**
+     * Keys for fragments.
+     */
     public static final class FragmentsKeys {
 
+        // TopStories Fragment
+        public static final int TOP_STORIES_FRAGMENT = 0;
+
+        // MostPopular Fragment
+        public static final int MOST_POPULAR_FRAGMENT = 1;
+
+        // Sciences Fragment
+        public static final int SCIENCES_FRAGMENT = 2;
+
+        // Search Results Fragment
+        public static final int SEARCH_RESULTS_FRAGMENT = 3;
+
         // Search Fragment
-        public static final int SEARCH_FRAGMENT = 1;
+        public static final int SEARCH_FRAGMENT = 4;
 
         // Notification Fragment
-        public static final int NOTIFICATION_FRAGMENT = 2;
+        public static final int NOTIFICATION_FRAGMENT = 5;
     }
 }

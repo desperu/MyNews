@@ -3,6 +3,7 @@ package org.desperu.mynews.Controllers.Fragments;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 
 import org.desperu.mynews.Models.NyTimesAPI;
 import org.desperu.mynews.Models.NyTimesResults;
+import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.ItemClickSupport;
 import org.desperu.mynews.Utils.NyTimesStreams;
@@ -39,7 +41,11 @@ public class ArticleListFragment extends BaseFragment {
     private Disposable disposable;
     private List<NyTimesResults> nyTimesResults;
     private NyTimesAdapter adapter;
-    @State int position;
+    @State int fragmentKey;
+    private String queryTerms;
+    private String beginDate;
+    private String endDate;
+    private String sections;
 
     // Callback
     public interface OnClickedArticleListener {
@@ -47,7 +53,6 @@ public class ArticleListFragment extends BaseFragment {
     }
 
     private ArticleListFragment.OnClickedArticleListener mCallback;
-
 
     // --------------
     // BASE METHODS
@@ -63,7 +68,7 @@ public class ArticleListFragment extends BaseFragment {
         this.configureRecyclerView();
         this.configureSwipeRefreshLayout();
         this.configureOnClickRecyclerView();
-        this.executeHttpRequestWithRetrofit(position);
+        this.executeHttpRequestWithRetrofit(fragmentKey);
     }
 
     @Override
@@ -75,18 +80,23 @@ public class ArticleListFragment extends BaseFragment {
 
     public ArticleListFragment() {}
 
-    public ArticleListFragment(String queryTerms, String beginDate, String endDate, String sections) {
-
+    public ArticleListFragment(int fragmentKey, String queryTerms,
+                               String beginDate, String endDate, String sections) {
+        this.fragmentKey = fragmentKey;
+        this.queryTerms = queryTerms;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        this.sections = sections;
     }
 
     /**
      * Create a new instance of article list fragment.
-     * @param position Number of the tab position.
+     * @param position Number of the tab position, fragment key.
      * @return The new instance.
      */
     public static ArticleListFragment newInstance(int position) {
         ArticleListFragment articleListFragment = new ArticleListFragment();
-        articleListFragment.position = position;
+        articleListFragment.fragmentKey = position;
         Icepick.saveInstanceState(articleListFragment, new Bundle());
         return articleListFragment;
     }
@@ -159,7 +169,7 @@ public class ArticleListFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                executeHttpRequestWithRetrofit(position);
+                executeHttpRequestWithRetrofit(fragmentKey);
             }
         });
     }
@@ -174,13 +184,20 @@ public class ArticleListFragment extends BaseFragment {
     // -------------------
 
     /**
-     * Execute Http request depending position.
-     * @param position Fragment position.
+     * Execute Http request depending fragmentKey.
+     * @param fragmentKey Fragment key.
      */
-    private void executeHttpRequestWithRetrofit(int position) {
+    private void executeHttpRequestWithRetrofit(int fragmentKey) {
         DisposableObserver<NyTimesAPI> disposableObserver = new DisposableObserver<NyTimesAPI>() {
             @Override
-            public void onNext(NyTimesAPI nyTimesAPI) { updateUI(nyTimesAPI.getResults()); }
+            public void onNext(NyTimesAPI nyTimesAPI) {
+                if (nyTimesAPI.getResults() != null)
+                    updateUI(nyTimesAPI.getResults());
+                else if (nyTimesAPI.getResponse().getResults() != null)
+                    updateUI(nyTimesAPI.getResponse().getResults());
+                else // TODO alert dialog
+                    Toast.makeText(getContext(), "No result", Toast.LENGTH_LONG).show();
+            }
 
             @Override
             public void onError(Throwable e) { }
@@ -189,15 +206,18 @@ public class ArticleListFragment extends BaseFragment {
             public void onComplete() { progressBar.setVisibility(View.GONE); }
         };
 
-        switch (position) {
-            case 0:
+        switch (fragmentKey) {
+            case MyNewsTools.FragmentsKeys.TOP_STORIES_FRAGMENT:
                 this.disposable = NyTimesStreams.streamFetchNyTimesTopStories("home").subscribeWith(disposableObserver);
                 break;
-            case 1:
+            case MyNewsTools.FragmentsKeys.MOST_POPULAR_FRAGMENT:
                 this.disposable = NyTimesStreams.streamFetchNyTimesMostPopular().subscribeWith(disposableObserver);
                 break;
-            case 2:
+            case MyNewsTools.FragmentsKeys.SCIENCES_FRAGMENT:
                 this.disposable = NyTimesStreams.streamFetchNyTimesTopStories("science").subscribeWith(disposableObserver);
+                break;
+            case MyNewsTools.FragmentsKeys.SEARCH_RESULTS_FRAGMENT:
+                this.disposable = NyTimesStreams.streamFetchNyTimesSearch(queryTerms, beginDate, endDate, sections).subscribeWith(disposableObserver);
                 break;
             default:
                 break;
