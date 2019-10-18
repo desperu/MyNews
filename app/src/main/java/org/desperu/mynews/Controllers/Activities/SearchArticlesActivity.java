@@ -75,27 +75,25 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
     @Override
     public void OnClickedSearchButton(String queryTerms, String beginDate,
                                       String endDate, String sections) {
-        this.startShowSearchResultsActivity(queryTerms, beginDate, endDate, sections);
+        this.showSearchResultsActivity(queryTerms, beginDate, endDate, sections);
     }
 
     @Override
-    public void OnClickedNotificationSwitch() {
-
-    }
+    public void OnClickedNotificationSwitch(boolean switchState) { }
 
     // -----------------
     // ACTIVITY
     // -----------------
 
     /**
-     * Start show search results activity.
+     * Start search results activity.
      * @param queryTerms Terms of the query.
      * @param beginDate Begin date for search.
      * @param endDate End date for search.
      * @param sections Sections into search.
      */
-    private void startShowSearchResultsActivity(String queryTerms, String beginDate,
-                                                String endDate, String sections) {
+    private void showSearchResultsActivity(String queryTerms, String beginDate,
+                                           String endDate, String sections) {
         startActivity(new Intent(this, SearchResultsActivity.class)
                 .putExtra(SearchResultsActivity.QUERY_TERMS,queryTerms)
                 .putExtra(SearchResultsActivity.BEGIN_DATE,beginDate)

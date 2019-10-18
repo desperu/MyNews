@@ -31,6 +31,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/fragment_search_articles_text_view_begin_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -44,6 +45,7 @@
                 android:spinnerMode="dropdown"/>
 
             <View
+                android:id="@+id/fragment_search_articles_begin_date_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="10dp"
@@ -85,6 +87,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/fragment_search_articles_text_view_end_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -98,6 +101,7 @@
                 android:spinnerMode="dropdown"/>
 
             <View
+                android:id="@+id/fragment_search_articles_end_date_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="10dp"

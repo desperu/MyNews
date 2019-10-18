@@ -193,14 +193,14 @@ public class ArticleListFragment extends BaseFragment {
             public void onNext(NyTimesAPI nyTimesAPI) {
                 if (nyTimesAPI.getResults() != null)
                     updateUI(nyTimesAPI.getResults());
-                else if (nyTimesAPI.getResponse().getResults() != null)
+                else if (nyTimesAPI.getResponse().getResults() != null) // TODO isEmpty ??
                     updateUI(nyTimesAPI.getResponse().getResults());
                 else // TODO alert dialog
                     Toast.makeText(getContext(), "No result", Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onError(Throwable e) { }
+            public void onError(Throwable e) { Toast.makeText(getContext(), "On error", Toast.LENGTH_LONG).show(); }
 
             @Override
             public void onComplete() { progressBar.setVisibility(View.GONE); }

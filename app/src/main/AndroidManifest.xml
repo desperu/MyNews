@@ -33,6 +33,10 @@
             android:name=".Controllers.Activities.SearchResultsActivity"
             android:label="@string/search_results_activity"
             android:parentActivityName=".Controllers.Activities.SearchArticlesActivity" />
+        <activity
+            android:name=".Controllers.Activities.NotificationsActivity"
+            android:label="@string/notifications_activity"
+            android:parentActivityName=".Controllers.Activities.MainActivity"/>
     </application>
 
 </manifest>

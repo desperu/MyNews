@@ -5,9 +5,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
@@ -23,9 +26,13 @@ public class SearchArticlesFragment extends BaseFragment {
 
     // Edit text to enter query search terms
     @BindView(R.id.fragment_search_articles_edit_text) EditText searchEditText;
-    // Spinners for begin date and end date
+    // Spinners, text view and dividers for begin date and end date.
+    @BindView(R.id.fragment_search_articles_text_view_begin_date) TextView textViewBeginDate;
     @BindView(R.id.fragment_search_articles_spinner_begin) Spinner spinnerBegin;
+    @BindView(R.id.fragment_search_articles_begin_date_divider) View beginDateDivider;
+    @BindView(R.id.fragment_search_articles_text_view_end_date) TextView textViewEndDate;
     @BindView(R.id.fragment_search_articles_spinner_end) Spinner spinnerEnd;
+    @BindView(R.id.fragment_search_articles_end_date_divider) View endDateDivider;
     // Check boxes to select section.
     @BindView(R.id.fragment_search_articles_checkbox_arts) CheckBox checkBoxArts;
     @BindView(R.id.fragment_search_articles_checkbox_business) CheckBox checkBoxBusiness;
@@ -33,7 +40,7 @@ public class SearchArticlesFragment extends BaseFragment {
     @BindView(R.id.fragment_search_articles_checkbox_politics) CheckBox checkBoxPolitics;
     @BindView(R.id.fragment_search_articles_checkbox_sports) CheckBox checkBoxSports;
     @BindView(R.id.fragment_search_articles_checkbox_travel) CheckBox checkBoxTravel;
-    // Button, switch, and separator.
+    // Button, switch, and divider.
     @BindView(R.id.fragment_search_articles_button_search) Button buttonSearch;
     @BindView(R.id.fragment_search_articles_bottom_divider) View bottomDivider;
     @BindView(R.id.fragment_search_articles_switch_notifications) Switch switchNotifications;
@@ -49,7 +56,7 @@ public class SearchArticlesFragment extends BaseFragment {
     // Callback
     public interface OnClickedActionListener {
         void OnClickedSearchButton(String queryTerms, String beginDate, String endDate, String sections);
-        void OnClickedNotificationSwitch();
+        void OnClickedNotificationSwitch(boolean switchState);
     }
 
     private SearchArticlesFragment.OnClickedActionListener mCallback;
@@ -97,7 +104,7 @@ public class SearchArticlesFragment extends BaseFragment {
      * Configure fragment search or notifications and hide unused items.
      * @param fragment Fragment id.
      */
-    private void configureAskedFragment(int fragment) {
+    private void configureAskedFragment(int fragment) { // TODO a good thing to switch??
         switch (fragment) {
             case MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT :
                 this.configureDateSpinners(spinnerBegin, beginDateListArray, beginDateArrayAdapter);
@@ -107,9 +114,13 @@ public class SearchArticlesFragment extends BaseFragment {
                 switchNotifications.setVisibility(View.GONE);
                 break;
             case MyNewsTools.FragmentsKeys.NOTIFICATION_FRAGMENT :
-
+                this.configureNotificationSwitchListener();
+                textViewBeginDate.setVisibility(View.GONE);
                 spinnerBegin.setVisibility(View.GONE);
+                beginDateDivider.setVisibility(View.GONE);
+                textViewEndDate.setVisibility(View.GONE);
                 spinnerEnd.setVisibility(View.GONE);
+                endDateDivider.setVisibility(View.GONE);
                 buttonSearch.setVisibility(View.GONE);
                 break;
         }
@@ -200,6 +211,19 @@ public class SearchArticlesFragment extends BaseFragment {
                         getSpinnersDates(spinnerBegin, beginDateListArray),
                         getSpinnersDates(spinnerEnd, endDateListArray),
                         getCheckboxesSections());
+            }
+        });
+    }
+
+    /**
+     * Configure notifications switch.
+     */
+    private void configureNotificationSwitchListener() {
+        switchNotifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mCallback.OnClickedNotificationSwitch(isChecked);
+                Toast.makeText(getContext(), "switch notif", Toast.LENGTH_LONG).show();
             }
         });
     }

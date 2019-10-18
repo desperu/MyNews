@@ -3,7 +3,6 @@ package org.desperu.mynews.Controllers.Activities;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -86,8 +85,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_activity_main_params:
-                Toast.makeText(getBaseContext(), "You clicked on params !", Toast.LENGTH_SHORT).show();
-//                this.showParamsActivity();
+                this.showNotificationsActivity();
                 return true;
             case R.id.menu_activity_main_search:
                 this.showSearchArticlesActivity();
@@ -123,5 +121,12 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
      */
     private void showSearchArticlesActivity() {
         startActivity(new Intent(this, SearchArticlesActivity.class));
+    }
+
+    /**
+     * Start notifications activity.
+     */
+    private void showNotificationsActivity() {
+        startActivity(new Intent(this, NotificationsActivity.class));
     }
 }
