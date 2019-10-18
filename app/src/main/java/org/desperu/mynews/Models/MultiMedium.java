@@ -29,6 +29,9 @@ public class MultiMedium {
     @SerializedName("copyright")
     @Expose
     private String copyright;
+    @SerializedName("crop_name")
+    @Expose
+    private String cropName;
 
     public String getUrl() {
         return url;
@@ -93,4 +96,8 @@ public class MultiMedium {
     public void setCopyright(String copyright) {
         this.copyright = copyright;
     }
+
+    public String getCropName() { return cropName; }
+
+    public void setCropName(String cropName) { this.cropName = cropName; }
 }

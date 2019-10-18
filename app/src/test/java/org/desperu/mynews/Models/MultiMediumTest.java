@@ -81,4 +81,13 @@ public class MultiMediumTest {
 
         assertEquals(copyright, output);
     }
+
+    @Test
+    public void Given_setCropName_When_getJson_Then_checkGetCropName() {
+        String cropName = "Crop name";
+        multiMedium.setCropName(cropName);
+        output = multiMedium.getCropName();
+
+        assertEquals(cropName, output);
+    }
 }

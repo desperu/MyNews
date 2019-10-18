@@ -47,9 +47,20 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
             this.textViewSection.setText(String.format(nyTimesResults.getSection() + " > " + nyTimesResults.getSubsection(), "%d"));
         else this.textViewSection.setText(nyTimesResults.getSection());
 
-        // For image.
-        if (nyTimesResults.getMultimedia() != null && !nyTimesResults.getMultimedia().isEmpty())
-            glide.load(nyTimesResults.getMultimedia().get(0).getUrl()).into(imageView);
+        // For image. // TODO to perform, create a method
+        if (nyTimesResults.getMultimedia() != null && !nyTimesResults.getMultimedia().isEmpty()) {
+            String nyTimesUrl = "https://static01.nyt.com/";
+            StringBuilder imageUrl;
+            if (nyTimesResults.getMultimedia().get(0).getCropName() != null) {
+                for (int i = 0; i < nyTimesResults.getMultimedia().size(); i++) {
+                    if (nyTimesResults.getMultimedia().get(i).getCropName().equals("thumbStandard")) {
+                        imageUrl = new StringBuilder(nyTimesUrl).append(nyTimesResults.getMultimedia().get(i).getUrl());
+                        glide.load(imageUrl.toString()).into(imageView);
+                    }
+                }
+            }
+            else glide.load(nyTimesResults.getMultimedia().get(0).getUrl()).into(imageView);
+        }
         else if (nyTimesResults.getMedia() != null) // TODO if MediaMetadatum is empty?
             glide.load(nyTimesResults.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(imageView);
     }
