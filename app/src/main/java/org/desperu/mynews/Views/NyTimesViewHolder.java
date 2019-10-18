@@ -33,17 +33,21 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
      * @param glide Glide instance from the adapter to download the article's image.
      */
     public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide) {
+        // For title.
         if (nyTimesResults.getTitle() != null)
             this.textViewTitle.setText(nyTimesResults.getTitle());
         else this.textViewTitle.setText(nyTimesResults.getHeadline().getMain());
 
+        //For published date.
         if (nyTimesResults.getPublishedDate() != null && nyTimesResults.getPublishedDate().length() > 0)
             this.textViewPublishedDate.setText(MyNewsUtils.convertDate(nyTimesResults.getPublishedDate()));
 
+        // For section and subsection.
         if (nyTimesResults.getSubsection() != null && nyTimesResults.getSubsection().length() > 0)
             this.textViewSection.setText(String.format(nyTimesResults.getSection() + " > " + nyTimesResults.getSubsection(), "%d"));
         else this.textViewSection.setText(nyTimesResults.getSection());
 
+        // For image.
         if (nyTimesResults.getMultimedia() != null && !nyTimesResults.getMultimedia().isEmpty())
             glide.load(nyTimesResults.getMultimedia().get(0).getUrl()).into(imageView);
         else if (nyTimesResults.getMedia() != null) // TODO if MediaMetadatum is empty?

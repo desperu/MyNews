@@ -16,8 +16,16 @@ public class MyNewsUtilsTest {
     private String output;
 
     @Test
-    public void Given_completeDate_When_askConvertDateFormat_Then_checkNewDateFormat() {
+    public void Given_completeDateFormat_When_askConvertDateFormat_Then_checkNewDateFormat() {
         String givenDate = "2019-10-09T15:28:13-04:00";
+        output = MyNewsUtils.convertDate(givenDate);
+
+        assertEquals(returnedDate, output);
+    }
+
+    @Test
+    public void Given_mediumDateFormat_When_askConvertDateFormat_Then_checkNewDateFormat() {
+        String givenDate = "2019-10-09T15:28:13+0000";
         output = MyNewsUtils.convertDate(givenDate);
 
         assertEquals(returnedDate, output);
@@ -32,16 +40,24 @@ public class MyNewsUtilsTest {
     }
 
     @Test
-    public void Given_badSimpleDateFormat_When_askConvertDateFormat_Then_checkErrorDateFormat() {
-        String givenDate = "20191009";
+    public void Given_badCompleteDateFormat_When_askConvertDateFormat_Then_checkErrorDateFormat() {
+        String givenDate = "2019-10-09T15:28:13/04:00";
         output = MyNewsUtils.convertDate(givenDate);
 
         assertEquals(errorDateFormat, output);
     }
 
     @Test
-    public void Given_badCompleteDateFormat_When_askConvertDateFormat_Then_checkErrorDateFormat() {
-        String givenDate = "2019-10-09T15:28:13/04:00";
+    public void Given_badMediumDateFormat_When_askConvertDateFormat_Then_checkErrorDateFormat() {
+        String givenDate = "2019-10-09T15:28:13/0400";
+        output = MyNewsUtils.convertDate(givenDate);
+
+        assertEquals(errorDateFormat, output);
+    }
+
+    @Test
+    public void Given_badSimpleDateFormat_When_askConvertDateFormat_Then_checkErrorDateFormat() {
+        String givenDate = "20191009";
         output = MyNewsUtils.convertDate(givenDate);
 
         assertEquals(errorDateFormat, output);

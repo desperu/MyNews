@@ -9,17 +9,19 @@ import java.util.Locale;
 public class MyNewsUtils {
 
     /**
-     * Convert string date format from "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" or "yyyy-MM-dd" to "dd/MM/yy".
+     * Convert string date format from "yyyy-MM-dd'T'HH:mm:ssXXX" or "yyyy-MM-dd'T'HH:mm:ssZ" or "yyyy-MM-dd" to "dd/MM/yy".
      * @param givenDate The given date.
      * @return String date with new format.
      */
     public static String convertDate(String givenDate) { //TODO Good to set static?
         SimpleDateFormat givenDateFormat;
         SimpleDateFormat completeDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
+        SimpleDateFormat mediumDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.US);
 
-        if (givenDate.length() > 10) givenDateFormat = completeDateFormat;
+        if (givenDate.length() > 24) givenDateFormat = completeDateFormat;
+        else if (givenDate.length() > 10) givenDateFormat = mediumDateFormat;
         else givenDateFormat = simpleDateFormat;
 
         try {
