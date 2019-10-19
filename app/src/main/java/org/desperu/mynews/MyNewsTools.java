@@ -31,6 +31,10 @@ public final class MyNewsTools {
 
         // Main activity.
         public static final String CURRENT_PAGE = "CurrentPage";
+
+        // SearchArticlesFragment, for notifications.
+        public static final String NOTIFICATION_QUERY_TERMS = "NotificationQueryTerms";
+        public static final String NOTIFICATION_SECTIONS = "NotificationsSections";
     }
 
     /**

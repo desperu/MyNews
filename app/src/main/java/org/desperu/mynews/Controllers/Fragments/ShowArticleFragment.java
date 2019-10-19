@@ -37,7 +37,7 @@ public class ShowArticleFragment extends BaseFragment {
     @Override
     protected void updateDesign() { }
 
-    public ShowArticleFragment(String articleUrl) { this.articleUrl = articleUrl; }
+    public ShowArticleFragment(String articleUrl) { this.articleUrl = articleUrl; } // TODO use bundles
 
     /**
      * Configure and show Web View with Progress Bar.
@@ -71,7 +71,6 @@ public class ShowArticleFragment extends BaseFragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-
         webView.loadUrl(articleUrl);
     }
 

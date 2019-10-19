@@ -79,7 +79,7 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
     }
 
     @Override
-    public void OnClickedNotificationSwitch(boolean switchState) { }
+    public void OnClickedNotificationSwitch(boolean isChecked) { }
 
     // -----------------
     // ACTIVITY

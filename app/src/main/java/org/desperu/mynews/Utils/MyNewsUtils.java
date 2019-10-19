@@ -13,7 +13,7 @@ public class MyNewsUtils {
      * @param givenDate The given date.
      * @return String date with new format.
      */
-    public static String convertDate(String givenDate) { //TODO Good to set static?
+    public static String convertDate(String givenDate) {
         SimpleDateFormat givenDateFormat;
         SimpleDateFormat completeDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
         SimpleDateFormat mediumDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);

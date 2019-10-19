@@ -41,4 +41,12 @@
     <string name="dialog_no_section_message">You must select at least one section !\n(Arts, Travel, …)</string>
     <string name="dialog_no_section_positive_button">OK</string>
 
+    <!-- Notifications -->
+    <!-- Enable / Disable notifications -->
+    <string name="toast_notification_enable">Notification enabled !</string>
+    <string name="toast_notification_disable">Notification disabled !</string>
+    <!-- Notifications body -->
+    <string name="notification_title">New articles to show !</string>
+    <string name="notification_text"> news articles were published !</string>
+
 </resources>

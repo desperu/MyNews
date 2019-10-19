@@ -5,15 +5,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
+import org.desperu.mynews.Utils.MyNewsPrefs;
 import org.desperu.mynews.Utils.MyNewsUtils;
 
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class SearchArticlesFragment extends BaseFragment {
     // Callback
     public interface OnClickedActionListener {
         void OnClickedSearchButton(String queryTerms, String beginDate, String endDate, String sections);
-        void OnClickedNotificationSwitch(boolean switchState);
+        void OnClickedNotificationSwitch(boolean isChecked);
     }
 
     private SearchArticlesFragment.OnClickedActionListener mCallback;
@@ -89,7 +88,7 @@ public class SearchArticlesFragment extends BaseFragment {
                                   ArrayAdapter<String> beginDateArrayAdapter,
                                   ArrayList<String> endDateListArray,
                                   ArrayAdapter<String> endDateArrayAdapter) {
-        this.fragment = fragment;
+        this.fragment = fragment; // TODO use bundles
         this.beginDateListArray = beginDateListArray;
         this.beginDateArrayAdapter = beginDateArrayAdapter;
         this.endDateListArray = endDateListArray;
@@ -142,7 +141,7 @@ public class SearchArticlesFragment extends BaseFragment {
     }
 
     // --------------
-    // SPINNERS
+    // SPINNERS // TODO use datePicker
     // --------------
 
     /**
@@ -219,12 +218,17 @@ public class SearchArticlesFragment extends BaseFragment {
      * Configure notifications switch.
      */
     private void configureNotificationSwitchListener() {
-        switchNotifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mCallback.OnClickedNotificationSwitch(isChecked);
-                Toast.makeText(getContext(), "switch notif", Toast.LENGTH_LONG).show();
-            }
+        switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                if (getCheckboxesSections().isEmpty()) {
+                    this.errorNoSectionSelectedDialog();
+                    switchNotifications.setChecked(false);
+                } else {
+                    MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
+                    MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, getCheckboxesSections());
+                    mCallback.OnClickedNotificationSwitch(true);
+                }
+            } else mCallback.OnClickedNotificationSwitch(false);
         });
     }
 

@@ -83,7 +83,7 @@ public class ArticleListFragment extends BaseFragment {
     public ArticleListFragment(int fragmentKey, String queryTerms,
                                String beginDate, String endDate, String sections) {
         this.fragmentKey = fragmentKey;
-        this.queryTerms = queryTerms;
+        this.queryTerms = queryTerms;// TODO use bundles
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.sections = sections;

@@ -1,12 +1,21 @@
 package org.desperu.mynews.Controllers.Activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.SystemClock;
+import android.widget.Toast;
+
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
 import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
+import org.desperu.mynews.Utils.NotificationsAlarmService;
 
 public class NotificationsActivity extends BaseActivity implements SearchArticlesFragment.OnClickedActionListener{
 
     private SearchArticlesFragment searchArticlesFragment;
+    private PendingIntent pendingIntent;
 
     // --------------
     // BASE METHODS
@@ -20,6 +29,7 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
         this.configureAndShowSearchArticlesFragment();
         this.configureToolbar();
         this.configureUpButton();
+        this.configureAlarmManager();
     }
 
     @Override
@@ -43,6 +53,14 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
         }
     }
 
+    /**
+     * Configure alarm manager for notifications.
+     */
+    private void configureAlarmManager() {
+        Intent alarmIntent = new Intent(this, NotificationsAlarmService.class);
+        pendingIntent = PendingIntent.getService(getBaseContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
     // -----------------
     // ACTION
     // -----------------
@@ -53,8 +71,8 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
     }
 
     @Override
-    public void OnClickedNotificationSwitch(boolean switchState) {
-        this.configureNotifications(switchState);
+    public void OnClickedNotificationSwitch(boolean isChecked) {
+        this.configureNotifications(isChecked);
     }
 
     // -----------------
@@ -63,9 +81,28 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
 
     /**
      * Configure notifications.
-     * @param switchState State of switch notifications.
+     * @param isChecked State of switch notifications.
      */
-    private void configureNotifications(boolean switchState) {
+    private void configureNotifications(boolean isChecked) {
+        if (isChecked) this.startNotificationsAlarm();
+        else this.stopNotificationsAlarm();
+    }
 
+    /**
+     * Enable notification alarm.
+     */
+    private void startNotificationsAlarm() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        Toast.makeText(this, R.string.toast_notification_enable, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Disable notification alarm.
+     */
+    private void stopNotificationsAlarm() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        manager.cancel(pendingIntent);
+        Toast.makeText(this, R.string.toast_notification_disable, Toast.LENGTH_SHORT).show();
     }
 }
