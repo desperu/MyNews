@@ -32,7 +32,6 @@ public abstract class BaseFragment extends Fragment {
         return(view);
     }
 
-    // TODO check if need icepick
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

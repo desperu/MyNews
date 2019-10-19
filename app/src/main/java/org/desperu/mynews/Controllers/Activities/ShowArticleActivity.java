@@ -1,11 +1,16 @@
 package org.desperu.mynews.Controllers.Activities;
 
+import android.os.Bundle;
+
 import org.desperu.mynews.Controllers.Fragments.ShowArticleFragment;
 import org.desperu.mynews.R;
 
 public class ShowArticleActivity extends BaseActivity {
 
+    // For intent extra.
     public static final String ARTICLE_URL = "nytimes.com";
+    // For bundle.
+    public static final String KEY_ARTICLE_URL = "articleUrl";
 
     private ShowArticleFragment showArticleFragment;
 
@@ -26,6 +31,10 @@ public class ShowArticleActivity extends BaseActivity {
     @Override
     protected void updateDesign() { }
 
+    // --------------
+    // CONFIGURATION
+    // --------------
+
     /**
      * Configure and show article fragment.
      */
@@ -33,7 +42,10 @@ public class ShowArticleActivity extends BaseActivity {
         showArticleFragment = (ShowArticleFragment) getSupportFragmentManager().findFragmentById(R.id.activity_show_article_frame_layout);
 
         if (showArticleFragment == null) {
-            showArticleFragment = new ShowArticleFragment(getArticleUrlIntent());
+            Bundle bundle = new Bundle();
+            bundle.putString(KEY_ARTICLE_URL, getArticleUrlIntent());
+            showArticleFragment = new ShowArticleFragment();
+            showArticleFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_show_article_frame_layout, showArticleFragment)
                     .commit();
@@ -41,7 +53,7 @@ public class ShowArticleActivity extends BaseActivity {
     }
 
     /**
-     * Get article url.
+     * Get article url from extra intent.
      */
     private String getArticleUrlIntent() {
         return getIntent().getStringExtra(ARTICLE_URL);

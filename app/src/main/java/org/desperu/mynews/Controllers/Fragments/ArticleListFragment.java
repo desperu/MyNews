@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 
+import org.desperu.mynews.Controllers.Activities.SearchResultsActivity;
 import org.desperu.mynews.Models.NyTimesAPI;
 import org.desperu.mynews.Models.NyTimesResults;
 import org.desperu.mynews.MyNewsTools;
@@ -23,6 +24,7 @@ import org.desperu.mynews.Views.NyTimesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import icepick.Icepick;
@@ -42,10 +44,10 @@ public class ArticleListFragment extends BaseFragment {
     private List<NyTimesResults> nyTimesResults;
     private NyTimesAdapter adapter;
     @State int fragmentKey;
-    private String queryTerms;
-    private String beginDate;
-    private String endDate;
-    private String sections;
+    @State String queryTerms;
+    @State String beginDate;
+    @State String endDate;
+    @State String sections;
 
     // Callback
     public interface OnClickedArticleListener {
@@ -63,6 +65,7 @@ public class ArticleListFragment extends BaseFragment {
 
     @Override
     protected void configureDesign() {
+        this.getDataFromBundle();
         this.configureProgressBar();
         this.createCallbackToParentActivity();
         this.configureRecyclerView();
@@ -74,20 +77,7 @@ public class ArticleListFragment extends BaseFragment {
     @Override
     protected void updateDesign() {  }
 
-    // -----------------
-    // CONSTRUCTORS
-    // -----------------
-
     public ArticleListFragment() {}
-
-    public ArticleListFragment(int fragmentKey, String queryTerms,
-                               String beginDate, String endDate, String sections) {
-        this.fragmentKey = fragmentKey;
-        this.queryTerms = queryTerms;// TODO use bundles
-        this.beginDate = beginDate;
-        this.endDate = endDate;
-        this.sections = sections;
-    }
 
     /**
      * Create a new instance of article list fragment.
@@ -99,6 +89,19 @@ public class ArticleListFragment extends BaseFragment {
         articleListFragment.fragmentKey = position;
         Icepick.saveInstanceState(articleListFragment, new Bundle());
         return articleListFragment;
+    }
+
+    /**
+     * Get data from bundle if not null.
+     */
+    private void getDataFromBundle() {
+        if (getArguments() != null) {
+            this.fragmentKey = getArguments().getInt(SearchResultsActivity.KEY_FRAGMENT, 0);
+            this.queryTerms = getArguments().getString(SearchResultsActivity.KEY_QUERY_TERMS, null);
+            this.beginDate = getArguments().getString(SearchResultsActivity.KEY_BEGIN_DATE, null);
+            this.endDate = getArguments().getString(SearchResultsActivity.KEY_END_DATE, null);
+            this.sections = getArguments().getString(SearchResultsActivity.KEY_SECTIONS, null);
+        }
     }
 
     @Override
@@ -116,12 +119,9 @@ public class ArticleListFragment extends BaseFragment {
      */
     private void configureOnClickRecyclerView(){
         ItemClickSupport.addTo(recyclerView, R.layout.fragment_article_item)
-                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                    @Override
-                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        NyTimesResults nyTimesResults = adapter.getArticle(position);
-                        mCallback.onClickedArticle(nyTimesResults.getUrl());
-                    }
+                .setOnItemClickListener((recyclerView, position, v) -> {
+                    NyTimesResults nyTimesResults = adapter.getArticle(position);
+                    mCallback.onClickedArticle(nyTimesResults.getUrl());
                 });
     }
 
@@ -156,8 +156,8 @@ public class ArticleListFragment extends BaseFragment {
         // Set layout manager to position the items
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         // Add separator between each item.
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        itemDecoration.setDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_divider));
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), R.drawable.ic_divider)));
         this.recyclerView.addItemDecoration(itemDecoration);
 
     }
@@ -166,12 +166,7 @@ public class ArticleListFragment extends BaseFragment {
      * Configure swipe to refresh layout.
      */
     private void configureSwipeRefreshLayout(){
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                executeHttpRequestWithRetrofit(fragmentKey);
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> executeHttpRequestWithRetrofit(fragmentKey));
     }
 
     /**
@@ -200,7 +195,7 @@ public class ArticleListFragment extends BaseFragment {
             }
 
             @Override
-            public void onError(Throwable e) { Toast.makeText(getContext(), "On error", Toast.LENGTH_LONG).show(); }
+            public void onError(Throwable e) { }
 
             @Override
             public void onComplete() { progressBar.setVisibility(View.GONE); }

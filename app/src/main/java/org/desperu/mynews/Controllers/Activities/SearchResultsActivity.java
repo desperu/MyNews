@@ -1,6 +1,7 @@
 package org.desperu.mynews.Controllers.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
 import org.desperu.mynews.MyNewsTools;
@@ -15,10 +16,12 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
     public static final String BEGIN_DATE = "Begin date";
     public static final String END_DATE = "End date";
     public static final String SECTIONS = "Sections";
-    private String queryTerms;
-    private String beginDate;
-    private String endDate;
-    private String sections;
+    // For bundle
+    public static final String KEY_FRAGMENT = "fragmentKey";
+    public static final String KEY_QUERY_TERMS = "queryTerms";
+    public static final String KEY_BEGIN_DATE = "beginDate";
+    public static final String KEY_END_DATE = "endDate";
+    public static final String KEY_SECTIONS = "sections";
 
     // --------------
     // BASE METHODS
@@ -29,7 +32,8 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
 
     @Override
     protected void configureDesign() {
-        this.getIntentDataAndSetToFields();
+        this.getIntentDataAndPutInBundle();
+
         this.configureAndShowArticleListFragment();
         this.configureToolbar();
         this.configureUpButton();
@@ -49,8 +53,8 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
         articleListFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_frame_layout);
 
         if (articleListFragment == null) {
-            articleListFragment = new ArticleListFragment(MyNewsTools.FragmentsKeys.SEARCH_RESULTS_FRAGMENT,
-                    queryTerms, beginDate, endDate, sections);
+            articleListFragment = new ArticleListFragment();
+            articleListFragment.setArguments(getIntentDataAndPutInBundle());
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_search_frame_layout, articleListFragment)
                     .commit();
@@ -58,13 +62,16 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
     }
 
     /**
-     * Get intent data and set to fields.
+     * Get intent data and put in bundle.
      */
-    private void getIntentDataAndSetToFields() {
-        this.queryTerms = getIntent().getStringExtra(QUERY_TERMS);
-        this.beginDate = getIntent().getStringExtra(BEGIN_DATE);
-        this.endDate = getIntent().getStringExtra(END_DATE);
-        this.sections = getIntent().getStringExtra(SECTIONS);
+    private Bundle getIntentDataAndPutInBundle() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_FRAGMENT, MyNewsTools.FragmentsKeys.SEARCH_RESULTS_FRAGMENT);
+        bundle.putString(KEY_QUERY_TERMS, getIntent().getStringExtra(QUERY_TERMS));
+        bundle.putString(KEY_BEGIN_DATE, getIntent().getStringExtra(BEGIN_DATE));
+        bundle.putString(KEY_END_DATE, getIntent().getStringExtra(END_DATE));
+        bundle.putString(KEY_SECTIONS, getIntent().getStringExtra(SECTIONS));
+        return bundle;
     }
 
     // -----------------
@@ -72,8 +79,8 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
     // -----------------
 
     @Override
-    public void onClickedArticle(String clickedArticle) {
-        this.showArticleActivity(clickedArticle);
+    public void onClickedArticle(String articleUrl) {
+        this.showArticleActivity(articleUrl);
     }
 
     // -----------------

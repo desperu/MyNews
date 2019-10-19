@@ -9,9 +9,11 @@ import android.widget.ProgressBar;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.desperu.mynews.Controllers.Activities.ShowArticleActivity;
 import org.desperu.mynews.R;
 
 import butterknife.BindView;
+import icepick.State;
 
 public class ShowArticleFragment extends BaseFragment {
 
@@ -19,7 +21,7 @@ public class ShowArticleFragment extends BaseFragment {
     @BindView(R.id.fragment_show_articles_swipe_container) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.fragment_show_article_progress_bar) ProgressBar progressBar;
 
-    private String articleUrl;
+    @State String articleUrl;
 
     // --------------
     // BASE METHODS
@@ -30,20 +32,32 @@ public class ShowArticleFragment extends BaseFragment {
 
     @Override
     protected void configureDesign() {
-        this.configureAndShowWebViewWithProgressBar(articleUrl);
+        this.setArticleUrl();
+        this.configureAndShowWebViewWithProgressBar();
         this.configureSwipeRefreshLayout();
     }
 
     @Override
     protected void updateDesign() { }
 
-    public ShowArticleFragment(String articleUrl) { this.articleUrl = articleUrl; } // TODO use bundles
+    public ShowArticleFragment() { }
+
+    // --------------
+    // CONFIGURATION
+    // --------------
+
+    /**
+     * Set articleUrl with bundle argument if not null.
+     */
+    private void setArticleUrl() {
+        if (this.getArguments() != null)
+            this.articleUrl = this.getArguments().getString(ShowArticleActivity.KEY_ARTICLE_URL, null);
+    }
 
     /**
      * Configure and show Web View with Progress Bar.
-     * @param articleUrl The url's article.
      */
-    private void configureAndShowWebViewWithProgressBar(String articleUrl) {
+    private void configureAndShowWebViewWithProgressBar() {
 
         // Set progress bar with page loading.
         webView.setWebChromeClient(new WebChromeClient() {
@@ -61,6 +75,7 @@ public class ShowArticleFragment extends BaseFragment {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+                articleUrl = url;
                 progressBar.setProgress(0);
             }
 
@@ -80,6 +95,6 @@ public class ShowArticleFragment extends BaseFragment {
     private void configureSwipeRefreshLayout(){
         swipeRefreshLayout.getViewTreeObserver().addOnScrollChangedListener(() ->
                 swipeRefreshLayout.setEnabled(webView.getScrollY() == 0));
-        swipeRefreshLayout.setOnRefreshListener(() -> configureAndShowWebViewWithProgressBar(articleUrl));
+        swipeRefreshLayout.setOnRefreshListener(this::configureAndShowWebViewWithProgressBar);
     }
 }

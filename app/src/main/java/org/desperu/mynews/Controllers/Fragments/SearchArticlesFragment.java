@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
+import icepick.State;
 
 public class SearchArticlesFragment extends BaseFragment {
 
@@ -45,7 +46,7 @@ public class SearchArticlesFragment extends BaseFragment {
     @BindView(R.id.fragment_search_articles_switch_notifications) Switch switchNotifications;
 
     // Switch between fragment
-    private int fragment;
+    @State int fragmentKey;
     // For spinners
     private ArrayList<String> beginDateListArray;
     private ArrayAdapter<String> beginDateArrayAdapter;
@@ -69,7 +70,7 @@ public class SearchArticlesFragment extends BaseFragment {
 
     @Override
     protected void configureDesign() {
-        this.configureAskedFragment(fragment);
+        this.configureAskedFragment(fragmentKey);
         this.createCallbackToParentActivity();
     }
 
@@ -82,13 +83,13 @@ public class SearchArticlesFragment extends BaseFragment {
 
     public SearchArticlesFragment() {}
 
-    public SearchArticlesFragment(int fragment) { this.fragment = fragment; }
+    public SearchArticlesFragment(int fragmentKey) { this.fragmentKey = fragmentKey; }
 
-    public SearchArticlesFragment(int fragment, ArrayList<String> beginDateListArray,
+    public SearchArticlesFragment(int fragmentKey, ArrayList<String> beginDateListArray,
                                   ArrayAdapter<String> beginDateArrayAdapter,
                                   ArrayList<String> endDateListArray,
                                   ArrayAdapter<String> endDateArrayAdapter) {
-        this.fragment = fragment; // TODO use bundles
+        this.fragmentKey = fragmentKey; // TODO use bundles
         this.beginDateListArray = beginDateListArray;
         this.beginDateArrayAdapter = beginDateArrayAdapter;
         this.endDateListArray = endDateListArray;
@@ -101,10 +102,10 @@ public class SearchArticlesFragment extends BaseFragment {
 
     /**
      * Configure fragment search or notifications and hide unused items.
-     * @param fragment Fragment id.
+     * @param fragmentKey Fragment id.
      */
-    private void configureAskedFragment(int fragment) { // TODO a good thing to switch??
-        switch (fragment) {
+    private void configureAskedFragment(int fragmentKey) { // TODO a good thing to switch??
+        switch (fragmentKey) {
             case MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT :
                 this.configureDateSpinners(spinnerBegin, beginDateListArray, beginDateArrayAdapter);
                 this.configureDateSpinners(spinnerEnd, endDateListArray, endDateArrayAdapter);

@@ -95,9 +95,9 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
     private void showSearchResultsActivity(String queryTerms, String beginDate,
                                            String endDate, String sections) {
         startActivity(new Intent(this, SearchResultsActivity.class)
-                .putExtra(SearchResultsActivity.QUERY_TERMS,queryTerms)
-                .putExtra(SearchResultsActivity.BEGIN_DATE,beginDate)
-                .putExtra(SearchResultsActivity.END_DATE,endDate)
-                .putExtra(SearchResultsActivity.SECTIONS,sections));
+                .putExtra(SearchResultsActivity.QUERY_TERMS, queryTerms)
+                .putExtra(SearchResultsActivity.BEGIN_DATE, beginDate)
+                .putExtra(SearchResultsActivity.END_DATE, endDate)
+                .putExtra(SearchResultsActivity.SECTIONS, sections));
     }
 }

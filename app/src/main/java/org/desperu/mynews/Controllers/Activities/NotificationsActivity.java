@@ -12,6 +12,8 @@ import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.NotificationsAlarmService;
 
+import java.util.Objects;
+
 public class NotificationsActivity extends BaseActivity implements SearchArticlesFragment.OnClickedActionListener{
 
     private SearchArticlesFragment searchArticlesFragment;
@@ -93,7 +95,8 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
      */
     private void startNotificationsAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        Objects.requireNonNull(manager).setRepeating(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_DAY, pendingIntent);
         Toast.makeText(this, R.string.toast_notification_enable, Toast.LENGTH_SHORT).show();
     }
 
@@ -102,7 +105,7 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
      */
     private void stopNotificationsAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.cancel(pendingIntent);
+        Objects.requireNonNull(manager).cancel(pendingIntent);
         Toast.makeText(this, R.string.toast_notification_disable, Toast.LENGTH_SHORT).show();
     }
 }
