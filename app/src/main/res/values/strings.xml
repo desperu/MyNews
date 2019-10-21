@@ -45,6 +45,7 @@
     <!-- Enable / Disable notifications -->
     <string name="toast_notification_enable">Notification enabled !</string>
     <string name="toast_notification_disable">Notification disabled !</string>
+    <string name="toast_notification_data_saved">Notification data were saved !</string>
     <!-- Notifications body -->
     <string name="notification_title">New articles to show !</string>
     <string name="notification_text"> news articles were published !</string>

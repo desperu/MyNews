@@ -152,9 +152,12 @@ public class SearchArticlesFragment extends BaseFragment {
      * Save notification layout data.
      */
     private void saveNotificationsFragmentData() {
-        MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SWITCH_STATE, switchNotifications.isChecked());
-        MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
-        MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, getCheckboxesSections());
+        if (fragmentKey == MyNewsTools.FragmentsKeys.NOTIFICATION_FRAGMENT) {
+            MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SWITCH_STATE, switchNotifications.isChecked());
+            MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
+            MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, getCheckboxesSections());
+            Toast.makeText(getContext(), R.string.toast_notification_data_saved, Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -183,7 +186,6 @@ public class SearchArticlesFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         this.saveNotificationsFragmentData();
-        Toast.makeText(getContext(), R.string.toast_notification_data_saved, Toast.LENGTH_LONG).show();
     }
 
     // --------------

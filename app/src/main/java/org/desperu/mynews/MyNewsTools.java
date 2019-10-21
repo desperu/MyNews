@@ -21,7 +21,7 @@ public final class MyNewsTools {
         public static final int DATE_LIMIT = 365;
 
         // Spinner begin, default date.
-        public static final String BEGIN_DATE_DEFAULT = "01/10/1000";
+        public static final String BEGIN_DATE_DEFAULT = "01/01/1800";
     }
 
     /**
@@ -33,6 +33,7 @@ public final class MyNewsTools {
         public static final String CURRENT_PAGE = "CurrentPage";
 
         // SearchArticlesFragment, for notifications.
+        public static final String NOTIFICATION_SWITCH_STATE = "NotificationSwitchState";
         public static final String NOTIFICATION_QUERY_TERMS = "NotificationQueryTerms";
         public static final String NOTIFICATION_SECTIONS = "NotificationsSections";
     }
