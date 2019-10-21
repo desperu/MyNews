@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -132,6 +133,19 @@ public class MyNewsUtilsTest {
         ArrayList<String> sections = new ArrayList<>();
 
         output = MyNewsUtils.concatenateStringSectionsFromArrayList(sections);
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void Given_stringSection_When_askDeConcatenateStringSectionsToArrayList_Then_checkArrayList() {
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("Politics");
+        expected.add("Business");
+        expected.add("Entrepreneurs");
+        expected.add("Arts");
+        String sections = "news_desk.contains:(\"Politics\" \"Business\" \"Entrepreneurs\" \"Arts\")";
+        List<String> output = MyNewsUtils.deConcatenateStringSectionToArrayList(sections);
 
         assertEquals(expected, output);
     }

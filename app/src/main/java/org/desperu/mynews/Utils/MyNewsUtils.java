@@ -3,7 +3,9 @@ package org.desperu.mynews.Utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class MyNewsUtils {
@@ -18,7 +20,7 @@ public class MyNewsUtils {
         SimpleDateFormat completeDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
         SimpleDateFormat mediumDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault()); // TODO date decal ... for search, because it's not same time around the world!!!
 
         if (givenDate.length() > 24) givenDateFormat = completeDateFormat;
         else if (givenDate.length() > 10) givenDateFormat = mediumDateFormat;
@@ -97,5 +99,23 @@ public class MyNewsUtils {
         }
         sections.append(")");
         return sections.toString();
+    }
+
+    /**
+     * DeConcatenate string sections to List of string.
+     * @param sections The concatenated sections string.
+     * @return List of sections.
+     */
+    public static List<String> deConcatenateStringSectionToArrayList(String sections) {
+        String[] str = sections.split(" ");
+        List<String> list = Arrays.asList(str);
+
+        for (int i = 0; i < list.size(); i++) {
+            if (i == 0) list.set(i, list.get(i).replace("news_desk.contains:(\"", ""));
+            list.set(i, list.get(i).replaceAll("\"", ""));
+            if (i == list.size() - 1) list.set(i, list.get(i).replace(")", ""));
+        }
+
+        return list;
     }
 }

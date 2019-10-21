@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -21,6 +22,7 @@ import org.desperu.mynews.Utils.MyNewsUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -81,6 +83,7 @@ public class SearchArticlesFragment extends BaseFragment {
     @Override
     protected void configureDesign() {
         this.setFragmentKey();
+        this.restoreNotificationData();
         this.configureAskedFragment(fragmentKey);
     }
 
@@ -139,6 +142,48 @@ public class SearchArticlesFragment extends BaseFragment {
         textViewEndDate.setVisibility(View.GONE);
         showEndDate.setVisibility(View.GONE);
         endDateDivider.setVisibility(View.GONE);
+    }
+
+    // --------------
+    // NOTIFICATION DATA MANAGEMENT
+    // --------------
+
+    /**
+     * Save notification layout data.
+     */
+    private void saveNotificationsFragmentData() {
+        MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SWITCH_STATE, switchNotifications.isChecked());
+        MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
+        MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, getCheckboxesSections());
+    }
+
+    /**
+     * Restore notification layout data.
+     */
+    private void restoreNotificationData() {
+        if (fragmentKey == MyNewsTools.FragmentsKeys.NOTIFICATION_FRAGMENT) {
+            switchNotifications.setChecked(MyNewsPrefs.getBoolean(getContext(), MyNewsTools.Keys.NOTIFICATION_SWITCH_STATE, false));
+            searchEditText.setText(MyNewsPrefs.getString(getContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, null));
+            String sections = MyNewsPrefs.getString(getContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, null);
+            if (sections != null) {
+                List<String> sectionList = MyNewsUtils.deConcatenateStringSectionToArrayList(sections);
+                for ( int i = 0; i < sectionList.size(); i++) {
+                    if (sectionList.get(i).equals(getString(R.string.fragment_search_articles_checkbox_arts))) checkBoxArts.setChecked(true);
+                    if (sectionList.get(i).equals(getString(R.string.fragment_search_articles_checkbox_business))) checkBoxBusiness.setChecked(true);
+                    if (sectionList.get(i).equals(getString(R.string.fragment_search_articles_checkbox_entrepreneurs))) checkBoxEntrepreneurs.setChecked(true);
+                    if (sectionList.get(i).equals(getString(R.string.fragment_search_articles_checkbox_politics))) checkBoxPolitics.setChecked(true);
+                    if (sectionList.get(i).equals(getString(R.string.fragment_search_articles_checkbox_sports))) checkBoxSports.setChecked(true);
+                    if (sectionList.get(i).equals(getString(R.string.fragment_search_articles_checkbox_travel))) checkBoxTravel.setChecked(true);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.saveNotificationsFragmentData();
+        Toast.makeText(getContext(), R.string.toast_notification_data_saved, Toast.LENGTH_LONG).show();
     }
 
     // --------------
@@ -219,12 +264,13 @@ public class SearchArticlesFragment extends BaseFragment {
                         getSelectedDatePicker(beginDate, 0),
                         getSelectedDatePicker(endDate, 1),
                         getCheckboxesSections());
-            } else {
-//                searchCallback.OnClickSearchListener(getSearchQueryTerms(),
-////                        getSpinnersDates(spinnerBegin, beginDateListArray),
-////                        getSpinnersDates(spinnerEnd, endDateListArray),
-//                        getCheckboxesSections());
             }
+//            } else {
+//                searchCallback.OnClickSearchListener(getSearchQueryTerms(),
+//                        getSpinnersDates(spinnerBegin, beginDateListArray),
+//                        getSpinnersDates(spinnerEnd, endDateListArray),
+//                        getCheckboxesSections());
+//            }
         });
     }
 
@@ -237,9 +283,8 @@ public class SearchArticlesFragment extends BaseFragment {
                 if (getCheckboxesSections().isEmpty()) {
                     this.errorNoSectionSelectedDialog();
                     switchNotifications.setChecked(false);
-                } else { // TODO onPause save selected state, and onResume restore
-                    MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
-                    MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, getCheckboxesSections());
+                } else {
+                    this.saveNotificationsFragmentData();
                     notificationCallback.OnClickNotificationListener(true);
                 }
             } else notificationCallback.OnClickNotificationListener(false);
