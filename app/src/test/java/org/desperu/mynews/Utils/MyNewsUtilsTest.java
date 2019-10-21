@@ -64,6 +64,28 @@ public class MyNewsUtilsTest {
     }
 
     @Test
+    public void Given_intDateMonthSeptember_When_askConcatenateIntDateToString_Then_checkStringDate() {
+        int day = 1;
+        int month = 8;
+        int year = 2019;
+        output = MyNewsUtils.concatenateIntDateToString(day, month, year);
+
+        String expected ="01/09/2019";
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void Given_intDateMonthNovember_When_askConcatenateIntDateToString_Then_checkStringDate() {
+        int day = 21;
+        int month = 10;
+        int year = 2019;
+        output = MyNewsUtils.concatenateIntDateToString(day, month, year);
+
+        String expected ="21/11/2019";
+        assertEquals(expected, output);
+    }
+
+    @Test
     public void Given_dateObject_When_askDateToString_Then_checkNewDateFormat() {
         String expected = "15/10/2019";
         Calendar calendar = Calendar.getInstance();
@@ -76,8 +98,8 @@ public class MyNewsUtilsTest {
 
     @Test
     public void Given_dateFormat_When_askChangeDateFormat_Then_checkNewDateFormat() {
-        String givenDate = "15/10/2019";
-        String returnedDate = "20191015";
+        String givenDate = "5/9/2019";
+        String returnedDate = "20190905";
         output = MyNewsUtils.changeDateFormat(givenDate);
 
         assertEquals(returnedDate, output);

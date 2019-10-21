@@ -1,6 +1,8 @@
 package org.desperu.mynews.Controllers.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.ArrayAdapter;
 
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
@@ -9,15 +11,10 @@ import org.desperu.mynews.R;
 
 import java.util.ArrayList;
 
-public class SearchArticlesActivity extends BaseActivity implements SearchArticlesFragment.OnClickedActionListener {
+public class SearchArticlesActivity extends BaseActivity implements SearchArticlesFragment.OnClickedSearchButtonListener {
 
     private SearchArticlesFragment searchArticlesFragment;
-
-    // For spinners
-    private ArrayList<String> beginDateListArray;
-    private ArrayAdapter<String> beginDateArrayAdapter;
-    private ArrayList<String> endDateListArray;
-    private ArrayAdapter<String> endDateArrayAdapter;
+    public static final String KEY_FRAGMENT = "fragmentKey";
 
     // --------------
     // BASE METHODS
@@ -28,7 +25,6 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
 
     @Override
     protected void configureDesign() {
-        this.configureArrayAdapter();
         this.configureAndShowSearchArticlesFragment();
         this.configureToolbar();
         this.configureUpButton();
@@ -48,24 +44,14 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
         searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_frame_layout);
 
         if (searchArticlesFragment == null) {
-            searchArticlesFragment = new SearchArticlesFragment(MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT,
-                    beginDateListArray, beginDateArrayAdapter, endDateListArray, endDateArrayAdapter);
+            searchArticlesFragment = new SearchArticlesFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(KEY_FRAGMENT, MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT);
+            searchArticlesFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_search_frame_layout, searchArticlesFragment)
                     .commit();
         }
-    }
-
-    /**
-     * Configure Array adapter for dates spinners.
-     */
-    private void configureArrayAdapter() {
-        beginDateListArray = new ArrayList<>();
-        beginDateArrayAdapter = new ArrayAdapter<>(SearchArticlesActivity.this,
-                R.layout.layout_spinner, beginDateListArray);
-        endDateListArray = new ArrayList<>();
-        endDateArrayAdapter = new ArrayAdapter<>(SearchArticlesActivity.this,
-                R.layout.layout_spinner, endDateListArray);
     }
 
     // -----------------
@@ -73,13 +59,10 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
     // -----------------
 
     @Override
-    public void OnClickedSearchButton(String queryTerms, String beginDate,
-                                      String endDate, String sections) {
+    public void OnClickSearchListener(String queryTerms, String beginDate,
+                                String endDate, String sections) {
         this.showSearchResultsActivity(queryTerms, beginDate, endDate, sections);
     }
-
-    @Override
-    public void OnClickedNotificationSwitch(boolean isChecked) { }
 
     // -----------------
     // ACTIVITY

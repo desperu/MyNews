@@ -1,15 +1,18 @@
 package org.desperu.mynews.Controllers.Fragments;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.os.Build;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
+import org.desperu.mynews.Controllers.Activities.SearchArticlesActivity;
 import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.MyNewsPrefs;
@@ -18,6 +21,7 @@ import org.desperu.mynews.Utils.MyNewsUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import butterknife.BindView;
 import icepick.State;
@@ -26,12 +30,12 @@ public class SearchArticlesFragment extends BaseFragment {
 
     // Edit text to enter query search terms
     @BindView(R.id.fragment_search_articles_edit_text) EditText searchEditText;
-    // Spinners, text view and dividers for begin date and end date.
+    // Date picker, text view and dividers for begin date and end date.
     @BindView(R.id.fragment_search_articles_text_view_begin_date) TextView textViewBeginDate;
-    @BindView(R.id.fragment_search_articles_spinner_begin) Spinner spinnerBegin;
+    @BindView(R.id.fragment_search_articles_text_view_date_picker_begin) TextView showBeginDate;
     @BindView(R.id.fragment_search_articles_begin_date_divider) View beginDateDivider;
     @BindView(R.id.fragment_search_articles_text_view_end_date) TextView textViewEndDate;
-    @BindView(R.id.fragment_search_articles_spinner_end) Spinner spinnerEnd;
+    @BindView(R.id.fragment_search_articles_text_view_date_picker_end) TextView showEndDate;
     @BindView(R.id.fragment_search_articles_end_date_divider) View endDateDivider;
     // Check boxes to select section.
     @BindView(R.id.fragment_search_articles_checkbox_arts) CheckBox checkBoxArts;
@@ -47,19 +51,25 @@ public class SearchArticlesFragment extends BaseFragment {
 
     // Switch between fragment
     @State int fragmentKey;
-    // For spinners
-    private ArrayList<String> beginDateListArray;
-    private ArrayAdapter<String> beginDateArrayAdapter;
-    private ArrayList<String> endDateListArray;
-    private ArrayAdapter<String> endDateArrayAdapter;
+    // Date picker
+    private DatePickerDialog.OnDateSetListener datePickerBegin;
+    private DatePickerDialog.OnDateSetListener datePickerEnd;
+    private String beginDate = "";
+    private String endDate = "";
 
-    // Callback
-    public interface OnClickedActionListener {
-        void OnClickedSearchButton(String queryTerms, String beginDate, String endDate, String sections);
-        void OnClickedNotificationSwitch(boolean isChecked);
+    // Callback Search button
+    public interface OnClickedSearchButtonListener {
+        void OnClickSearchListener(String queryTerms, String beginDate, String endDate, String sections);
     }
 
-    private SearchArticlesFragment.OnClickedActionListener mCallback;
+    private SearchArticlesFragment.OnClickedSearchButtonListener searchCallback;
+
+    // Callback Notification Switch
+    public interface OnClickedNotificationSwitchListener {
+        void OnClickNotificationListener(boolean isChecked);
+    }
+
+    private SearchArticlesFragment.OnClickedNotificationSwitchListener notificationCallback;
 
     // --------------
     // BASE METHODS
@@ -70,60 +80,65 @@ public class SearchArticlesFragment extends BaseFragment {
 
     @Override
     protected void configureDesign() {
+        this.setFragmentKey();
         this.configureAskedFragment(fragmentKey);
-        this.createCallbackToParentActivity();
     }
 
     @Override
     protected void updateDesign() { }
 
     // --------------
-    // CONSTRUCTORS
+    // CONSTRUCTOR
     // --------------
 
     public SearchArticlesFragment() {}
-
-    public SearchArticlesFragment(int fragmentKey) { this.fragmentKey = fragmentKey; }
-
-    public SearchArticlesFragment(int fragmentKey, ArrayList<String> beginDateListArray,
-                                  ArrayAdapter<String> beginDateArrayAdapter,
-                                  ArrayList<String> endDateListArray,
-                                  ArrayAdapter<String> endDateArrayAdapter) {
-        this.fragmentKey = fragmentKey; // TODO use bundles
-        this.beginDateListArray = beginDateListArray;
-        this.beginDateArrayAdapter = beginDateArrayAdapter;
-        this.endDateListArray = endDateListArray;
-        this.endDateArrayAdapter = endDateArrayAdapter;
-    }
 
     // --------------
     // CONFIGURATION
     // --------------
 
     /**
+     * Set fragmentKey with bundle argument if not null.
+     */
+    private void setFragmentKey() {
+        assert getArguments() != null;
+        this.fragmentKey = getArguments().getInt(SearchArticlesActivity.KEY_FRAGMENT, 0);
+    }
+
+    /**
      * Configure fragment search or notifications and hide unused items.
      * @param fragmentKey Fragment id.
      */
-    private void configureAskedFragment(int fragmentKey) { // TODO a good thing to switch??
+    private void configureAskedFragment(int fragmentKey) {
         switch (fragmentKey) {
             case MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT :
-                this.configureDateSpinners(spinnerBegin, beginDateListArray, beginDateArrayAdapter);
-                this.configureDateSpinners(spinnerEnd, endDateListArray, endDateArrayAdapter);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    this.configureDatePicker();
+                } else this.hideDateItems(); // TODO EditText for API < 24 ??
                 this.configureSearchButtonOnClickListener();
+                this.createSearchCallbackToParentActivity();
                 bottomDivider.setVisibility(View.GONE);
                 switchNotifications.setVisibility(View.GONE);
                 break;
             case MyNewsTools.FragmentsKeys.NOTIFICATION_FRAGMENT :
                 this.configureNotificationSwitchListener();
-                textViewBeginDate.setVisibility(View.GONE);
-                spinnerBegin.setVisibility(View.GONE);
-                beginDateDivider.setVisibility(View.GONE);
-                textViewEndDate.setVisibility(View.GONE);
-                spinnerEnd.setVisibility(View.GONE);
-                endDateDivider.setVisibility(View.GONE);
+                this.createNotificationCallbackToParentActivity();
+                this.hideDateItems();
                 buttonSearch.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    /**
+     * Hide date layout items.
+     */
+    private void hideDateItems() {
+        textViewBeginDate.setVisibility(View.GONE);
+        showBeginDate.setVisibility(View.GONE);
+        beginDateDivider.setVisibility(View.GONE);
+        textViewEndDate.setVisibility(View.GONE);
+        showEndDate.setVisibility(View.GONE);
+        endDateDivider.setVisibility(View.GONE);
     }
 
     // --------------
@@ -131,69 +146,62 @@ public class SearchArticlesFragment extends BaseFragment {
     // --------------
 
     /**
-     * Configure callback to parent activity for manage click item.
+     * Configure callback search button to parent activity for manage click item.
      */
-    private void createCallbackToParentActivity(){
+    private void createSearchCallbackToParentActivity(){
         try {
-            mCallback = (SearchArticlesFragment.OnClickedActionListener) getActivity();
+            searchCallback = (SearchArticlesFragment.OnClickedSearchButtonListener) getActivity();
         } catch (ClassCastException e) {
-            throw new ClassCastException(e.toString()+ " must implement OnClickedActionListener");
-        }
-    }
-
-    // --------------
-    // SPINNERS // TODO use datePicker
-    // --------------
-
-    /**
-     * Configure date spinners.
-     */
-    private void configureDateSpinners(Spinner spinner, ArrayList<String> dateArrayList,
-                                       ArrayAdapter<String> arrayAdapter) {
-        this.configureDateArrayList(dateArrayList);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setSelection(0);
-        spinner.setOnLongClickListener(v -> {
-            editDateDialog(v, dateArrayList, arrayAdapter);
-            return true;
-        });
-    }
-
-    /**
-     * Configure array list date.
-     * @param dateArrayList Array list to configure.
-     */
-    private void configureDateArrayList(ArrayList<String> dateArrayList) {
-        dateArrayList.add(0, "");
-        for (int i = 0; i <= MyNewsTools.Constant.DATE_LIMIT; i++) {
-            Date currentDate = new Date();
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(currentDate);
-            cal.add(Calendar.DATE, -i);
-            dateArrayList.add(i + 1, MyNewsUtils.dateToString(cal.getTime()));
+            throw new ClassCastException(e.toString()+ " must implement OnClickedSearchButtonListener");
         }
     }
 
     /**
-     * Edit spinner date dialog.
-     * @param v Spinner view from this method is called.
-     * @param dateArrayList Date array list given.
-     * @param arrayAdapter Array adapter given.
+     * Configure callback notification switch to parent activity for manage click item.
      */
-    private void editDateDialog(View v, ArrayList<String> dateArrayList, ArrayAdapter<String> arrayAdapter) {
-        AlertDialog.Builder editDate = new AlertDialog.Builder(getContext());
-        if (v.getId() == spinnerBegin.getId()) editDate.setTitle(R.string.dialog_spinners_edit_begin_date_title);
-        if (v.getId() == spinnerEnd.getId()) editDate.setTitle(R.string.dialog_spinners_edit_end_date_title);
-        editDate.setMessage(R.string.dialog_spinners_edit_date_message);
-        final EditText editText = new EditText(getContext());
-        editDate.setView(editText);
-        editDate.setPositiveButton(R.string.dialog_spinners_edit_date_positive_button, (dialog, which) -> {
-            dateArrayList.set(0, String.valueOf(editText.getText()));
-            arrayAdapter.notifyDataSetChanged();
-            dialog.cancel();
-        });
-        editDate.setNegativeButton(R.string.dialog_spinners_edit_date_negative_button, (dialog, which) -> dialog.cancel());
-        editDate.show();
+    private void createNotificationCallbackToParentActivity(){
+        try {
+            notificationCallback = (SearchArticlesFragment.OnClickedNotificationSwitchListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(e.toString()+ " must implement OnClickedNotificationSwitchListener");
+        }
+    }
+
+    // --------------
+    // DATE PICKER API >= 24
+    // --------------
+
+    /**
+     * Configure date picker.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void configureDatePicker() {
+        showBeginDate.setOnClickListener(v -> configureDatePickerDialog(datePickerBegin));
+        datePickerBegin = (view, year, month, dayOfMonth) -> {
+            beginDate = MyNewsUtils.concatenateIntDateToString(dayOfMonth, month, year);
+            showBeginDate.setText(beginDate);
+        };
+        showEndDate.setOnClickListener(v -> configureDatePickerDialog(datePickerEnd));
+        datePickerEnd = (view, year, month, dayOfMonth) -> {
+                endDate = MyNewsUtils.concatenateIntDateToString(dayOfMonth, month, year);
+                showEndDate.setText(endDate);
+        };
+    }
+
+    /**
+     * Configure Date picker dialog.
+     * @param dateSetListener Date picker dialog listener.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void configureDatePickerDialog(DatePickerDialog.OnDateSetListener dateSetListener) {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int monthOfYear = cal.get(Calendar.MONTH);
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                Objects.requireNonNull(getActivity()), R.style.DatePickerDialogTheme,
+                dateSetListener, year, monthOfYear, dayOfMonth);
+        datePickerDialog.show();
     }
 
     // -----------------
@@ -206,11 +214,16 @@ public class SearchArticlesFragment extends BaseFragment {
     private void configureSearchButtonOnClickListener() {
         buttonSearch.setOnClickListener(v -> {
             if (getCheckboxesSections().isEmpty()) this.errorNoSectionSelectedDialog();
-            else {
-                mCallback.OnClickedSearchButton(getSearchQueryTerms(),
-                        getSpinnersDates(spinnerBegin, beginDateListArray),
-                        getSpinnersDates(spinnerEnd, endDateListArray),
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                searchCallback.OnClickSearchListener(getSearchQueryTerms(),
+                        getSelectedDatePicker(beginDate, 0),
+                        getSelectedDatePicker(endDate, 1),
                         getCheckboxesSections());
+            } else {
+//                searchCallback.OnClickSearchListener(getSearchQueryTerms(),
+////                        getSpinnersDates(spinnerBegin, beginDateListArray),
+////                        getSpinnersDates(spinnerEnd, endDateListArray),
+//                        getCheckboxesSections());
             }
         });
     }
@@ -224,12 +237,12 @@ public class SearchArticlesFragment extends BaseFragment {
                 if (getCheckboxesSections().isEmpty()) {
                     this.errorNoSectionSelectedDialog();
                     switchNotifications.setChecked(false);
-                } else {
+                } else { // TODO onPause save selected state, and onResume restore
                     MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
                     MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, getCheckboxesSections());
-                    mCallback.OnClickedNotificationSwitch(true);
+                    notificationCallback.OnClickNotificationListener(true);
                 }
-            } else mCallback.OnClickedNotificationSwitch(false);
+            } else notificationCallback.OnClickNotificationListener(false);
         });
     }
 
@@ -260,14 +273,13 @@ public class SearchArticlesFragment extends BaseFragment {
     }
 
     /**
-     * Get spinners dates selected.
+     * Get date picker selected.
      */
-    private String getSpinnersDates(Spinner spinner, ArrayList<String> dateArrayList) {
-        String selectedDate = dateArrayList.get(spinner.getSelectedItemPosition());
+    private String getSelectedDatePicker(String selectedDate, int when) {
         if (selectedDate.length() == 0) {
-            if (spinner.getId() == spinnerBegin.getId())
+            if (when == 0)
                 selectedDate = MyNewsTools.Constant.BEGIN_DATE_DEFAULT;
-            if (spinner.getId() == spinnerEnd.getId())
+            if (when == 1)
                 selectedDate = MyNewsUtils.dateToString(new Date());
         }
         return MyNewsUtils.changeDateFormat(selectedDate);

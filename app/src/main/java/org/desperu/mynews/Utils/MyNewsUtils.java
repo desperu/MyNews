@@ -18,7 +18,7 @@ public class MyNewsUtils {
         SimpleDateFormat completeDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
         SimpleDateFormat mediumDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.US);
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
 
         if (givenDate.length() > 24) givenDateFormat = completeDateFormat;
         else if (givenDate.length() > 10) givenDateFormat = mediumDateFormat;
@@ -31,6 +31,24 @@ public class MyNewsUtils {
             e.printStackTrace();
             return "An error occurred !";
         }
+    }
+
+    /**
+     * Concatenate date from int to string.
+     * @param day Selected day.
+     * @param month Selected month.
+     * @param year Selected year.
+     * @return String date.
+     */
+    public static String concatenateIntDateToString(int day, int month, int year) {
+        month += 1;
+        String stringDay;
+        if (day < 10) stringDay = "0"+day;
+        else stringDay = String.valueOf(day);
+        String stringMonth;
+        if (month < 10) stringMonth = "0"+month;
+        else stringMonth = String.valueOf(month);
+        return stringDay+"/"+stringMonth+"/"+year;
     }
 
     /**
@@ -50,7 +68,7 @@ public class MyNewsUtils {
      */
     public static String changeDateFormat(String givenDate) {
         SimpleDateFormat givenDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.US);
 
         try {
             Date date = givenDateFormat.parse(givenDate);
@@ -63,7 +81,7 @@ public class MyNewsUtils {
 
     /**
      * Concatenate array list of sections to good string format for API request.
-     * @param arrayList The given sections array list;
+     * @param arrayList The given sections array list.
      * @return String good format for API request.
      */
     public static String concatenateStringSectionsFromArrayList(ArrayList<String> arrayList) {
