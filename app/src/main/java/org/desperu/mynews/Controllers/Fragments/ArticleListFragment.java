@@ -1,9 +1,9 @@
 package org.desperu.mynews.Controllers.Fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -188,10 +188,11 @@ public class ArticleListFragment extends BaseFragment {
             public void onNext(NyTimesAPI nyTimesAPI) {
                 if (nyTimesAPI.getResults() != null)
                     updateUI(nyTimesAPI.getResults());
-                else if (nyTimesAPI.getResponse().getResults() != null) // TODO isEmpty ??
+                else if (nyTimesAPI.getResponse().getResults().size() > 0) // TODO isEmpty ??
                     updateUI(nyTimesAPI.getResponse().getResults());
-                else // TODO alert dialog
-                    Toast.makeText(getContext(), "No result", Toast.LENGTH_LONG).show();
+                else if (nyTimesAPI.getResponse().getResults().size() == 0) {// TODO alert dialog
+                    noResponseDialog();
+                }
             }
 
             @Override
@@ -239,5 +240,19 @@ public class ArticleListFragment extends BaseFragment {
         this.nyTimesResults.addAll(nyTimesResults);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    /**
+     * Dialog if no response for retrofit http request.
+     */
+    private void noResponseDialog() {
+        AlertDialog.Builder noResponse = new AlertDialog.Builder(getContext());
+        noResponse.setTitle(R.string.fragment_article_list_dialog_no_response_title);
+        noResponse.setMessage(R.string.fragment_article_list_dialog_no_response_message);
+        noResponse.setPositiveButton(R.string.fragment_article_list_dialog_no_response_positive_button, (dialog, which) -> {
+            dialog.cancel();
+            Objects.requireNonNull(getActivity()).onBackPressed();
+        } );
+        noResponse.show();
     }
 }
