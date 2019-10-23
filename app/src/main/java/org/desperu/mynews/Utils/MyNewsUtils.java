@@ -18,7 +18,7 @@ public class MyNewsUtils {
     public static String convertDate(String givenDate) {
         SimpleDateFormat givenDateFormat;
         SimpleDateFormat completeDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
-        SimpleDateFormat mediumDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
+        SimpleDateFormat mediumDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH); // TODO problem for search with local time!!
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault()); // TODO date decal ... for search, because it's not same time around the world!!!
 
@@ -84,7 +84,7 @@ public class MyNewsUtils {
      * @return String date with new format.
      */
     public static String dateToStringForNyTimes(Date givenDate) {
-        SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.US);
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.US); // TODO problem for search with local time!!
         return newDateFormat.format(givenDate);
     }
 

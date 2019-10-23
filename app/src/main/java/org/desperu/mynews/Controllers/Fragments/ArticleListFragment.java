@@ -188,9 +188,9 @@ public class ArticleListFragment extends BaseFragment {
             public void onNext(NyTimesAPI nyTimesAPI) {
                 if (nyTimesAPI.getResults() != null)
                     updateUI(nyTimesAPI.getResults());
-                else if (nyTimesAPI.getResponse().getResults().size() > 0) // TODO isEmpty ??
+                else if (nyTimesAPI.getResponse().getResults().size() > 0)
                     updateUI(nyTimesAPI.getResponse().getResults());
-                else if (nyTimesAPI.getResponse().getResults().size() == 0) {// TODO alert dialog
+                else if (nyTimesAPI.getResponse().getResults().size() == 0) {
                     noResponseDialog();
                 }
             }

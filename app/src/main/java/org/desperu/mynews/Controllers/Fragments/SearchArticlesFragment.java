@@ -264,19 +264,15 @@ public class SearchArticlesFragment extends BaseFragment {
      */
     private void configureSearchButtonOnClickListener() {
         buttonSearch.setOnClickListener(v -> {
-            if (getCheckboxesSections().isEmpty()) this.errorNoSectionSelectedDialog();
-            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                searchCallback.OnClickSearchListener(getSearchQueryTerms(),
+            if (getCheckboxesSections().isEmpty()) this.searchErrorDialog(0);
+            else if (Integer.parseInt(getSelectedDatePicker(beginDate, 0))
+                    > Integer.parseInt(getSelectedDatePicker(endDate, 1)))
+                this.searchErrorDialog(1);
+            else { searchCallback.OnClickSearchListener(getSearchQueryTerms(),
                         getSelectedDatePicker(beginDate, 0),
                         getSelectedDatePicker(endDate, 1),
                         getCheckboxesSections());
             }
-//            } else {
-//                searchCallback.OnClickSearchListener(getSearchQueryTerms(),
-//                        getSpinnersDates(spinnerBegin, beginDateListArray),
-//                        getSpinnersDates(spinnerEnd, endDateListArray),
-//                        getCheckboxesSections());
-//            }
         });
     }
 
@@ -287,7 +283,7 @@ public class SearchArticlesFragment extends BaseFragment {
         switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 if (getCheckboxesSections().isEmpty()) {
-                    this.errorNoSectionSelectedDialog();
+                    this.searchErrorDialog(0);
                     switchNotifications.setChecked(false);
                 } else {
                     notificationCallback.OnClickNotificationListener(true);
@@ -324,25 +320,33 @@ public class SearchArticlesFragment extends BaseFragment {
 
     /**
      * Get date picker selected.
+     * @param selectedDate Date picker selected date.
+     * @param beginOrEndDate To differentiate beginDate and endDate.
+     * @return Corresponding string date.
      */
-    private String getSelectedDatePicker(String selectedDate, int when) {
+    private String getSelectedDatePicker(String selectedDate, int beginOrEndDate) {
         if (selectedDate.length() == 0) {
-            if (when == 0)
+            if (beginOrEndDate == 0)
                 selectedDate = MyNewsTools.Constant.BEGIN_DATE_DEFAULT;
-            if (when == 1)
+            if (beginOrEndDate == 1)
                 selectedDate = MyNewsUtils.dateToString(new Date());
         }
         return MyNewsUtils.dateToStringForNyTimes(MyNewsUtils.stringToDate(selectedDate));
     }
 
     /**
-     * Create and show dialog box when no section selected.
+     * Create and show dialog box when no section selected or beginDate is bigger than endDate.
      */
-    private void errorNoSectionSelectedDialog() {
+    private void searchErrorDialog(int sectionsOrDates) {
         AlertDialog.Builder errorNoSection = new AlertDialog.Builder(getContext());
-        errorNoSection.setTitle(R.string.dialog_no_section_title);
-        errorNoSection.setMessage(R.string.dialog_no_section_message);
-        errorNoSection.setPositiveButton(R.string.dialog_no_section_positive_button, (dialog, which) -> dialog.cancel());
+        if (sectionsOrDates == 0) {
+            errorNoSection.setTitle(R.string.fragment_search_articles_dialog_no_section_title);
+            errorNoSection.setMessage(R.string.fragment_search_articles_dialog_no_section_message);
+        } else if (sectionsOrDates == 1) {
+            errorNoSection.setTitle(R.string.fragment_search_articles_dialog_date_problem_title);
+            errorNoSection.setMessage(R.string.fragment_search_articles_dialog_date_problem_message);
+        }
+        errorNoSection.setPositiveButton(R.string.fragment_search_articles_dialog_no_section_positive_button, (dialog, which) -> dialog.cancel());
         errorNoSection.show();
     }
 }
