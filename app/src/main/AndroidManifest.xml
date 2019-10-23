@@ -33,7 +33,7 @@
         <activity
             android:name=".Controllers.Activities.SearchResultsActivity"
             android:label="@string/search_results_activity"
-            android:parentActivityName=".Controllers.Activities.SearchArticlesActivity" />
+            android:parentActivityName=".Controllers.Activities.MainActivity" />
         <activity
             android:name=".Controllers.Activities.NotificationsActivity"
             android:label="@string/notifications_activity"

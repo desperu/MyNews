@@ -10,9 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
-import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
-import org.desperu.mynews.Utils.MyNewsPrefs;
 import org.desperu.mynews.Views.MyNewsAdapter;
 
 import butterknife.BindView;
@@ -32,11 +30,10 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     protected void configureDesign() {
         this.configureToolbar();
         this.configureViewPagerAndTabs();
-//        this.onRestoreTab();
     }
 
     @Override
-    protected void updateDesign() { this.onRestoreTab();}
+    protected void updateDesign() { }
 
     // -----------------
     // CONFIGURATION
@@ -52,23 +49,6 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
         TabLayout tabLayout = findViewById(R.id.activity_main_tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-    }
-
-    //TODO check
-    /**
-     * Restore selected tab before switch activity.
-     */
-    private void onRestoreTab() {
-        int selectedTab = MyNewsPrefs.getInt(getBaseContext(), MyNewsTools.Keys.CURRENT_PAGE, -1);
-        if (selectedTab >= 0 && selectedTab <= MyNewsTools.Constant.numberOfPage)
-            viewPager.setCurrentItem(selectedTab);
-    }
-
-    // TODO good thing??
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MyNewsPrefs.savePref(getBaseContext(), MyNewsTools.Keys.CURRENT_PAGE, viewPager.getCurrentItem());
     }
 
     // -----------------

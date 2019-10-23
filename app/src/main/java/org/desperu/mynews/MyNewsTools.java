@@ -17,10 +17,7 @@ public final class MyNewsTools {
         public static final String apiKey = "rWAsKkWDKqfM3G5yBmm37TmPHTSrLznA";
 
         // SearchArticlesFragment
-        // Spinner date limit search in past, in days.
-        public static final int DATE_LIMIT = 365;
-
-        // Spinner begin, default date.
+        // Begin date, default value for api request.
         public static final String BEGIN_DATE_DEFAULT = "01/01/1800";
     }
 
@@ -28,9 +25,6 @@ public final class MyNewsTools {
      * Keys for shared preferences.
      */
     public static final class Keys {
-
-        // Main activity.
-        public static final String CURRENT_PAGE = "CurrentPage";
 
         // SearchArticlesFragment, for notifications.
         public static final String NOTIFICATION_SWITCH_STATE = "NotificationSwitchState";
