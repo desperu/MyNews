@@ -2,10 +2,13 @@ package org.desperu.mynews.Utils;
 
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -98,20 +101,25 @@ public class MyNewsUtilsTest {
     }
 
     @Test
-    public void Given_dateFormat_When_askChangeDateFormat_Then_checkNewDateFormat() {
+    public void Given_stringDate_When_askStringToDate_Then_checkNewDateFormat() throws ParseException {
         String givenDate = "5/9/2019";
-        String returnedDate = "20190905";
-        output = MyNewsUtils.changeDateFormat(givenDate);
+        SimpleDateFormat givenDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Date returnedDate = givenDateFormat.parse(givenDate);
+
+        Date output = MyNewsUtils.stringToDate(givenDate);
 
         assertEquals(returnedDate, output);
     }
 
     @Test
-    public void Given_badDateFormat_When_askChangeDateFormat_Then_checkErrorDateFormat() {
-        String givenDate = "15-10-2019";
-        output = MyNewsUtils.changeDateFormat(givenDate);
+    public void Given_dateObject_When_askDateToStringForNyTimes_Then_checkStringDateFormat() throws ParseException {
+        String givenDate = "5/9/2019";
+        SimpleDateFormat givenDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Date date = givenDateFormat.parse(givenDate);
+        String returnedDate = "20190905";
+        output = MyNewsUtils.dateToStringForNyTimes(date);
 
-        assertEquals(errorDateFormat, output);
+        assertEquals(returnedDate, output);
     }
 
     @Test

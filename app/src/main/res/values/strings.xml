@@ -5,14 +5,20 @@
     <string name="search_results_activity">Search Results</string>
     <string name="notifications_activity">Notifications</string>
 
+    <!-- Menu items names -->
+    <string name="menu_item_params">Parameters</string>
+    <string name="menu_item_search">Search</string>
+
     <!-- Fragments names -->
     <string name="tab_text_1">Top Stories</string>
     <string name="tab_text_2">Most Popular</string>
     <string name="tab_text_3">Sciences</string>
 
-    <!-- Menu items names -->
-    <string name="menu_item_params">Parameters</string>
-    <string name="menu_item_search">Search</string>
+    <!-- Article list fragment -->
+    <!-- Dialog no response -->
+    <string name="fragment_article_list_dialog_no_response_title">No Response !</string>
+    <string name="fragment_article_list_dialog_no_response_message">There\'s no response for your search !</string>
+    <string name="fragment_article_list_dialog_no_response_positive_button">OK</string>
 
     <!-- Search fragment -->
     <!-- Search edit text -->
@@ -47,7 +53,7 @@
     <string name="toast_notification_disable">Notification disabled !</string>
     <string name="toast_notification_data_saved">Notification data were saved !</string>
     <!-- Notifications body -->
-    <string name="notification_title">New articles to show !</string>
-    <string name="notification_text"> news articles were published !</string>
+    <string name="notification_title">News articles to show !</string>
+    <string name="notification_text">" news articles were published !"</string>
 
 </resources>

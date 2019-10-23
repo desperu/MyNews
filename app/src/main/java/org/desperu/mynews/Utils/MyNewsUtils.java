@@ -28,6 +28,7 @@ public class MyNewsUtils {
 
         try {
             Date date = givenDateFormat.parse(givenDate);
+            assert date != null;
             return newDateFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -64,21 +65,27 @@ public class MyNewsUtils {
     }
 
     /**
-     * Convert string date format from "dd/MM/yyyy" to "yyyyMMdd".
+     * Convert string date format from "dd/MM/yyyy" to Date.
      * @param givenDate The given date.
+     * @return Date object.
+     */
+    public static Date stringToDate(String givenDate) {
+        SimpleDateFormat givenDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Date date = new Date();
+        try {
+            date = givenDateFormat.parse(givenDate);
+        } catch (ParseException e) { e.printStackTrace(); }
+        return date;
+    }
+
+    /**
+     * Convert Date object to string format "yyyyMMdd".
+     * @param givenDate The given Date object.
      * @return String date with new format.
      */
-    public static String changeDateFormat(String givenDate) {
-        SimpleDateFormat givenDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    public static String dateToStringForNyTimes(Date givenDate) {
         SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.US);
-
-        try {
-            Date date = givenDateFormat.parse(givenDate);
-            return newDateFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return "An error occurred !";
-        }
+        return newDateFormat.format(givenDate);
     }
 
     /**

@@ -56,8 +56,8 @@ public class SearchArticlesFragment extends BaseFragment {
     // Date picker
     private DatePickerDialog.OnDateSetListener datePickerBegin;
     private DatePickerDialog.OnDateSetListener datePickerEnd;
-    private String beginDate = "";
-    private String endDate = "";
+    @State String beginDate = "";
+    @State String endDate = "";
 
     // Callback Search button
     public interface OnClickedSearchButtonListener {
@@ -242,6 +242,10 @@ public class SearchArticlesFragment extends BaseFragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void configureDatePickerDialog(DatePickerDialog.OnDateSetListener dateSetListener) {
         Calendar cal = Calendar.getInstance();
+        if (dateSetListener == datePickerBegin && beginDate.length() > 0)
+            cal.setTime(MyNewsUtils.stringToDate(beginDate));
+        if (dateSetListener == datePickerEnd && endDate.length() > 0)
+            cal.setTime(MyNewsUtils.stringToDate(endDate));
         int year = cal.get(Calendar.YEAR);
         int monthOfYear = cal.get(Calendar.MONTH);
         int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
@@ -286,7 +290,6 @@ public class SearchArticlesFragment extends BaseFragment {
                     this.errorNoSectionSelectedDialog();
                     switchNotifications.setChecked(false);
                 } else {
-                    this.saveNotificationsFragmentData();
                     notificationCallback.OnClickNotificationListener(true);
                 }
             } else notificationCallback.OnClickNotificationListener(false);
@@ -329,7 +332,7 @@ public class SearchArticlesFragment extends BaseFragment {
             if (when == 1)
                 selectedDate = MyNewsUtils.dateToString(new Date());
         }
-        return MyNewsUtils.changeDateFormat(selectedDate);
+        return MyNewsUtils.dateToStringForNyTimes(MyNewsUtils.stringToDate(selectedDate));
     }
 
     /**
