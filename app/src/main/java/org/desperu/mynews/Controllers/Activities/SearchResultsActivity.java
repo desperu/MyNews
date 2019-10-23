@@ -35,7 +35,7 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
         this.getIntentDataAndPutInBundle();
 
         this.configureAndShowArticleListFragment();
-        this.configureToolbar();
+        this.configureToolBar();
         this.configureUpButton();
     }
 

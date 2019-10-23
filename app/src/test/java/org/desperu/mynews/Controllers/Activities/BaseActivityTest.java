@@ -2,9 +2,6 @@ package org.desperu.mynews.Controllers.Activities;
 
 import android.os.Bundle;
 
-import androidx.appcompat.widget.Toolbar;
-
-import org.desperu.mynews.R;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -19,7 +16,7 @@ public class BaseActivityTest {
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         baseActivity.getBaseContext();
-        baseActivity.configureToolbar();
+        baseActivity.configureToolBar();
 //        Toolbar toolbar = baseActivity.configureToolbar();
         baseActivity.getViewModelStore();
         int output = baseActivity.getActivityLayout();

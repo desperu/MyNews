@@ -24,7 +24,7 @@ public class ShowArticleActivity extends BaseActivity {
     @Override
     protected void configureDesign() {
         this.configureAndShowArticleWebFragment();
-        this.configureToolbar();
+        this.configureToolBar();
         this.configureUpButton();
     }
 

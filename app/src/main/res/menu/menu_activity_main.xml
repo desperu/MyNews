@@ -8,11 +8,22 @@
     android:title="@string/menu_item_search">
     </item>
 
-    <item
-        android:id="@+id/menu_activity_main_params"
-        android:icon="@drawable/ic_more_vert_white_24dp"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_item_params">
-    </item>
+    <group
+        android:id="@+id/menu_activity_main_more"
+        android:icon="@drawable/ic_more_vert_white_24dp">
+
+        <item
+            android:id="@+id/menu_activity_main_notifications"
+            android:title="@string/notifications_activity"/>
+
+        <item
+            android:id="@+id/menu_activity_about"
+            android:title="@string/navigation_drawer_about"/>
+
+        <item
+            android:id="@+id/menu_activity_help"
+            android:title="@string/navigation_drawer_help"/>
+
+    </group>
 
 </menu>

@@ -31,7 +31,7 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
     @Override
     protected void configureDesign() {
         this.configureAndShowSearchArticlesFragment();
-        this.configureToolbar();
+        this.configureToolBar();
         this.configureUpButton();
         this.configureAlarmManager();
     }

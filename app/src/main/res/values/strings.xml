@@ -5,14 +5,20 @@
     <string name="search_results_activity">Search Results</string>
     <string name="notifications_activity">Notifications</string>
 
+    <!-- Menu -->
     <!-- Menu items names -->
     <string name="menu_item_params">Parameters</string>
     <string name="menu_item_search">Search</string>
+    <!-- Nav drawer -->
+    <string name="navigation_drawer_about">About</string>
+    <string name="navigation_drawer_help">Help</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Fragments names -->
-    <string name="tab_text_1">Top Stories</string>
-    <string name="tab_text_2">Most Popular</string>
-    <string name="tab_text_3">Sciences</string>
+    <string name="tab_title_1">Top Stories</string>
+    <string name="tab_title_2">Most Popular</string>
+    <string name="tab_title_3">Sciences</string>
 
     <!-- Article list fragment -->
     <!-- Dialog no response -->
@@ -37,7 +43,7 @@
     <string name="fragment_search_articles_button_search">Search</string>
     <string name="fragment_search_articles_switch">Enable notifications (once per day)</string>
     <!-- Dialog no section or date problem-->
-    <string name="fragment_search_articles_dialog_no_section_title">Error no section selected</string>
+    <string name="fragment_search_articles_dialog_no_section_title">No section selected</string>
     <string name="fragment_search_articles_dialog_no_section_message">You must select at least one section !\n(Arts, Travel, …)</string>
     <string name="fragment_search_articles_dialog_date_problem_title">"Mistake with searches dates !"</string>
     <string name="fragment_search_articles_dialog_date_problem_message">"Begin date is upper than End date …\nIt's impossible !!!"</string>

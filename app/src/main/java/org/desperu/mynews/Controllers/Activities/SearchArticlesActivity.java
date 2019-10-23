@@ -2,14 +2,10 @@ package org.desperu.mynews.Controllers.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.widget.ArrayAdapter;
 
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
 import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
-
-import java.util.ArrayList;
 
 public class SearchArticlesActivity extends BaseActivity implements SearchArticlesFragment.OnClickedSearchButtonListener {
 
@@ -26,7 +22,7 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
     @Override
     protected void configureDesign() {
         this.configureAndShowSearchArticlesFragment();
-        this.configureToolbar();
+        this.configureToolBar();
         this.configureUpButton();
     }
 

@@ -14,7 +14,7 @@ import org.desperu.mynews.R;
 public class MyNewsAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[] {R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[] {R.string.tab_title_1, R.string.tab_title_2, R.string.tab_title_3};
     private final Context mContext;
 
     public MyNewsAdapter(Context context, FragmentManager fm, int behavior) {

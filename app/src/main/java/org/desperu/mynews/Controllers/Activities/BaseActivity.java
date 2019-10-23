@@ -53,7 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     // DESIGN
     // --------------
 
-    protected void configureToolbar(){
+    protected void configureToolBar(){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
