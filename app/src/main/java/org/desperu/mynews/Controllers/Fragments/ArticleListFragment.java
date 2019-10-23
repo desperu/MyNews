@@ -213,7 +213,8 @@ public class ArticleListFragment extends BaseFragment {
                 this.disposable = NyTimesStreams.streamFetchNyTimesTopStories("science").subscribeWith(disposableObserver);
                 break;
             case MyNewsTools.FragmentsKeys.SEARCH_RESULTS_FRAGMENT:
-                this.disposable = NyTimesStreams.streamFetchNyTimesSearch(queryTerms, beginDate, endDate, sections).subscribeWith(disposableObserver);
+                this.disposable = NyTimesStreams.streamFetchNyTimesSearch(queryTerms, beginDate, endDate, sections, MyNewsTools.Constant.SORT_BY)
+                        .subscribeWith(disposableObserver);
                 break;
             default:
                 break;

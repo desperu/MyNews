@@ -19,6 +19,10 @@ public final class MyNewsTools {
         // SearchArticlesFragment
         // Begin date, default value for api request.
         public static final String BEGIN_DATE_DEFAULT = "01/01/1800";
+
+        // NyTimesService & Service
+        // To sort articles.
+        public static final String SORT_BY = "newest";
     }
 
     /**

@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     // -----------------
 
     /**
-     * Configure Tab layout and View pager.adb
+     * Configure Tab layout and View pager.
      */
     private void configureViewPagerAndTabs() {
         viewPager.setAdapter(new MyNewsAdapter(getBaseContext(), getSupportFragmentManager(),

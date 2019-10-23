@@ -44,6 +44,7 @@ public interface NyTimesService {
                                             @Query("begin_date") String beginDate,
                                             @Query("end_date") String endDate,
                                             @Query("fq") String sections,
+                                            @Query("sort") String sort,
                                             @Query("api-key") String apiKey);
 
     /**

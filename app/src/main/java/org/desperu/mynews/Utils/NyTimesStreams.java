@@ -45,9 +45,9 @@ public class NyTimesStreams {
      * @return An Observable object of NyTimesAPI model.
      */
     public static Observable<NyTimesAPI> streamFetchNyTimesSearch(String queryTerms, String beginDate,
-                                                                  String endDate, String sections) {
+                                                                  String endDate, String sections, String sort) {
         NyTimesService nyTimesService = NyTimesService.retrofit.create(NyTimesService.class);
-        return nyTimesService.getNyTimesSearch(queryTerms, beginDate, endDate, sections, MyNewsTools.Constant.apiKey)
+        return nyTimesService.getNyTimesSearch(queryTerms, beginDate, endDate, sections, sort, MyNewsTools.Constant.apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);

@@ -89,8 +89,8 @@ public class NotificationsAlarmService extends Service {
      * Execute Http request with retrofit, notification request.
      */
     private void executeHttpRequestWithRetrofit() {
-        disposable = NyTimesStreams.streamFetchNyTimesSearch(queryTerms, beginDate, endDate, sections)
-                .subscribeWith(new DisposableObserver<NyTimesAPI>() { // TODO sort request
+        disposable = NyTimesStreams.streamFetchNyTimesSearch(queryTerms, beginDate, endDate, sections, MyNewsTools.Constant.SORT_BY)
+                .subscribeWith(new DisposableObserver<NyTimesAPI>() {
             @Override
             public void onNext(NyTimesAPI nyTimesAPI) {
                 createNotification(nyTimesAPI.getResponse().getResults().size());
