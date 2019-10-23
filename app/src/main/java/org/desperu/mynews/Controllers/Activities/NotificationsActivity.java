@@ -65,7 +65,9 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
      */
     private void configureAlarmManager() {
         Intent alarmIntent = new Intent(this, NotificationsAlarmService.class);
+        // TODO on test
         pendingIntent = PendingIntent.getService(getBaseContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        pendingIntent = PendingIntent.getService(getBaseContext(), 0, alarmIntent, 0);
     }
 
     // -----------------
@@ -95,8 +97,11 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
      */
     private void startNotificationsAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        Objects.requireNonNull(manager).setRepeating(AlarmManager.ELAPSED_REALTIME,
+//                SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        // TODO for test
         Objects.requireNonNull(manager).setRepeating(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                SystemClock.elapsedRealtime(), 3600, pendingIntent);
         Toast.makeText(this, R.string.toast_notification_enable, Toast.LENGTH_SHORT).show();
     }
 

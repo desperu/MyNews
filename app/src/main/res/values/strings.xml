@@ -39,8 +39,8 @@
     <!-- Dialog no section or date problem-->
     <string name="fragment_search_articles_dialog_no_section_title">Error no section selected</string>
     <string name="fragment_search_articles_dialog_no_section_message">You must select at least one section !\n(Arts, Travel, …)</string>
-    <string name="fragment_search_articles_dialog_date_problem_title">"Mistake for searches dates !"</string>
-    <string name="fragment_search_articles_dialog_date_problem_message">"Begin date is upper than End date … It's impossible !!!"</string>
+    <string name="fragment_search_articles_dialog_date_problem_title">"Mistake with searches dates !"</string>
+    <string name="fragment_search_articles_dialog_date_problem_message">"Begin date is upper than End date …\nIt's impossible !!!"</string>
     <string name="fragment_search_articles_dialog_no_section_positive_button">OK</string>
 
     <!-- Notifications -->

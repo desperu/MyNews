@@ -26,7 +26,7 @@ public class AppNotifications extends Application {
             NotificationChannel notificationChannel = new NotificationChannel(
                     CHANNEL_ID,
                     NOTIFICATION_NAME,
-                    NotificationManager.IMPORTANCE_DEFAULT); // TODO if problem set to high
+                    NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.setDescription(CHANNEL_DESCRIPTION);
             NotificationManager manager = getSystemService(NotificationManager.class);
             Objects.requireNonNull(manager).createNotificationChannel(notificationChannel);
