@@ -1,6 +1,7 @@
 package org.desperu.mynews.Controllers.Activities;
 
 import android.os.Bundle;
+import android.os.Process;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
@@ -68,6 +69,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Respond to the action bar's Up/Home button
         if (item.getItemId() == android.R.id.home) {
+//            int pid = Process.myPid();
+//            android.os.Process.sendSignal(pid, android.os.Process.SIGNAL_KILL);
+//            Process.killProcess(Process.myPid());
+//            System.exit(1);
+//            moveTaskToBack(true);
             finish();// TODO too hard create bug, can't kill apk process
             return true;
         }

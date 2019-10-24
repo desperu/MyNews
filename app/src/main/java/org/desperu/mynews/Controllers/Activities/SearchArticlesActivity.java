@@ -17,7 +17,7 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
     // --------------
 
     @Override
-    protected int getActivityLayout() { return R.layout.activity_search; }
+    protected int getActivityLayout() { return R.layout.activity_search_and_notifications; }
 
     @Override
     protected void configureDesign() {

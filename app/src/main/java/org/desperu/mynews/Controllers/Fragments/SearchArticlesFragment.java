@@ -78,7 +78,7 @@ public class SearchArticlesFragment extends BaseFragment {
     // --------------
 
     @Override
-    protected int getFragmentLayout() { return R.layout.fragment_search_articles; }
+    protected int getFragmentLayout() { return R.layout.fragment_search_and_notifications; }
 
     @Override
     protected void configureDesign() {

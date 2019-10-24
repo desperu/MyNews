@@ -90,6 +90,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     private void configureNavigationView() {
         this.navigationView = findViewById(R.id.activity_main_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(viewPager.getCurrentItem()).setChecked(true);
     }
 
     // -----------------
@@ -160,6 +161,13 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        // To check nav drawer item when view pager change page.
+        navigationView.getMenu().getItem(viewPager.getCurrentItem()).setChecked(true);
     }
 
     // -----------------

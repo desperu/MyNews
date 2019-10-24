@@ -47,7 +47,7 @@ public class NotificationsAlarmService extends Service {
      */
     private void createNotification(int numResults) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), AppNotifications.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_my_news_logo)
+                .setSmallIcon(R.drawable.ic_black_news_logo)
                 .setContentTitle(getString(R.string.notification_title))
                 .setContentText(numResults+getString(R.string.notification_text))
                 .setAutoCancel(true);
