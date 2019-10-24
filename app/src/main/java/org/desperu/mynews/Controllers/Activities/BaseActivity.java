@@ -68,7 +68,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Respond to the action bar's Up/Home button
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            finish();// TODO too hard create bug, can't kill apk process
             return true;
         }
         return super.onOptionsItemSelected(item);

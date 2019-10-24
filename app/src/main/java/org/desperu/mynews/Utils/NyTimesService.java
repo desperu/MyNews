@@ -36,6 +36,7 @@ public interface NyTimesService {
      * @param beginDate Begin date to search.
      * @param endDate End date to search.
      * @param sections Sections into search.
+     * @param sort Order to sort.
      * @param apiKey Api key of this application.
      * @return An Observable object of NyTimesAPI model.
      */

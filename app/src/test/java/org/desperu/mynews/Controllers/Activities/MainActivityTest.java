@@ -24,7 +24,7 @@ public class MainActivityTest {
 //    public void Given_When_Then() {
 //        MainActivity mainActivity = mock(MainActivity.class);
 //        Menu menu = mock(Menu.class);
-//        mainActivity.getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+//        mainActivity.getMenuInflater().inflate(R.menu.activity_main_menu, menu);
 //        mainActivity.onCreateOptionsMenu(menu);
 //    }
 

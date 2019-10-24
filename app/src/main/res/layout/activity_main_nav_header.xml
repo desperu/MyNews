@@ -7,13 +7,12 @@
     android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
-    android:layout_marginTop="24dp">
-    <!-- to correct using maringTop !! -->
+    android:layout_marginTop="@*android:dimen/status_bar_height">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/ic_my_news_logo" />
 
 </LinearLayout>

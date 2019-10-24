@@ -21,9 +21,10 @@ public class SearchTest {
         String beginDate = "20190101";
         String endDate = "20191016";
         String sections = "news_desk.contains:(\"politics\" \"Business\")";
+        String sort = MyNewsTools.Constant.SORT_BY;
 
         Observable<NyTimesAPI> nytTopStoriesObservable = NyTimesStreams.streamFetchNyTimesSearch(
-                queryTerms, beginDate, endDate, sections);
+                queryTerms, beginDate, endDate, sections, sort);
         TestObserver<NyTimesAPI> testObserver = new TestObserver<>();
 
         nytTopStoriesObservable.subscribeWith(testObserver)

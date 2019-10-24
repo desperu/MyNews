@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#00BBD3</color>
-    <color name="colorPrimaryDark">#008ba2</color>
+    <color name="colorPrimaryDark">#0096a6</color>
     <color name="colorAccent">#008ba2</color>
 
     <!-- MyNews colors -->
     <color name="colorDark">#C4000000</color>
-    <color name="colorYellow">#ffee58</color>
+    <color name="colorYellow">#f8e71c</color>
     <color name="colorPrimaryLight">#AEE4EB</color>
     <color name="colorWhite">#fff</color>
 </resources>

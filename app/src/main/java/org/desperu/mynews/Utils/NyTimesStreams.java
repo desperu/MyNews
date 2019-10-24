@@ -42,6 +42,7 @@ public class NyTimesStreams {
      * @param beginDate Begin date to search.
      * @param endDate End date to search.
      * @param sections Sections into search.
+     * @param sort Order to sort.
      * @return An Observable object of NyTimesAPI model.
      */
     public static Observable<NyTimesAPI> streamFetchNyTimesSearch(String queryTerms, String beginDate,
