@@ -16,11 +16,12 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
-import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Views.MyNewsAdapter;
 
 import butterknife.BindView;
+
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 
 public class MainActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener,
         NavigationView.OnNavigationItemSelectedListener {
@@ -103,13 +104,13 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
         int id = menuItem.getItemId();
         switch(id) {
             case R.id.activity_main_drawer_top_stories:
-                this.viewPager.setCurrentItem(MyNewsTools.FragmentsKeys.TOP_STORIES_FRAGMENT);
+                this.viewPager.setCurrentItem(TOP_STORIES_FRAGMENT);
                 break;
             case R.id.activity_main_drawer_most_popular:
-                this.viewPager.setCurrentItem(MyNewsTools.FragmentsKeys.MOST_POPULAR_FRAGMENT);
+                this.viewPager.setCurrentItem(MOST_POPULAR_FRAGMENT);
                 break;
             case R.id.activity_main_drawer_sciences:
-                this.viewPager.setCurrentItem(MyNewsTools.FragmentsKeys.SCIENCES_FRAGMENT);
+                this.viewPager.setCurrentItem(SCIENCES_FRAGMENT);
                 break;
             case R.id.activity_main_drawer_search:
                 this.showSearchArticlesActivity();

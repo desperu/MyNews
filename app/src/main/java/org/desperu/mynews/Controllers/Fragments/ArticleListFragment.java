@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import org.desperu.mynews.Controllers.Activities.SearchResultsActivity;
 import org.desperu.mynews.Models.NyTimesAPI;
 import org.desperu.mynews.Models.NyTimesResults;
-import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.ItemClickSupport;
 import org.desperu.mynews.Utils.NyTimesStreams;
@@ -31,6 +30,9 @@ import icepick.Icepick;
 import icepick.State;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+
+import static org.desperu.mynews.MyNewsTools.Constant.*;
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 
 public class ArticleListFragment extends BaseFragment {
 
@@ -150,7 +152,7 @@ public class ArticleListFragment extends BaseFragment {
     private void configureRecyclerView(){
         this.nyTimesResults = new ArrayList<>();
         // Create adapter passing in the sample user data
-        this.adapter = new NyTimesAdapter(this.nyTimesResults, Glide.with(this));
+        this.adapter = new NyTimesAdapter(this.nyTimesResults, Glide.with(this)); // TODO correct ssl lollipop error
         // Attach the adapter to the recyclerView to populate items
         this.recyclerView.setAdapter(this.adapter);
         // Set layout manager to position the items
@@ -191,7 +193,7 @@ public class ArticleListFragment extends BaseFragment {
                 else if (nyTimesAPI.getResponse().getResults().size() > 0)
                     updateUI(nyTimesAPI.getResponse().getResults());
                 else if (nyTimesAPI.getResponse().getResults().size() == 0) {
-                    noResponseDialog();
+                    noResultDialog();
                 }
             }
 
@@ -203,17 +205,17 @@ public class ArticleListFragment extends BaseFragment {
         };
 
         switch (fragmentKey) {
-            case MyNewsTools.FragmentsKeys.TOP_STORIES_FRAGMENT:
+            case TOP_STORIES_FRAGMENT:
                 this.disposable = NyTimesStreams.streamFetchNyTimesTopStories("home").subscribeWith(disposableObserver);
                 break;
-            case MyNewsTools.FragmentsKeys.MOST_POPULAR_FRAGMENT:
+            case MOST_POPULAR_FRAGMENT:
                 this.disposable = NyTimesStreams.streamFetchNyTimesMostPopular().subscribeWith(disposableObserver);
                 break;
-            case MyNewsTools.FragmentsKeys.SCIENCES_FRAGMENT:
+            case SCIENCES_FRAGMENT:
                 this.disposable = NyTimesStreams.streamFetchNyTimesTopStories("science").subscribeWith(disposableObserver);
                 break;
-            case MyNewsTools.FragmentsKeys.SEARCH_RESULTS_FRAGMENT:
-                this.disposable = NyTimesStreams.streamFetchNyTimesSearch(queryTerms, beginDate, endDate, sections, MyNewsTools.Constant.SORT_BY)
+            case SEARCH_RESULTS_FRAGMENT:
+                this.disposable = NyTimesStreams.streamFetchNyTimesSearch(queryTerms, beginDate, endDate, sections, SORT_BY)
                         .subscribeWith(disposableObserver);
                 break;
             default:
@@ -244,9 +246,9 @@ public class ArticleListFragment extends BaseFragment {
     }
 
     /**
-     * Dialog if no response for retrofit http request.
+     * Dialog if no result for retrofit http request.
      */
-    private void noResponseDialog() {
+    private void noResultDialog() {
         AlertDialog.Builder noResponse = new AlertDialog.Builder(getContext());
         noResponse.setTitle(R.string.fragment_article_list_dialog_no_response_title);
         noResponse.setMessage(R.string.fragment_article_list_dialog_no_response_message);

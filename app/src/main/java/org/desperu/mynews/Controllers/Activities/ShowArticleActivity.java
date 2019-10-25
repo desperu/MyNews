@@ -12,8 +12,6 @@ public class ShowArticleActivity extends BaseActivity {
     // For bundle.
     public static final String KEY_ARTICLE_URL = "articleUrl";
 
-    private ShowArticleFragment showArticleFragment;
-
     // --------------
     // BASE METHODS
     // --------------
@@ -39,7 +37,8 @@ public class ShowArticleActivity extends BaseActivity {
      * Configure and show article fragment.
      */
     private void configureAndShowArticleWebFragment() {
-        showArticleFragment = (ShowArticleFragment) getSupportFragmentManager().findFragmentById(R.id.activity_show_article_frame_layout);
+        ShowArticleFragment showArticleFragment = (ShowArticleFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.activity_show_article_frame_layout);
 
         if (showArticleFragment == null) {
             Bundle bundle = new Bundle();
@@ -59,5 +58,5 @@ public class ShowArticleActivity extends BaseActivity {
         return getIntent().getStringExtra(ARTICLE_URL);
     }
 
-    //TODO add share with ActionProvider
+    //TODO add share with ActionProvider get new article url from fragment
 }

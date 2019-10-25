@@ -1,7 +1,6 @@
 package org.desperu.mynews.Utils;
 
 import org.desperu.mynews.Models.NyTimesAPI;
-import org.desperu.mynews.Utils.HttpRequest.MyHttpRequest;
 
 import java.util.concurrent.TimeUnit;
 

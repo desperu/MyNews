@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
-import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 
-public class SearchResultsActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener {
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 
-    private ArticleListFragment articleListFragment;
+public class SearchResultsActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener {
 
     // FOR DATA
     public static final String QUERY_TERMS = "Query terms";
@@ -50,7 +49,8 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
      * Configure and show article list fragment.
      */
     private void configureAndShowArticleListFragment() {
-        articleListFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_and_notifications_frame_layout);
+        ArticleListFragment articleListFragment = (ArticleListFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.activity_search_and_notifications_frame_layout);
 
         if (articleListFragment == null) {
             articleListFragment = new ArticleListFragment();
@@ -66,7 +66,7 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
      */
     private Bundle getIntentDataAndPutInBundle() {
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY_FRAGMENT, MyNewsTools.FragmentsKeys.SEARCH_RESULTS_FRAGMENT);
+        bundle.putInt(KEY_FRAGMENT, SEARCH_RESULTS_FRAGMENT);
         bundle.putString(KEY_QUERY_TERMS, getIntent().getStringExtra(QUERY_TERMS));
         bundle.putString(KEY_BEGIN_DATE, getIntent().getStringExtra(BEGIN_DATE));
         bundle.putString(KEY_END_DATE, getIntent().getStringExtra(END_DATE));

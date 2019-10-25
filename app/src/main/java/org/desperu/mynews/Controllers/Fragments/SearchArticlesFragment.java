@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import org.desperu.mynews.Controllers.Activities.SearchArticlesActivity;
-import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.MyNewsPrefs;
 import org.desperu.mynews.Utils.MyNewsUtils;
@@ -27,6 +26,10 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import icepick.State;
+
+import static org.desperu.mynews.MyNewsTools.Constant.*;
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
+import static org.desperu.mynews.MyNewsTools.Keys.*;
 
 public class SearchArticlesFragment extends BaseFragment {
 
@@ -114,7 +117,7 @@ public class SearchArticlesFragment extends BaseFragment {
      */
     private void configureAskedFragment(int fragmentKey) {
         switch (fragmentKey) {
-            case MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT :
+            case SEARCH_FRAGMENT :
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     this.configureDatePicker();
                 } else this.hideDateItems(); // TODO EditText for API < 24 ??
@@ -123,7 +126,7 @@ public class SearchArticlesFragment extends BaseFragment {
                 bottomDivider.setVisibility(View.GONE);
                 switchNotifications.setVisibility(View.GONE);
                 break;
-            case MyNewsTools.FragmentsKeys.NOTIFICATION_FRAGMENT :
+            case NOTIFICATION_FRAGMENT :
                 this.configureNotificationSwitchListener();
                 this.createNotificationCallbackToParentActivity();
                 this.hideDateItems();
@@ -152,10 +155,10 @@ public class SearchArticlesFragment extends BaseFragment {
      * Save notification layout data.
      */
     private void saveNotificationsFragmentData() {
-        if (fragmentKey == MyNewsTools.FragmentsKeys.NOTIFICATION_FRAGMENT) {
-            MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SWITCH_STATE, switchNotifications.isChecked());
-            MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
-            MyNewsPrefs.savePref(getContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, getCheckboxesSections());
+        if (fragmentKey == NOTIFICATION_FRAGMENT) {
+            MyNewsPrefs.savePref(getContext(), NOTIFICATION_SWITCH_STATE, switchNotifications.isChecked());
+            MyNewsPrefs.savePref(getContext(), NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
+            MyNewsPrefs.savePref(getContext(), NOTIFICATION_SECTIONS, getCheckboxesSections());
             Toast.makeText(getContext(), R.string.toast_notification_data_saved, Toast.LENGTH_LONG).show();
         }
     }
@@ -164,10 +167,10 @@ public class SearchArticlesFragment extends BaseFragment {
      * Restore notification layout data.
      */
     private void restoreNotificationData() {
-        if (fragmentKey == MyNewsTools.FragmentsKeys.NOTIFICATION_FRAGMENT) {
-            switchNotifications.setChecked(MyNewsPrefs.getBoolean(getContext(), MyNewsTools.Keys.NOTIFICATION_SWITCH_STATE, false));
-            searchEditText.setText(MyNewsPrefs.getString(getContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, null));
-            String sections = MyNewsPrefs.getString(getContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, null);
+        if (fragmentKey == NOTIFICATION_FRAGMENT) {
+            switchNotifications.setChecked(MyNewsPrefs.getBoolean(getContext(), NOTIFICATION_SWITCH_STATE, false));
+            searchEditText.setText(MyNewsPrefs.getString(getContext(), NOTIFICATION_QUERY_TERMS, null));
+            String sections = MyNewsPrefs.getString(getContext(), NOTIFICATION_SECTIONS, null);
             if (sections != null) {
                 List<String> sectionList = MyNewsUtils.deConcatenateStringSectionToArrayList(sections);
                 for ( int i = 0; i < sectionList.size(); i++) {
@@ -185,7 +188,7 @@ public class SearchArticlesFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (switchNotifications.isChecked()) this.saveNotificationsFragmentData();
+        this.saveNotificationsFragmentData();
     }
 
     // --------------
@@ -327,7 +330,7 @@ public class SearchArticlesFragment extends BaseFragment {
     private String getSelectedDatePicker(String selectedDate, int beginOrEndDate) {
         if (selectedDate.length() == 0) {
             if (beginOrEndDate == 0)
-                selectedDate = MyNewsTools.Constant.BEGIN_DATE_DEFAULT;
+                selectedDate = BEGIN_DATE_DEFAULT;
             if (beginOrEndDate == 1)
                 selectedDate = MyNewsUtils.dateToString(new Date());
         }

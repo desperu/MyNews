@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
-import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
+
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 
 public class SearchArticlesActivity extends BaseActivity implements SearchArticlesFragment.OnClickedSearchButtonListener {
 
-    private SearchArticlesFragment searchArticlesFragment;
     public static final String KEY_FRAGMENT = "fragmentKey";
 
     // --------------
@@ -37,12 +37,12 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
      * Configure and show search articles fragment.
      */
     private void configureAndShowSearchArticlesFragment() {
-        searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_and_notifications_frame_layout);
+        SearchArticlesFragment searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_and_notifications_frame_layout);
 
         if (searchArticlesFragment == null) {
             searchArticlesFragment = new SearchArticlesFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt(KEY_FRAGMENT, MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT);
+            bundle.putInt(KEY_FRAGMENT, SEARCH_FRAGMENT);
             searchArticlesFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_search_and_notifications_frame_layout, searchArticlesFragment)

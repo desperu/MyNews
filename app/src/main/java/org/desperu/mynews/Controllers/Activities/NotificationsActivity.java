@@ -9,15 +9,15 @@ import android.os.SystemClock;
 import android.widget.Toast;
 
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
-import org.desperu.mynews.MyNewsTools;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.NotificationsAlarmService;
 
 import java.util.Objects;
 
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
+
 public class NotificationsActivity extends BaseActivity implements SearchArticlesFragment.OnClickedNotificationSwitchListener{
 
-    private SearchArticlesFragment searchArticlesFragment;
     private PendingIntent pendingIntent;
     public static final String KEY_FRAGMENT = "fragmentKey";
 
@@ -47,12 +47,12 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
      * Configure and show search articles fragment.
      */
     private void configureAndShowSearchArticlesFragment() {
-        searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_and_notifications_frame_layout);
+        SearchArticlesFragment searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_and_notifications_frame_layout);
 
         if (searchArticlesFragment == null) {
             searchArticlesFragment = new SearchArticlesFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt(KEY_FRAGMENT, MyNewsTools.FragmentsKeys.NOTIFICATION_FRAGMENT);
+            bundle.putInt(KEY_FRAGMENT, NOTIFICATION_FRAGMENT);
             searchArticlesFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_search_and_notifications_frame_layout, searchArticlesFragment)
