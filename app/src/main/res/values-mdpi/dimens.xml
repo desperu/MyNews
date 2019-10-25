@@ -13,16 +13,16 @@
     <!-- linear layout root -->
     <dimen name="fragment_article_item_linear_layout_root_padding">10dp</dimen>
     <!-- image view -->
-    <dimen name="fragment_article_item_image_view_width">75dp</dimen>
+    <dimen name="fragment_article_item_image_view_width">80dp</dimen>
     <dimen name="fragment_article_item_image_view_height">@dimen/fragment_article_item_image_view_width</dimen>
     <!-- linear layout -->
     <dimen name="fragment_article_item_linear_layout_margin_start">10dp</dimen>
     <!-- text view section and date -->
-    <dimen name="fragment_article_item_text_view_section_and_date_text_size">14sp</dimen>
+    <dimen name="fragment_article_item_text_view_section_and_date_text_size">15sp</dimen>
     <!-- text view title -->
-    <dimen name="fragment_article_item_text_view_article_title_text_size">18sp</dimen>
+    <dimen name="fragment_article_item_text_view_article_title_text_size">19sp</dimen>
     <!-- divider -->
-    <dimen name="ic_divider_left">95dp</dimen>
+    <dimen name="ic_divider_left">100dp</dimen>
 
     <!-- Fragment search and notifications -->
     <!-- edit text search query term -->
@@ -50,7 +50,7 @@
     <dimen name="fragment_search_and_notifications_switch_notifications_text_size">16sp</dimen>
 
     <!-- Menu Drawer -->
-    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="nav_header_height">200dp</dimen>
     <dimen name="nav_header_margin_top">24dp</dimen>
 
 </resources>

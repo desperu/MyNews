@@ -37,7 +37,7 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
      * Configure and show search articles fragment.
      */
     private void configureAndShowSearchArticlesFragment() {
-        searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_frame_layout);
+        searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_and_notifications_frame_layout);
 
         if (searchArticlesFragment == null) {
             searchArticlesFragment = new SearchArticlesFragment();
@@ -45,7 +45,7 @@ public class SearchArticlesActivity extends BaseActivity implements SearchArticl
             bundle.putInt(KEY_FRAGMENT, MyNewsTools.FragmentsKeys.SEARCH_FRAGMENT);
             searchArticlesFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_search_frame_layout, searchArticlesFragment)
+                    .add(R.id.activity_search_and_notifications_frame_layout, searchArticlesFragment)
                     .commit();
         }
     }

@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:padding="10dip">
+    android:padding="@dimen/fragment_article_item_linear_layout_root_padding">
 
     <ImageView
         android:id="@+id/fragment_article_item_image"
-        android:layout_width="75dip"
-        android:layout_height="75dip"/>
+        android:layout_width="@dimen/fragment_article_item_image_view_width"
+        android:layout_height="@dimen/fragment_article_item_image_view_height"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/fragment_article_item_linear_layout_margin_start"
         android:gravity="center">
 
         <LinearLayout
@@ -32,7 +32,8 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textColor="@color/colorDark"
-                android:layout_gravity="start"/>
+                android:layout_gravity="start"
+                android:textSize="@dimen/fragment_article_item_text_view_section_and_date_text_size"/>
 
             <TextView
                 android:id="@+id/fragment_article_item_published_date"
@@ -40,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/colorDark"
-                android:gravity="end"/>
+                android:gravity="end"
+                android:textSize="@dimen/fragment_article_item_text_view_section_and_date_text_size"/>
 
         </LinearLayout>
 
@@ -50,7 +52,7 @@
             android:layout_height="0dp"
             android:layout_weight="3"
             android:layout_gravity="start"
-            android:textSize="18sp"
+            android:textSize="@dimen/fragment_article_item_text_view_article_title_text_size"
             android:lines="2"
             android:maxLines="2"/>
 

@@ -10,15 +10,16 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/fragment_search_articles_edit_text"
+            android:id="@+id/fragment_search_and_notifications_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/fragment_search_and_notifications_edit_text_margin_top"
+            android:layout_marginStart="@dimen/fragment_search_and_notifications_edit_text_margin_start"
+            android:layout_marginEnd="@dimen/fragment_search_and_notifications_edit_text_margin_end"
+            android:layout_marginBottom="@dimen/fragment_search_and_notifications_edit_text_margin_bottom"
             android:hint="@string/fragment_search_articles_edit_text_hint"
             android:inputType="text"
+            android:textSize="@dimen/fragment_search_and_notifications_edit_text_text_size"
             android:theme="@style/SearchLayoutTheme" />
 
         <LinearLayout
@@ -32,55 +33,59 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="@dimen/fragment_search_and_notifications_linear_layout_padding">
 
                 <TextView
-                    android:id="@+id/fragment_search_articles_text_view_begin_date"
+                    android:id="@+id/fragment_search_and_notifications_text_view_begin_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/fragment_search_articles_text_view_begin_date" />
+                    android:layout_marginStart="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:text="@string/fragment_search_articles_text_view_begin_date"
+                    android:textSize="@dimen/fragment_search_and_notifications_text_view_date_begin_end_text_size"/>
 
                 <TextView
-                    android:id="@+id/fragment_search_articles_text_view_date_picker_begin"
+                    android:id="@+id/fragment_search_and_notifications_text_view_date_picker_begin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="20sp"
+                    android:layout_marginStart="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:textSize="@dimen/fragment_search_and_notifications_text_view_date_picker_text_size"
                     android:textColor="@color/colorDark"/>
 
                 <View
-                    android:id="@+id/fragment_search_articles_begin_date_divider"
+                    android:id="@+id/fragment_search_and_notifications_begin_date_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorDark" />
+                    android:layout_marginStart="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:layout_marginEnd="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:layout_marginBottom="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:background="@color/colorDarkLight" />
 
                 <CheckBox
-                    android:id="@+id/fragment_search_articles_checkbox_arts"
+                    android:id="@+id/fragment_search_and_notifications_checkbox_arts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/fragment_search_and_notifications_checkbox_margin"
                     android:theme="@style/SearchLayoutTheme"
-                    android:text="@string/fragment_search_articles_checkbox_arts" />
+                    android:text="@string/fragment_search_articles_checkbox_arts"
+                    android:textSize="@dimen/fragment_search_and_notifications_checkbox_text_size"/>
 
                 <CheckBox
-                    android:id="@+id/fragment_search_articles_checkbox_business"
+                    android:id="@+id/fragment_search_and_notifications_checkbox_business"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/fragment_search_and_notifications_checkbox_margin"
                     android:theme="@style/SearchLayoutTheme"
-                    android:text="@string/fragment_search_articles_checkbox_business" />
+                    android:text="@string/fragment_search_articles_checkbox_business"
+                    android:textSize="@dimen/fragment_search_and_notifications_checkbox_text_size"/>
 
                 <CheckBox
-                    android:id="@+id/fragment_search_articles_checkbox_entrepreneurs"
+                    android:id="@+id/fragment_search_and_notifications_checkbox_entrepreneurs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/fragment_search_and_notifications_checkbox_margin"
                     android:theme="@style/SearchLayoutTheme"
-                    android:text="@string/fragment_search_articles_checkbox_entrepreneurs" />
+                    android:text="@string/fragment_search_articles_checkbox_entrepreneurs"
+                    android:textSize="@dimen/fragment_search_and_notifications_checkbox_text_size"/>
 
             </LinearLayout>
 
@@ -89,87 +94,91 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="@dimen/fragment_search_and_notifications_linear_layout_padding">
 
                 <TextView
-                    android:id="@+id/fragment_search_articles_text_view_end_date"
+                    android:id="@+id/fragment_search_and_notifications_text_view_end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/fragment_search_articles_text_view_end_date"/>
+                    android:layout_marginStart="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:text="@string/fragment_search_articles_text_view_end_date"
+                    android:textSize="@dimen/fragment_search_and_notifications_text_view_date_begin_end_text_size"/>
 
                 <TextView
-                    android:id="@+id/fragment_search_articles_text_view_date_picker_end"
+                    android:id="@+id/fragment_search_and_notifications_text_view_date_picker_end"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="20sp"
+                    android:layout_marginStart="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:textSize="@dimen/fragment_search_and_notifications_text_view_date_picker_text_size"
                     android:textColor="@color/colorDark"/>
 
                 <View
-                    android:id="@+id/fragment_search_articles_end_date_divider"
+                    android:id="@+id/fragment_search_and_notifications_end_date_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorDark" />
+                    android:layout_marginStart="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:layout_marginEnd="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:layout_marginBottom="@dimen/fragment_search_and_notifications_text_view_margin_start"
+                    android:background="@color/colorDarkLight" />
 
                 <CheckBox
-                    android:id="@+id/fragment_search_articles_checkbox_politics"
+                    android:id="@+id/fragment_search_and_notifications_checkbox_politics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/fragment_search_and_notifications_checkbox_margin"
                     android:theme="@style/SearchLayoutTheme"
-                    android:text="@string/fragment_search_articles_checkbox_politics"/>
+                    android:text="@string/fragment_search_articles_checkbox_politics"
+                    android:textSize="@dimen/fragment_search_and_notifications_checkbox_text_size"/>
 
                 <CheckBox
-                    android:id="@+id/fragment_search_articles_checkbox_sports"
+                    android:id="@+id/fragment_search_and_notifications_checkbox_sports"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/fragment_search_and_notifications_checkbox_margin"
                     android:theme="@style/SearchLayoutTheme"
-                    android:text="@string/fragment_search_articles_checkbox_sports"/>
+                    android:text="@string/fragment_search_articles_checkbox_sports"
+                    android:textSize="@dimen/fragment_search_and_notifications_checkbox_text_size"/>
 
                 <CheckBox
-                    android:id="@+id/fragment_search_articles_checkbox_travel"
+                    android:id="@+id/fragment_search_and_notifications_checkbox_travel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/fragment_search_and_notifications_checkbox_margin"
                     android:theme="@style/SearchLayoutTheme"
-                    android:text="@string/fragment_search_articles_checkbox_travel"/>
+                    android:text="@string/fragment_search_articles_checkbox_travel"
+                    android:textSize="@dimen/fragment_search_and_notifications_checkbox_text_size"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/fragment_search_articles_button_search"
+            android:id="@+id/fragment_search_and_notifications_button_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/fragment_search_and_notifications_search_button_margin"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
-            android:textSize="16sp"
+            android:textSize="@dimen/fragment_search_and_notifications_search_button_text_size"
             android:text="@string/fragment_search_articles_button_search" />
 
         <View
-            android:id="@+id/fragment_search_articles_bottom_divider"
+            android:id="@+id/fragment_search_and_notifications_bottom_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="@dimen/fragment_search_and_notifications_view_divider_margin"
+            android:layout_marginStart="@dimen/fragment_search_and_notifications_view_divider_margin"
+            android:layout_marginEnd="@dimen/fragment_search_and_notifications_view_divider_margin"
             android:background="@color/colorDark" />
 
         <Switch
-            android:id="@+id/fragment_search_articles_switch_notifications"
+            android:id="@+id/fragment_search_and_notifications_switch_notifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:textSize="16sp"
+            android:layout_margin="@dimen/fragment_search_and_notifications_switch_notifications_margin"
+            android:textSize="@dimen/fragment_search_and_notifications_switch_notifications_text_size"
             android:theme="@style/SearchLayoutTheme"
             android:text="@string/fragment_search_articles_switch" />
 

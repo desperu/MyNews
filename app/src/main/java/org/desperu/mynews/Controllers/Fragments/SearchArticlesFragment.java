@@ -31,25 +31,25 @@ import icepick.State;
 public class SearchArticlesFragment extends BaseFragment {
 
     // Edit text to enter query search terms
-    @BindView(R.id.fragment_search_articles_edit_text) EditText searchEditText;
+    @BindView(R.id.fragment_search_and_notifications_edit_text) EditText searchEditText;
     // Date picker, text view and dividers for begin date and end date.
-    @BindView(R.id.fragment_search_articles_text_view_begin_date) TextView textViewBeginDate;
-    @BindView(R.id.fragment_search_articles_text_view_date_picker_begin) TextView showBeginDate;
-    @BindView(R.id.fragment_search_articles_begin_date_divider) View beginDateDivider;
-    @BindView(R.id.fragment_search_articles_text_view_end_date) TextView textViewEndDate;
-    @BindView(R.id.fragment_search_articles_text_view_date_picker_end) TextView showEndDate;
-    @BindView(R.id.fragment_search_articles_end_date_divider) View endDateDivider;
+    @BindView(R.id.fragment_search_and_notifications_text_view_begin_date) TextView textViewBeginDate;
+    @BindView(R.id.fragment_search_and_notifications_text_view_date_picker_begin) TextView showBeginDate;
+    @BindView(R.id.fragment_search_and_notifications_begin_date_divider) View beginDateDivider;
+    @BindView(R.id.fragment_search_and_notifications_text_view_end_date) TextView textViewEndDate;
+    @BindView(R.id.fragment_search_and_notifications_text_view_date_picker_end) TextView showEndDate;
+    @BindView(R.id.fragment_search_and_notifications_end_date_divider) View endDateDivider;
     // Check boxes to select section.
-    @BindView(R.id.fragment_search_articles_checkbox_arts) CheckBox checkBoxArts;
-    @BindView(R.id.fragment_search_articles_checkbox_business) CheckBox checkBoxBusiness;
-    @BindView(R.id.fragment_search_articles_checkbox_entrepreneurs) CheckBox checkBoxEntrepreneurs;
-    @BindView(R.id.fragment_search_articles_checkbox_politics) CheckBox checkBoxPolitics;
-    @BindView(R.id.fragment_search_articles_checkbox_sports) CheckBox checkBoxSports;
-    @BindView(R.id.fragment_search_articles_checkbox_travel) CheckBox checkBoxTravel;
+    @BindView(R.id.fragment_search_and_notifications_checkbox_arts) CheckBox checkBoxArts;
+    @BindView(R.id.fragment_search_and_notifications_checkbox_business) CheckBox checkBoxBusiness;
+    @BindView(R.id.fragment_search_and_notifications_checkbox_entrepreneurs) CheckBox checkBoxEntrepreneurs;
+    @BindView(R.id.fragment_search_and_notifications_checkbox_politics) CheckBox checkBoxPolitics;
+    @BindView(R.id.fragment_search_and_notifications_checkbox_sports) CheckBox checkBoxSports;
+    @BindView(R.id.fragment_search_and_notifications_checkbox_travel) CheckBox checkBoxTravel;
     // Button, switch, and divider.
-    @BindView(R.id.fragment_search_articles_button_search) Button buttonSearch;
-    @BindView(R.id.fragment_search_articles_bottom_divider) View bottomDivider;
-    @BindView(R.id.fragment_search_articles_switch_notifications) Switch switchNotifications;
+    @BindView(R.id.fragment_search_and_notifications_button_search) Button buttonSearch;
+    @BindView(R.id.fragment_search_and_notifications_bottom_divider) View bottomDivider;
+    @BindView(R.id.fragment_search_and_notifications_switch_notifications) Switch switchNotifications;
 
     // Switch between fragment
     @State int fragmentKey;
@@ -185,7 +185,7 @@ public class SearchArticlesFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        this.saveNotificationsFragmentData();
+        if (switchNotifications.isChecked()) this.saveNotificationsFragmentData();
     }
 
     // --------------

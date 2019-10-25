@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"/>
 
     <FrameLayout
-        android:id="@+id/activity_search_frame_layout"
+        android:id="@+id/activity_search_and_notifications_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

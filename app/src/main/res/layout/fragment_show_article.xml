@@ -18,7 +18,7 @@
             android:theme="@style/ProgressBarTheme"
             android:layout_gravity="center"
             android:visibility="gone"/>
-
+<!-- TODO bug with lollipop WebView were in upgrade-->
         <WebView
             android:id="@+id/fragment_show_article_web_view"
             android:layout_width="match_parent"

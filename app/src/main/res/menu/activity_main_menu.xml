@@ -10,7 +10,8 @@
 
     <group
         android:id="@+id/menu_activity_main_more"
-        android:icon="@drawable/ic_more_vert_white_24dp">
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        app:showAsAction="ifRoom">
 
         <item
             android:id="@+id/menu_activity_main_notifications"

@@ -21,7 +21,7 @@ public interface NyTimesService {
     @GET("topstories/v2/{section}.json")
     Observable<NyTimesAPI> getNyTimesTopStories(@Path("section") String section,
                                                 @Query("api-key") String apiKey);
-
+// TODO sort for all
     /**
      * Request get for Most Popular.
      * @param apiKey Api key of this application.

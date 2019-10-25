@@ -50,13 +50,13 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
      * Configure and show article list fragment.
      */
     private void configureAndShowArticleListFragment() {
-        articleListFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_frame_layout);
+        articleListFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_and_notifications_frame_layout);
 
         if (articleListFragment == null) {
             articleListFragment = new ArticleListFragment();
             articleListFragment.setArguments(getIntentDataAndPutInBundle());
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_search_frame_layout, articleListFragment)
+                    .add(R.id.activity_search_and_notifications_frame_layout, articleListFragment)
                     .commit();
         }
     }

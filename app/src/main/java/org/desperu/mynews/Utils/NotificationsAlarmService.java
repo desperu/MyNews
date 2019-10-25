@@ -52,7 +52,7 @@ public class NotificationsAlarmService extends Service {
                 .setContentText(numResults+getString(R.string.notification_text))
                 .setAutoCancel(true);
 
-        // Create intent for notification click.
+        // Create intent for notification click. //TODO sound and vibration
         Intent resultIntent = new Intent(this, SearchResultsActivity.class)
                 .putExtra(SearchResultsActivity.QUERY_TERMS, queryTerms)
                 .putExtra(SearchResultsActivity.BEGIN_DATE, beginDate)

@@ -89,6 +89,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
      */
     private void configureNavigationView() {
         this.navigationView = findViewById(R.id.activity_main_nav_view);
+        //TODO api 19 margin top problem
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(viewPager.getCurrentItem()).setChecked(true);
     }

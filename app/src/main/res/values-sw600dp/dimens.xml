@@ -1,0 +1,50 @@
+<resources>
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+
+    <!-- Layouts -->
+
+    <!-- Fragment article item -->
+    <!-- linear layout root -->
+    <dimen name="fragment_article_item_linear_layout_root_padding">20dp</dimen>
+    <!-- image view -->
+    <dimen name="fragment_article_item_image_view_width">120dp</dimen>
+    <dimen name="fragment_article_item_image_view_height">@dimen/fragment_article_item_image_view_width</dimen>
+    <!-- linear layout -->
+    <dimen name="fragment_article_item_linear_layout_margin_start">20dp</dimen>
+    <!-- text view section and date -->
+    <dimen name="fragment_article_item_text_view_section_and_date_text_size">24sp</dimen>
+    <!-- text view title -->
+    <dimen name="fragment_article_item_text_view_article_title_text_size">30sp</dimen>
+    <!-- divider -->
+    <dimen name="ic_divider_left">160dp</dimen>
+
+    <!-- Fragment search and notifications -->
+    <!-- edit text search query term -->
+    <dimen name="fragment_search_and_notifications_edit_text_margin_top">30dp</dimen>
+    <dimen name="fragment_search_and_notifications_edit_text_margin_start">30dp</dimen>
+    <dimen name="fragment_search_and_notifications_edit_text_margin_end">30dp</dimen>
+    <dimen name="fragment_search_and_notifications_edit_text_margin_bottom">10dp</dimen>
+    <dimen name="fragment_search_and_notifications_edit_text_text_size">28sp</dimen>
+    <!-- linear layout and child-->
+    <dimen name="fragment_search_and_notifications_linear_layout_padding">20dp</dimen>
+    <!-- text view and view divider-->
+    <dimen name="fragment_search_and_notifications_text_view_margin_start">20dp</dimen>
+    <dimen name="fragment_search_and_notifications_text_view_date_begin_end_text_size">22sp</dimen>
+    <dimen name="fragment_search_and_notifications_text_view_date_picker_text_size">30sp</dimen>
+    <!-- checkboxes -->
+    <dimen name="fragment_search_and_notifications_checkbox_margin">20dp</dimen>
+    <dimen name="fragment_search_and_notifications_checkbox_text_size">22sp</dimen>
+    <!-- search button -->
+    <dimen name="fragment_search_and_notifications_search_button_margin">40dp</dimen>
+    <dimen name="fragment_search_and_notifications_search_button_text_size">26sp</dimen>
+    <!-- view divider -->
+    <dimen name="fragment_search_and_notifications_view_divider_margin">40dp</dimen>
+    <!-- switch notifications -->
+    <dimen name="fragment_search_and_notifications_switch_notifications_margin">40dp</dimen>
+    <dimen name="fragment_search_and_notifications_switch_notifications_text_size">26sp</dimen>
+
+    <!-- Menu Drawer -->
+    <dimen name="nav_header_height">276dp</dimen>
+    <dimen name="nav_header_margin_top">24dp</dimen>
+
+</resources>
