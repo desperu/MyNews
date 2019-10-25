@@ -1,6 +1,7 @@
 package org.desperu.mynews.Utils;
 
 import org.desperu.mynews.Models.NyTimesAPI;
+import org.desperu.mynews.Utils.HttpRequest.MyHttpRequest;
 
 import io.reactivex.Observable;
 import retrofit2.Retrofit;
@@ -53,6 +54,7 @@ public interface NyTimesService {
      */
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
+            .client(MyHttpRequest.getNewHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();

@@ -1,13 +1,15 @@
 package org.desperu.mynews.Utils;
 
 import org.desperu.mynews.Models.NyTimesAPI;
-import org.desperu.mynews.MyNewsTools;
+import org.desperu.mynews.Utils.HttpRequest.MyHttpRequest;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import static org.desperu.mynews.MyNewsTools.Constant.*;
 
 public class NyTimesStreams {
 
@@ -18,7 +20,7 @@ public class NyTimesStreams {
      */
     public static Observable<NyTimesAPI> streamFetchNyTimesTopStories(String section) {
         NyTimesService nyTimesService = NyTimesService.retrofit.create(NyTimesService.class);
-        return nyTimesService.getNyTimesTopStories(section, MyNewsTools.Constant.apiKey)
+        return nyTimesService.getNyTimesTopStories(section, apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
@@ -30,7 +32,7 @@ public class NyTimesStreams {
      */
     public static Observable<NyTimesAPI> streamFetchNyTimesMostPopular() {
         NyTimesService nyTimesService = NyTimesService.retrofit.create(NyTimesService.class);
-        return nyTimesService.getNyTimesMostPopular(MyNewsTools.Constant.apiKey)
+        return nyTimesService.getNyTimesMostPopular(apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
@@ -48,7 +50,7 @@ public class NyTimesStreams {
     public static Observable<NyTimesAPI> streamFetchNyTimesSearch(String queryTerms, String beginDate,
                                                                   String endDate, String sections, String sort) {
         NyTimesService nyTimesService = NyTimesService.retrofit.create(NyTimesService.class);
-        return nyTimesService.getNyTimesSearch(queryTerms, beginDate, endDate, sections, sort, MyNewsTools.Constant.apiKey)
+        return nyTimesService.getNyTimesSearch(queryTerms, beginDate, endDate, sections, sort, apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
