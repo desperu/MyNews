@@ -21,7 +21,7 @@ public class MyNewsUtilsTest {
 
     @Test
     public void Given_completeDateFormat_When_askConvertDateFormat_Then_checkNewDateFormat() {
-        String givenDate = "2019-10-09T15:28:13-04:00";
+        String givenDate = "2019-10-09T15:28:13-0400"; // "2019-10-09T15:28:13-04:00" pattern work on emulator test
         output = MyNewsUtils.convertDate(givenDate);
 
         assertEquals(returnedDate, output);

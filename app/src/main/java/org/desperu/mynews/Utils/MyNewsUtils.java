@@ -16,14 +16,15 @@ public class MyNewsUtils {
      * @return String date with new format.
      */
     public static String convertDate(String givenDate) {
+
         SimpleDateFormat givenDateFormat;
-        SimpleDateFormat completeDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
+//        SimpleDateFormat completeDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US); // error api 22, unknown X pattern !
         SimpleDateFormat mediumDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH); // TODO problem for search with local time!!
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault()); // TODO date decal ... for search, because it's not same time around the world!!!
 
-        if (givenDate.length() > 24) givenDateFormat = completeDateFormat;
-        else if (givenDate.length() > 10) givenDateFormat = mediumDateFormat;
+//        if (givenDate.length() > 24) givenDateFormat = completeDateFormat;
+        if (givenDate.length() > 10) givenDateFormat = mediumDateFormat;
         else givenDateFormat = simpleDateFormat;
 
         try {
