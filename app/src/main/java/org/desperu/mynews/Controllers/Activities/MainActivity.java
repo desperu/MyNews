@@ -22,9 +22,7 @@ import org.desperu.mynews.Views.MyNewsAdapter;
 
 import butterknife.BindView;
 
-import static org.desperu.mynews.MyNewsTools.FragmentsKeys.MOST_POPULAR_FRAGMENT;
-import static org.desperu.mynews.MyNewsTools.FragmentsKeys.SCIENCES_FRAGMENT;
-import static org.desperu.mynews.MyNewsTools.FragmentsKeys.TOP_STORIES_FRAGMENT;
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 
 public class MainActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener,
         NavigationView.OnNavigationItemSelectedListener {

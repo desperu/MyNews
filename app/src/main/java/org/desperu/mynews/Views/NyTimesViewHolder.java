@@ -10,10 +10,13 @@ import com.bumptech.glide.RequestManager;
 
 import org.desperu.mynews.Models.NyTimesResults;
 import org.desperu.mynews.R;
+import org.desperu.mynews.Utils.MyNewsPrefs;
 import org.desperu.mynews.Utils.MyNewsUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static org.desperu.mynews.MyNewsTools.Constant.*;
 
 public class NyTimesViewHolder extends RecyclerView.ViewHolder {
 
@@ -21,6 +24,8 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_article_item_image) ImageView imageView;
     @BindView(R.id.fragment_article_item_section_subsection) TextView textViewSection;
     @BindView(R.id.fragment_article_item_published_date) TextView textViewPublishedDate;
+
+    private NyTimesResults nyTimesResults;
 
     public NyTimesViewHolder(View itemView) {
         super(itemView);
@@ -33,35 +38,69 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
      * @param glide Glide instance from the adapter to download the article's image.
      */
     public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide) {
+        this.nyTimesResults = nyTimesResults;
         // For title.
-        if (nyTimesResults.getTitle() != null)
-            this.textViewTitle.setText(nyTimesResults.getTitle());
-        else this.textViewTitle.setText(nyTimesResults.getHeadline().getMain());
-
+        this.textViewTitle.setText(this.getTitleArticle());
         //For published date.
-        if (nyTimesResults.getPublishedDate() != null && nyTimesResults.getPublishedDate().length() > 0)
-            this.textViewPublishedDate.setText(MyNewsUtils.convertDate(nyTimesResults.getPublishedDate()));
-
+        this.textViewPublishedDate.setText(this.getPublishedDateArticle());
         // For section and subsection.
-        if (nyTimesResults.getSubsection() != null && nyTimesResults.getSubsection().length() > 0)
-            this.textViewSection.setText(String.format(nyTimesResults.getSection() + " > " + nyTimesResults.getSubsection(), "%d"));
-        else this.textViewSection.setText(nyTimesResults.getSection());
+        this.textViewSection.setText(this.getSectionArticle());
+        // For image.
+        glide.load(getImageUrlArticle()).into(imageView);
+    }
 
-        // For image. // TODO to perform, create a method
+    /**
+     * Get title for each article with the good json localisation.
+     * @return String title article.
+     */
+    private String getTitleArticle() {
+        if (nyTimesResults.getTitle() != null)
+            return nyTimesResults.getTitle();
+        else return nyTimesResults.getHeadline().getMain();
+    }
+
+    /**
+     * Get published date for each article with the good json localisation.
+     * @return String published date.
+     */
+    private String getPublishedDateArticle() {
+        if (nyTimesResults.getPublishedDate() != null && nyTimesResults.getPublishedDate().length() > 0)
+            return MyNewsUtils.convertDate(nyTimesResults.getPublishedDate());
+        return "";
+    }
+
+    /**
+     * Get section and subsection for each article with the good localisation in json.
+     * @return String section and subsection article.
+     */
+    private String getSectionArticle() {
+        if (nyTimesResults.getSubsection() != null && nyTimesResults.getSubsection().length() > 0)
+            return String.format(nyTimesResults.getSection() + " > " + nyTimesResults.getSubsection(), "%d");
+        else return nyTimesResults.getSection();
+    }
+
+    /**
+     * Get image url for each article, depending localisation in json.
+     * @return String image url.
+     */
+    private String getImageUrlArticle() {
+        String imageUrl = "";
         if (nyTimesResults.getMultimedia() != null && !nyTimesResults.getMultimedia().isEmpty()) {
-            String nyTimesUrl = "https://static01.nyt.com/";
-            StringBuilder imageUrl;
             if (nyTimesResults.getMultimedia().get(0).getCropName() != null) {
+
+                // For search result.
                 for (int i = 0; i < nyTimesResults.getMultimedia().size(); i++) {
-                    if (nyTimesResults.getMultimedia().get(i).getCropName().equals("thumbStandard")) {
-                        imageUrl = new StringBuilder(nyTimesUrl).append(nyTimesResults.getMultimedia().get(i).getUrl());
-                        glide.load(imageUrl.toString()).into(imageView);
-                    }
+                    if (nyTimesResults.getMultimedia().get(i).getCropName().equals("thumbStandard"))
+                        imageUrl = nyTimesImageUrl + nyTimesResults.getMultimedia().get(i).getUrl();
                 }
-            }
-            else glide.load(nyTimesResults.getMultimedia().get(0).getUrl()).into(imageView);
-        }
-        else if (nyTimesResults.getMedia() != null) // TODO if MediaMetadatum is empty?
-            glide.load(nyTimesResults.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(imageView);
+
+                // For Top Stories.
+            } else imageUrl = nyTimesResults.getMultimedia().get(0).getUrl();
+
+            // For Most Popular.
+        } else if (nyTimesResults.getMedia() != null && !nyTimesResults.getMedia().get(0).getMediaMetadata().isEmpty())
+            imageUrl = nyTimesResults.getMedia().get(0).getMediaMetadata().get(0).getUrl();
+
+        return imageUrl;
     }
 }

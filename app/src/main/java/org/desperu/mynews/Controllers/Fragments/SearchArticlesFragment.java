@@ -287,9 +287,8 @@ public class SearchArticlesFragment extends BaseFragment {
                 if (getCheckboxesSections().isEmpty()) {
                     this.searchErrorDialog(0);
                     switchNotifications.setChecked(false);
-                } else {
-                    notificationCallback.OnClickNotificationListener(true);
-                }
+                } else notificationCallback.OnClickNotificationListener(true);
+
             } else notificationCallback.OnClickNotificationListener(false);
         });
     }

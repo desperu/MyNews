@@ -19,6 +19,8 @@ import java.util.Date;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
+import static org.desperu.mynews.MyNewsTools.Constant.*;
+
 public class NotificationsAlarmService extends Service {
 
     private static final int NOTIFICATION_ID = 1;
@@ -77,7 +79,7 @@ public class NotificationsAlarmService extends Service {
     private void getNotificationConfigurationAndSetToFields() {
         this.queryTerms = MyNewsPrefs.getString(getBaseContext(), MyNewsTools.Keys.NOTIFICATION_QUERY_TERMS, null);
         this.sections = MyNewsPrefs.getString(getBaseContext(), MyNewsTools.Keys.NOTIFICATION_SECTIONS, null);
-        this.beginDate = MyNewsUtils.dateToStringForNyTimes(MyNewsUtils.stringToDate(MyNewsTools.Constant.BEGIN_DATE_DEFAULT));
+        this.beginDate = MyNewsUtils.dateToStringForNyTimes(MyNewsUtils.stringToDate(BEGIN_DATE_DEFAULT));
         this.endDate = MyNewsUtils.dateToStringForNyTimes(new Date());
     }
 
