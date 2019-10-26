@@ -51,6 +51,6 @@
 
     <!-- Menu Drawer -->
     <dimen name="nav_header_height">88dp</dimen>
-    <dimen name="nav_header_margin_top">24dp</dimen>
+    <dimen name="nav_view_padding_top">24dp</dimen>
 
 </resources>

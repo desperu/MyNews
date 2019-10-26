@@ -1,6 +1,7 @@
 package org.desperu.mynews.Controllers.Activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -21,7 +22,9 @@ import org.desperu.mynews.Views.MyNewsAdapter;
 
 import butterknife.BindView;
 
-import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.MOST_POPULAR_FRAGMENT;
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.SCIENCES_FRAGMENT;
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.TOP_STORIES_FRAGMENT;
 
 public class MainActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener,
         NavigationView.OnNavigationItemSelectedListener {
@@ -90,7 +93,9 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
      */
     private void configureNavigationView() {
         this.navigationView = findViewById(R.id.activity_main_nav_view);
-        //TODO api 19 margin top problem
+        // Support status bar for KitKat.
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT)
+            navigationView.setPadding(0, 0, 0, 0);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(viewPager.getCurrentItem()).setChecked(true);
     }
@@ -210,7 +215,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     /**
      * Start about activity.
      */
-    private void showAboutActivity() {
+    private void showAboutActivity() { // TODO Create dialog
 //        startActivity(new Intent(this, NotificationsActivity.class));
         Toast.makeText(getBaseContext(), "You click on about !", Toast.LENGTH_SHORT).show();
     }
@@ -218,7 +223,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     /**
      * Start help activity.
      */
-    private void showHelpActivity() {
+    private void showHelpActivity() { // TODO add link for documentation
 //        startActivity(new Intent(this, NotificationsActivity.class));
         Toast.makeText(getBaseContext(), "You click on help !", Toast.LENGTH_SHORT).show();
     }

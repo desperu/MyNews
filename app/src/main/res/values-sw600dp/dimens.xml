@@ -44,7 +44,7 @@
     <dimen name="fragment_search_and_notifications_switch_notifications_text_size">26sp</dimen>
 
     <!-- Menu Drawer -->
-    <dimen name="nav_header_height">276dp</dimen>
-    <dimen name="nav_header_margin_top">24dp</dimen>
+    <dimen name="nav_header_height">200dp</dimen>
+    <dimen name="nav_view_padding_top">24dp</dimen>
 
 </resources>
