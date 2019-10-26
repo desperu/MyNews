@@ -10,8 +10,6 @@ import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 
 public class SearchArticlesActivity extends BaseActivity implements SearchArticlesFragment.OnClickedSearchButtonListener {
 
-    public static final String KEY_FRAGMENT = "fragmentKey";
-
     // --------------
     // BASE METHODS
     // --------------

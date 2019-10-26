@@ -15,8 +15,7 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
     public static final String BEGIN_DATE = "Begin date";
     public static final String END_DATE = "End date";
     public static final String SECTIONS = "Sections";
-    // For bundle
-    public static final String KEY_FRAGMENT = "fragmentKey";
+    // For bundle // TODO use one string per data??
     public static final String KEY_QUERY_TERMS = "queryTerms";
     public static final String KEY_BEGIN_DATE = "beginDate";
     public static final String KEY_END_DATE = "endDate";
@@ -32,7 +31,6 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
     @Override
     protected void configureDesign() {
         this.getIntentDataAndPutInBundle();
-
         this.configureAndShowArticleListFragment();
         this.configureToolBar();
         this.configureUpButton();

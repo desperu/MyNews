@@ -98,7 +98,7 @@ public class ArticleListFragment extends BaseFragment {
      */
     private void getDataFromBundle() {
         if (getArguments() != null) {
-            this.fragmentKey = getArguments().getInt(SearchResultsActivity.KEY_FRAGMENT, 0);
+            this.fragmentKey = getArguments().getInt(KEY_FRAGMENT, 0);
             this.queryTerms = getArguments().getString(SearchResultsActivity.KEY_QUERY_TERMS, null);
             this.beginDate = getArguments().getString(SearchResultsActivity.KEY_BEGIN_DATE, null);
             this.endDate = getArguments().getString(SearchResultsActivity.KEY_END_DATE, null);
@@ -152,7 +152,7 @@ public class ArticleListFragment extends BaseFragment {
     private void configureRecyclerView(){
         this.nyTimesResults = new ArrayList<>();
         // Create adapter passing in the sample user data
-        this.adapter = new NyTimesAdapter(this.nyTimesResults, Glide.with(this)); // TODO correct ssl lollipop error
+        this.adapter = new NyTimesAdapter(this.nyTimesResults, Glide.with(this));
         // Attach the adapter to the recyclerView to populate items
         this.recyclerView.setAdapter(this.adapter);
         // Set layout manager to position the items

@@ -33,13 +33,16 @@ public final class MyNewsTools {
         // SearchArticlesFragment, for notifications.
         public static final String NOTIFICATION_SWITCH_STATE = "NotificationSwitchState";
         public static final String NOTIFICATION_QUERY_TERMS = "NotificationQueryTerms";
-        public static final String NOTIFICATION_SECTIONS = "NotificationsSections";
+        public static final String NOTIFICATION_SECTIONS = "NotificationSections";
     }
 
     /**
      * Keys for fragments.
      */
     public static final class FragmentsKeys {
+
+        // String key for bundle
+        public static final String KEY_FRAGMENT = "fragmentKey";
 
         // TopStories Fragment
         public static final int TOP_STORIES_FRAGMENT = 0;

@@ -9,7 +9,7 @@ public class ShowArticleActivity extends BaseActivity {
 
     // For intent extra.
     public static final String ARTICLE_URL = "nytimes.com";
-    // For bundle.
+    // For bundle. // TODO use one string per data??
     public static final String KEY_ARTICLE_URL = "articleUrl";
 
     // --------------

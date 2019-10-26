@@ -19,7 +19,6 @@ import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 public class NotificationsActivity extends BaseActivity implements SearchArticlesFragment.OnClickedNotificationSwitchListener{
 
     private PendingIntent pendingIntent;
-    public static final String KEY_FRAGMENT = "fragmentKey";
 
     // --------------
     // BASE METHODS

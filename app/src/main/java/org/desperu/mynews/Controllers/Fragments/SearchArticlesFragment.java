@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
-import org.desperu.mynews.Controllers.Activities.SearchArticlesActivity;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.MyNewsPrefs;
 import org.desperu.mynews.Utils.MyNewsUtils;
@@ -42,7 +41,7 @@ public class SearchArticlesFragment extends BaseFragment {
     @BindView(R.id.fragment_search_and_notifications_text_view_end_date) TextView textViewEndDate;
     @BindView(R.id.fragment_search_and_notifications_text_view_date_picker_end) TextView showEndDate;
     @BindView(R.id.fragment_search_and_notifications_end_date_divider) View endDateDivider;
-    // Check boxes to select section.
+    // Check boxes to select sections.
     @BindView(R.id.fragment_search_and_notifications_checkbox_arts) CheckBox checkBoxArts;
     @BindView(R.id.fragment_search_and_notifications_checkbox_business) CheckBox checkBoxBusiness;
     @BindView(R.id.fragment_search_and_notifications_checkbox_entrepreneurs) CheckBox checkBoxEntrepreneurs;
@@ -108,7 +107,7 @@ public class SearchArticlesFragment extends BaseFragment {
      */
     private void setFragmentKey() {
         assert getArguments() != null;
-        this.fragmentKey = getArguments().getInt(SearchArticlesActivity.KEY_FRAGMENT, 0);
+        this.fragmentKey = getArguments().getInt(KEY_FRAGMENT, 0);
     }
 
     /**
@@ -118,9 +117,9 @@ public class SearchArticlesFragment extends BaseFragment {
     private void configureAskedFragment(int fragmentKey) {
         switch (fragmentKey) {
             case SEARCH_FRAGMENT :
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                     this.configureDatePicker();
-                } else this.hideDateItems(); // TODO EditText for API < 24 ??
+                else this.hideDateItems();
                 this.configureSearchButtonOnClickListener();
                 this.createSearchCallbackToParentActivity();
                 bottomDivider.setVisibility(View.GONE);
@@ -339,6 +338,7 @@ public class SearchArticlesFragment extends BaseFragment {
 
     /**
      * Create and show dialog box when no section selected or beginDate is bigger than endDate.
+     * @param sectionsOrDates Key for switch dialog between section or date error.
      */
     private void searchErrorDialog(int sectionsOrDates) {
         AlertDialog.Builder errorNoSection = new AlertDialog.Builder(getContext());
