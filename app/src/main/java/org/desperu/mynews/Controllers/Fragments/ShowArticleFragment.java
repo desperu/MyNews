@@ -11,13 +11,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.desperu.mynews.Controllers.Activities.ShowArticleActivity;
 import org.desperu.mynews.R;
+import org.desperu.mynews.Views.LollipopFixedWebView;
 
 import butterknife.BindView;
 import icepick.State;
 
 public class ShowArticleFragment extends BaseFragment {
 
-    @BindView(R.id.fragment_show_article_web_view) WebView webView;
+    @BindView(R.id.fragment_show_article_web_view) LollipopFixedWebView webView;
     @BindView(R.id.fragment_show_articles_swipe_container) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.fragment_show_article_progress_bar) ProgressBar progressBar;
 
