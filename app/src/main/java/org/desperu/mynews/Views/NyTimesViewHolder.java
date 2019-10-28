@@ -1,7 +1,9 @@
 package org.desperu.mynews.Views;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +12,6 @@ import com.bumptech.glide.RequestManager;
 
 import org.desperu.mynews.Models.NyTimesResults;
 import org.desperu.mynews.R;
-import org.desperu.mynews.Utils.MyNewsPrefs;
 import org.desperu.mynews.Utils.MyNewsUtils;
 
 import butterknife.BindView;
@@ -20,6 +21,7 @@ import static org.desperu.mynews.MyNewsTools.Constant.*;
 
 public class NyTimesViewHolder extends RecyclerView.ViewHolder {
 
+    @BindView(R.id.fragment_article_item_linear_layout_root) LinearLayout linearLayout;
     @BindView(R.id.fragment_article_item_title) TextView textViewTitle;
     @BindView(R.id.fragment_article_item_image) ImageView imageView;
     @BindView(R.id.fragment_article_item_section_subsection) TextView textViewSection;
@@ -36,9 +38,12 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
      * Update text views and image view for each article.
      * @param nyTimesResults Information of the article.
      * @param glide Glide instance from the adapter to download the article's image.
+     * @param context Context from this method is called.
      */
-    public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide) {
+    public void updateWithArticle(NyTimesResults nyTimesResults, RequestManager glide, Context context) {
         this.nyTimesResults = nyTimesResults;
+        // For history.
+        this.alreadyReadArticles(context);
         // For title.
         this.textViewTitle.setText(this.getTitleArticle());
         //For published date.
@@ -47,6 +52,16 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
         this.textViewSection.setText(this.getSectionArticle());
         // For image.
         glide.load(getImageUrlArticle()).into(imageView);
+    }
+
+    /**
+     * Change font color if article is in history.
+     * @param context Context from this method is called.
+     */
+    private void alreadyReadArticles(Context context) {
+        if (MyNewsUtils.searchReadArticle(context, nyTimesResults.getUrl()) != -1)
+            linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorGreyLight));
+        else linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
     }
 
     /**

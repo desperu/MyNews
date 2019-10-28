@@ -18,6 +18,7 @@ import org.desperu.mynews.Models.NyTimesAPI;
 import org.desperu.mynews.Models.NyTimesResults;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.ItemClickSupport;
+import org.desperu.mynews.Utils.MyNewsUtils;
 import org.desperu.mynews.Utils.NyTimesStreams;
 import org.desperu.mynews.Views.NyTimesAdapter;
 
@@ -124,6 +125,8 @@ public class ArticleListFragment extends BaseFragment {
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     NyTimesResults nyTimesResults = adapter.getArticle(position);
                     mCallback.onClickedArticle(nyTimesResults.getUrl());
+                    MyNewsUtils.saveReadArticles(getContext(), nyTimesResults.getUrl());
+                    v.setBackgroundColor(getResources().getColor(R.color.colorGreyLight));
                 });
     }
 
@@ -152,7 +155,7 @@ public class ArticleListFragment extends BaseFragment {
     private void configureRecyclerView(){
         this.nyTimesResults = new ArrayList<>();
         // Create adapter passing in the sample user data
-        this.adapter = new NyTimesAdapter(this.nyTimesResults, Glide.with(this));
+        this.adapter = new NyTimesAdapter(this.nyTimesResults, Glide.with(this), getContext());
         // Attach the adapter to the recyclerView to populate items
         this.recyclerView.setAdapter(this.adapter);
         // Set layout manager to position the items
@@ -161,7 +164,6 @@ public class ArticleListFragment extends BaseFragment {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), R.drawable.ic_divider)));
         this.recyclerView.addItemDecoration(itemDecoration);
-
     }
 
     /**

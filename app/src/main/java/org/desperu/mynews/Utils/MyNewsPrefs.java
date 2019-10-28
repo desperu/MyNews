@@ -85,7 +85,7 @@ public class MyNewsPrefs {
      * Save boolean value in shared preferences file.
      * @param context Context from MyPref is called.
      * @param key Key for the value.
-     * @param value The boolean vaue to save.
+     * @param value The boolean value to save.
      */
     public static void savePref(Context context, String key, boolean value) {
         getPrefs(context).edit().putBoolean(key, value).apply();

@@ -7,6 +7,8 @@
     <!-- MyNews colors -->
     <color name="colorDark">#C4000000</color>
     <color name="colorDarkLight">#43000000</color>
+    <color name="colorGrey">#666666</color>
+    <color name="colorGreyLight">#C3D6D6D6</color>
     <color name="colorYellow">#f8e71c</color>
     <color name="colorPrimaryLight">#AEE4EB</color>
     <color name="colorWhite">#fff</color>

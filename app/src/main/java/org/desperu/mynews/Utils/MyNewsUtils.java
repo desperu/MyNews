@@ -1,5 +1,7 @@
 package org.desperu.mynews.Utils;
 
+import android.content.Context;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +9,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import static org.desperu.mynews.MyNewsTools.Constant.*;
+import static org.desperu.mynews.MyNewsTools.Keys.*;
 
 public class MyNewsUtils {
 
@@ -125,5 +130,56 @@ public class MyNewsUtils {
         }
 
         return list;
+    }
+
+    /**
+     * Save article when it's read, for history.
+     * @param context Context from this method is called.
+     * @param articleUrl Article's url.
+     */
+    public static void saveReadArticles(Context context, String articleUrl) {
+        int i = searchReadArticle(context, articleUrl);
+        if (i != -1)
+            MyNewsPrefs.savePref(context, ARTICLE_READ_TIME + i, System.currentTimeMillis());
+        else {
+            i = 0;
+            while (MyNewsPrefs.getString(context, ARTICLE_READ_URL + i, null) != null) i++;
+            MyNewsPrefs.savePref(context, ARTICLE_READ_URL + i, articleUrl);
+            MyNewsPrefs.savePref(context, ARTICLE_READ_TIME + i, System.currentTimeMillis());
+            if (MyNewsPrefs.getInt(context, MAX_HISTORY_VALUE, 0) < i)
+                MyNewsPrefs.savePref(context, MAX_HISTORY_VALUE, i);
+        }
+    }
+
+    /**
+     * Search already read articles.
+     * @param context Context from this method is called.
+     * @param articleUrl Article's url.
+     * @return Position value if in history, -1 if not.
+     */
+    public static int searchReadArticle(Context context, String articleUrl) {
+        for (int i = 0; i <= MyNewsPrefs.getInt(context, MAX_HISTORY_VALUE, 0); i++) {
+            if (MyNewsPrefs.getString(context, ARTICLE_READ_URL + i, "").equals(articleUrl))
+                return i;
+        }
+        return -1;
+    }
+
+    /**
+     * Manage history, clean too old history.
+     * @param context Context from this method is called.
+     */
+    public static void manageArticleHistory(Context context) {
+        int maxUsedValue = 0;
+        long ageLimit = System.currentTimeMillis() - HISTORY_AGE;
+        for (int i = 0; i <= MyNewsPrefs.getInt(context, MAX_HISTORY_VALUE, 0); i++) {
+            long readTime = MyNewsPrefs.getLong(context, ARTICLE_READ_TIME + i, 0);
+            if (readTime != 0 && ageLimit > readTime) {
+                MyNewsPrefs.clear(context, ARTICLE_READ_URL + i);
+                MyNewsPrefs.clear(context, ARTICLE_READ_TIME + i);
+            }
+            if (MyNewsPrefs.getLong(context, ARTICLE_READ_TIME + i, 0) != 0) maxUsedValue = i;
+        }
+        MyNewsPrefs.savePref(context, MAX_HISTORY_VALUE, maxUsedValue);
     }
 }

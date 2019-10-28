@@ -20,13 +20,17 @@ public final class MyNewsTools {
         // Base url for search result images.
         public static final String nyTimesImageUrl = "https://static01.nyt.com/";
 
+        // NyTimesService.
+        // To sort articles.
+        public static final String SORT_BY = "newest";
+
         // SearchArticlesFragment and NotificationAlarmService.
         // Begin date, default value for api request.
         public static final String BEGIN_DATE_DEFAULT = "01/01/1800";
 
-        // NyTimesService.
-        // To sort articles.
-        public static final String SORT_BY = "newest";
+        // MyNewsUtils
+        // History max age in millis 30*24*60*60*1000, 30 days.
+        public static final long HISTORY_AGE = 2592000000L;
     }
 
     /**
@@ -38,6 +42,11 @@ public final class MyNewsTools {
         public static final String NOTIFICATION_SWITCH_STATE = "NotificationSwitchState";
         public static final String NOTIFICATION_QUERY_TERMS = "NotificationQueryTerms";
         public static final String NOTIFICATION_SECTIONS = "NotificationSections";
+
+        // History already read articles.
+        public static final String MAX_HISTORY_VALUE = "MaxHistoryValue";
+        public static final String ARTICLE_READ_URL = "ReadArticles";
+        public static final String ARTICLE_READ_TIME = "ReadTime";
     }
 
     /**

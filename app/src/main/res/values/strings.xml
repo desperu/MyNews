@@ -55,7 +55,7 @@
     <string name="toast_notification_disable">Notification disabled !</string>
     <string name="toast_notification_data_saved">Notification data were saved !</string>
     <!-- Notifications body -->
-    <string name="notification_title">News articles to show !</string>
+    <string name="notification_title">Found articles !</string>
     <string name="notification_text">" articles were found with yours preferences !"</string>
 
 </resources>

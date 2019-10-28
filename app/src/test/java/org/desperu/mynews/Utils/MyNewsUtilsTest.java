@@ -1,6 +1,13 @@
 package org.desperu.mynews.Utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import org.desperu.mynews.MyNewsTools;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,8 +17,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static org.desperu.mynews.MyNewsTools.Keys.*;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MyNewsUtilsTest {
 
     private String returnedDate = "09/10/19";
@@ -154,6 +166,37 @@ public class MyNewsUtilsTest {
         expected.add("Arts");
         String sections = "news_desk.contains:(\"Politics\" \"Business\" \"Entrepreneurs\" \"Arts\")";
         List<String> output = MyNewsUtils.deConcatenateStringSectionToArrayList(sections);
+
+        assertEquals(expected, output);
+    }
+
+    @Mock Context mockContext;
+    @Mock SharedPreferences mockPrefs;
+
+    @Test
+    public void Given_articleUrl_When_searchUrlInHistory_Then_returnPosition() {
+        int expected = 0;
+        String url = MyNewsTools.Constant.nyTimesImageUrl;
+
+        when(mockContext.getSharedPreferences(anyString(), anyInt())).thenReturn(mockPrefs);
+        when(mockPrefs.getString(ARTICLE_READ_URL + 0, "")).thenReturn(url);
+        when(mockPrefs.getInt(MAX_HISTORY_VALUE, 0)).thenReturn(expected);
+
+        int output = MyNewsUtils.searchReadArticle(mockContext, url);
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void Given_articleUrl_When_searchUrlInHistory_Then_returnDefault() {
+        int expected = -1;
+        String url = MyNewsTools.Constant.nyTimesImageUrl;
+
+        when(mockContext.getSharedPreferences(anyString(), anyInt())).thenReturn(mockPrefs);
+        when(mockPrefs.getString(ARTICLE_READ_URL + 0, "")).thenReturn("test");
+        when(mockPrefs.getInt(MAX_HISTORY_VALUE, 0)).thenReturn(0);
+
+        int output = MyNewsUtils.searchReadArticle(mockContext, url);
 
         assertEquals(expected, output);
     }

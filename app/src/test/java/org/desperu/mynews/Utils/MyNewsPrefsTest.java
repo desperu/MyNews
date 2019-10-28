@@ -27,13 +27,13 @@ public class MyNewsPrefsTest {
     private boolean booleanTest = true;
 
     @Before
-    public void before() throws Exception {
+    public void before() {
         when(mockContext.getSharedPreferences(anyString(), anyInt())).thenReturn(mockPrefs);
 
-        when(MyNewsPrefs.getString(mockContext, key, null)).thenReturn(stringTest);
-        when(MyNewsPrefs.getInt(mockContext, key, 0)).thenReturn(intTest);
-        when(MyNewsPrefs.getLong(mockContext, key, 0)).thenReturn(longTest);
-        when(MyNewsPrefs.getBoolean(mockContext, key, false)).thenReturn(booleanTest);
+        when(mockPrefs.getString(key, null)).thenReturn(stringTest);
+        when(mockPrefs.getInt(key, 0)).thenReturn(intTest);
+        when(mockPrefs.getLong(key, 0)).thenReturn(longTest);
+        when(mockPrefs.getBoolean(key, false)).thenReturn(booleanTest);
     }
 
     @Test

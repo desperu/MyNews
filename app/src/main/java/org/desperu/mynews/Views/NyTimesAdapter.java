@@ -19,11 +19,13 @@ public class NyTimesAdapter extends RecyclerView.Adapter<NyTimesViewHolder> {
     // FOR DATA
     private List<NyTimesResults> nyTimesResults;
     private RequestManager glide;
+    private Context context;
 
     // CONSTRUCTOR
-    public NyTimesAdapter(List<NyTimesResults> nyTimesResults, RequestManager glide) {
+    public NyTimesAdapter(List<NyTimesResults> nyTimesResults, RequestManager glide, Context context) {
         this.nyTimesResults = nyTimesResults;
         this.glide = glide;
+        this.context = context;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class NyTimesAdapter extends RecyclerView.Adapter<NyTimesViewHolder> {
     // UPDATE VIEW HOLDER WITH A NEW YORK TIMES ARTICLE
     @Override
     public void onBindViewHolder(NyTimesViewHolder viewHolder, int position) {
-        viewHolder.updateWithArticle(this.nyTimesResults.get(position), this.glide);
+        viewHolder.updateWithArticle(this.nyTimesResults.get(position), this.glide, this.context);
     }
 
     // RETURN THE TOTAL COUNT OF ITEMS IN THE LIST

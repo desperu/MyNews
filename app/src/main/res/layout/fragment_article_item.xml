@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_article_item_linear_layout_root"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -53,6 +54,7 @@
             android:layout_weight="3"
             android:layout_gravity="start"
             android:textSize="@dimen/fragment_article_item_text_view_article_title_text_size"
+            android:textColor="@color/colorGrey"
             android:lines="2"
             android:maxLines="2"/>
 

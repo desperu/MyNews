@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
 import org.desperu.mynews.R;
+import org.desperu.mynews.Utils.MyNewsUtils;
 import org.desperu.mynews.Views.MyNewsAdapter;
 
 import butterknife.BindView;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
         this.configureDrawerLayout();
         this.configureNavigationView();
         this.configureViewPagerAndTabs();
+        MyNewsUtils.manageArticleHistory(getBaseContext());
     }
 
     @Override
@@ -180,8 +182,8 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     // -----------------
 
     @Override
-    public void onClickedArticle(String clickedArticle) {
-        this.showArticleActivity(clickedArticle);
+    public void onClickedArticle(String articleUrl) {
+        this.showArticleActivity(articleUrl);
     }
 
     // -----------------
