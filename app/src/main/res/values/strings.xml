@@ -1,4 +1,5 @@
 <resources>
+
     <!-- Activities labels -->
     <string name="app_name">My News</string>
     <string name="search_activity">Search Articles</string>
@@ -55,7 +56,9 @@
     <string name="toast_notification_disable">Notification disabled !</string>
     <string name="toast_notification_data_saved">Notification data were saved !</string>
     <!-- Notifications body -->
-    <string name="notification_title">Found articles !</string>
-    <string name="notification_text">" articles were found with yours preferences !"</string>
+    <string name="notification_ticker">MyNews : </string>
+    <string name="notification_title">" articles find with yours preferences !"</string>
+    <string name="notification_text">" new articles you haven't already read ! Click to see !"</string>
+    <string name="notification_subtext">Find articles !</string>
 
 </resources>

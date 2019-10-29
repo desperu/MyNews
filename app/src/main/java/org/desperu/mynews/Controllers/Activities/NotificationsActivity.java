@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.widget.Toast;
 
 import org.desperu.mynews.Controllers.Fragments.SearchArticlesFragment;
@@ -46,7 +45,8 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
      * Configure and show search articles fragment.
      */
     private void configureAndShowSearchArticlesFragment() {
-        SearchArticlesFragment searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_search_and_notifications_frame_layout);
+        SearchArticlesFragment searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.activity_search_and_notifications_frame_layout);
 
         if (searchArticlesFragment == null) {
             searchArticlesFragment = new SearchArticlesFragment();
@@ -63,10 +63,8 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
      * Configure alarm manager for notifications.
      */
     private void configureAlarmManager() {
-        Intent alarmIntent = new Intent(this, NotificationsAlarmService.class);
-        // TODO on test
-        pendingIntent = PendingIntent.getService(getBaseContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        pendingIntent = PendingIntent.getService(getBaseContext(), 0, alarmIntent, 0);
+        Intent alarmIntent = new Intent(getApplicationContext(), NotificationsAlarmService.class);
+        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, 0);
     }
 
     // -----------------
@@ -96,11 +94,8 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
      */
     private void startNotificationsAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        Objects.requireNonNull(manager).setRepeating(AlarmManager.ELAPSED_REALTIME,
-//                SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        // TODO for test
-        Objects.requireNonNull(manager).setRepeating(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime(), 3600, pendingIntent);
+        Objects.requireNonNull(manager).setRepeating(AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         Toast.makeText(this, R.string.toast_notification_enable, Toast.LENGTH_SHORT).show();
     }
 

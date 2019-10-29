@@ -38,7 +38,7 @@
             android:name=".Controllers.Activities.NotificationsActivity"
             android:label="@string/notifications_activity"
             android:parentActivityName=".Controllers.Activities.MainActivity" />
-        <service
+        <receiver
             android:name=".Utils.NotificationsAlarmService" />
     </application>
 
