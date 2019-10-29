@@ -41,7 +41,7 @@
                 <item
                     android:id="@+id/activity_main_drawer_about"
                     android:icon="@drawable/ic_more_horiz_white_24dp"
-                    android:title="@string/navigation_drawer_about"/>
+                    android:title="@string/activity_main_dialog_about_title"/>
 
                 <item
                     android:id="@+id/activity_main_drawer_help"

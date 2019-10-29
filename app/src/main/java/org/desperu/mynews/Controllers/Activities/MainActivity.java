@@ -2,11 +2,14 @@ package org.desperu.mynews.Controllers.Activities;
 
 import android.content.Intent;
 import android.os.Build;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -20,6 +23,8 @@ import org.desperu.mynews.Controllers.Fragments.ArticleListFragment;
 import org.desperu.mynews.R;
 import org.desperu.mynews.Utils.MyNewsUtils;
 import org.desperu.mynews.Views.MyNewsAdapter;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 
@@ -124,7 +129,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
                 this.showNotificationsActivity();
                 break;
             case R.id.activity_main_drawer_about:
-                this.showAboutActivity();
+                this.showAboutDialog();
                 break;
             case R.id.activity_main_drawer_help:
                 this.showHelpActivity();
@@ -160,7 +165,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
                 this.showNotificationsActivity();
                 return true;
             case R.id.menu_activity_about:
-                this.showAboutActivity();
+                this.showAboutDialog();
                 return true;
             case R.id.menu_activity_help:
                 this.showHelpActivity();
@@ -213,11 +218,16 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     }
 
     /**
-     * Start about activity.
+     * Show about dialog.
      */
-    private void showAboutActivity() { // TODO Create dialog
-//        startActivity(new Intent(this, NotificationsActivity.class));
-        Toast.makeText(getBaseContext(), "You click on about !", Toast.LENGTH_SHORT).show();
+    private void showAboutDialog() {
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.activity_main_dialog_about_title) + " " + getString(R.string.app_name))
+                .setMessage(R.string.activity_main_dialog_about_message)
+                .setPositiveButton(R.string.activity_main_dialog_about_positive_button, null)
+                .show();
+        ((TextView) Objects.requireNonNull(dialog.findViewById(android.R.id.message)))
+                .setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     /**

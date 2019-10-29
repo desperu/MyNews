@@ -6,6 +6,7 @@ import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -51,10 +52,11 @@ public class NotificationsAlarmService extends BroadcastReceiver {
         // Create notification.
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_black_news_logo)
-                .setSubText(context.getString(R.string.notification_subtext))
-                .setTicker(context.getString(R.string.notification_ticker) + unread + context.getString(R.string.notification_text))
-                .setContentTitle(numResults + context.getString(R.string.notification_title))
-                .setContentText(unread + context.getString(R.string.notification_text))
+                .setTicker(context.getString(R.string.notification_ticker) + unread + context.getString(R.string.notification_subtext))
+                .setContentTitle(context.getString(R.string.notification_title))
+                .setContentText(numResults + context.getString(R.string.notification_text))
+                .setSubText(unread + context.getString(R.string.notification_subtext))
+                .setLargeIcon(((BitmapDrawable)context.getResources().getDrawable(R.drawable.ic_my_news_logo)).getBitmap())
                 .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND)
                 .setAutoCancel(true);
 

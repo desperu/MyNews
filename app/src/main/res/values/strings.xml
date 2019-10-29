@@ -11,7 +11,6 @@
     <string name="menu_item_params">Parameters</string>
     <string name="menu_item_search">Search</string>
     <!-- Nav drawer -->
-    <string name="navigation_drawer_about">About</string>
     <string name="navigation_drawer_help">Help</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -20,6 +19,13 @@
     <string name="tab_title_1">Top Stories</string>
     <string name="tab_title_2">Most Popular</string>
     <string name="tab_title_3">Sciences</string>
+
+    <!-- Main Activity -->
+    <!-- Dialog About -->
+    <!-- TODO change last link -->
+    <string name="activity_main_dialog_about_title">About</string>
+    <string name="activity_main_dialog_about_message">"<p>This application is developed by Desperu.\nSource code on <a href="https://github.com/desperu/MyNews">github.com</a>.\n\nIf you have an issue with this application, please search <a href="https://github.com/desperu/MyNews/issues">here</a>, create a new issue if there is not yours. \nYou must create an account if you have not.\n\nYou need help to use MyNews application?\nFind the documentation <a href="https://github.com/desperu/MyNews/issues">here</a>.</p>"</string>
+    <string name="activity_main_dialog_about_positive_button">OK</string>
 
     <!-- Article list fragment -->
     <!-- Dialog no response -->
@@ -56,9 +62,9 @@
     <string name="toast_notification_disable">Notification disabled !</string>
     <string name="toast_notification_data_saved">Notification data were saved !</string>
     <!-- Notifications body -->
-    <string name="notification_ticker">MyNews : </string>
-    <string name="notification_title">" articles find with yours preferences !"</string>
-    <string name="notification_text">" new articles you haven't already read ! Click to see !"</string>
-    <string name="notification_subtext">Find articles !</string>
+    <string name="notification_ticker">"MyNews : "</string>
+    <string name="notification_title">Find articles ! Click to see !</string>
+    <string name="notification_text">" articles find with yours preferences !"</string>
+    <string name="notification_subtext">" new articles you haven't already read !"</string>
 
 </resources>

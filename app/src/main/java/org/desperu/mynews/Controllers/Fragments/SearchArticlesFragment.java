@@ -219,7 +219,7 @@ public class SearchArticlesFragment extends BaseFragment {
     // --------------
     // DATE PICKER API >= 24
     // --------------
-
+// TODO date picker allow on api 22 and below??
     /**
      * Configure date picker.
      */

@@ -19,7 +19,7 @@
 
         <item
             android:id="@+id/menu_activity_about"
-            android:title="@string/navigation_drawer_about"/>
+            android:title="@string/activity_main_dialog_about_title"/>
 
         <item
             android:id="@+id/menu_activity_help"
