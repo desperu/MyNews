@@ -19,12 +19,12 @@
             android:layout_gravity="center"
             android:visibility="gone"/>
 
-        <org.desperu.mynews.Views.LollipopFixedWebView
+        <org.desperu.mynews.views.LollipopFixedWebView
             android:id="@+id/fragment_show_article_web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </org.desperu.mynews.Views.LollipopFixedWebView>
+        </org.desperu.mynews.views.LollipopFixedWebView>
 
     </LinearLayout>
 
