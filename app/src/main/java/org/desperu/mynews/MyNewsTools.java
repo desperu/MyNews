@@ -31,6 +31,10 @@ public final class MyNewsTools {
         // MyNewsUtils
         // History max age in millis 30*24*60*60*1000, 30 days.
         public static final long HISTORY_AGE = 2592000000L;
+
+        // MainActivity
+        // Documentation url
+        public static final String DOCUMENTATION_URL = "https://github.com/desperu/MyNews/blob/master/Documentation/Documentation%20Fonctionnelle%20MyNews.pdf";
     }
 
     /**

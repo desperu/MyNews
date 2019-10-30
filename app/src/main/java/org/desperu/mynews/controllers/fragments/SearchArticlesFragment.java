@@ -2,7 +2,6 @@ package org.desperu.mynews.controllers.fragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.os.Build;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -10,8 +9,6 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
 
 import org.desperu.mynews.R;
 import org.desperu.mynews.utils.MyNewsPrefs;
@@ -117,9 +114,7 @@ public class SearchArticlesFragment extends BaseFragment {
     private void configureAskedFragment(int fragmentKey) {
         switch (fragmentKey) {
             case SEARCH_FRAGMENT :
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    this.configureDatePicker();
-                else this.hideDateItems();
+                this.configureDatePicker();
                 this.configureSearchButtonOnClickListener();
                 this.createSearchCallbackToParentActivity();
                 bottomDivider.setVisibility(View.GONE);
@@ -217,13 +212,12 @@ public class SearchArticlesFragment extends BaseFragment {
     }
 
     // --------------
-    // DATE PICKER API >= 24
+    // DATE PICKERS
     // --------------
-// TODO date picker allow on api 22 and below??
+
     /**
      * Configure date picker.
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void configureDatePicker() {
         showBeginDate.setOnClickListener(v -> configureDatePickerDialog(datePickerBegin));
         datePickerBegin = (view, year, month, dayOfMonth) -> {
@@ -241,7 +235,6 @@ public class SearchArticlesFragment extends BaseFragment {
      * Configure Date picker dialog.
      * @param dateSetListener Date picker dialog listener.
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void configureDatePickerDialog(DatePickerDialog.OnDateSetListener dateSetListener) {
         Calendar cal = Calendar.getInstance();
         if (dateSetListener == datePickerBegin && beginDate.length() > 0)

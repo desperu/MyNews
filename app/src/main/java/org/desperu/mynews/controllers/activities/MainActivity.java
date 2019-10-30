@@ -1,12 +1,12 @@
 package org.desperu.mynews.controllers.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -28,6 +28,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 
+import static org.desperu.mynews.MyNewsTools.Constant.*;
 import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 
 public class MainActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener,
@@ -132,7 +133,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
                 this.showAboutDialog();
                 break;
             case R.id.activity_main_drawer_help:
-                this.showHelpActivity();
+                this.showHelpDocumentation();
                 break;
             default:
                 break;
@@ -168,7 +169,7 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
                 this.showAboutDialog();
                 return true;
             case R.id.menu_activity_help:
-                this.showHelpActivity();
+                this.showHelpDocumentation();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -231,10 +232,12 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
     }
 
     /**
-     * Start help activity.
+     * Show help documentation.
      */
-    private void showHelpActivity() { // TODO add link for documentation
-//        startActivity(new Intent(this, NotificationsActivity.class));
-        Toast.makeText(getBaseContext(), "You click on help !", Toast.LENGTH_SHORT).show();
+    private void showHelpDocumentation() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+        browserIntent.setDataAndType(Uri.parse(DOCUMENTATION_URL), "text/html");
+
+        startActivity(browserIntent);
     }
 }
