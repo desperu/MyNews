@@ -51,7 +51,7 @@ public class ShowArticleFragment extends BaseFragment {
      * Set articleUrl with bundle argument if not null.
      */
     private void setArticleUrl() {
-        if (this.getArguments() != null)
+        if (this.getArguments() != null && articleUrl == null)
             this.articleUrl = this.getArguments().getString(ShowArticleActivity.KEY_ARTICLE_URL, null);
     }
 

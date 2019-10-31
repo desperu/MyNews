@@ -67,6 +67,6 @@
     <string name="notification_ticker">"MyNews : "</string>
     <string name="notification_title">Find articles ! Click to see !</string>
     <string name="notification_text">" articles find with yours preferences !"</string>
-    <string name="notification_subtext">" new articles you haven't already read !"</string>
+    <string name="notification_subtext">" new articles you haven't read !"</string>
 
 </resources>

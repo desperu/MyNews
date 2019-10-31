@@ -50,9 +50,9 @@ public class ShowArticleActivity extends BaseActivity {
                 .findFragmentById(R.id.activity_show_article_frame_layout);
 
         if (showArticleFragment == null) {
+            showArticleFragment = new ShowArticleFragment();
             Bundle bundle = new Bundle();
             bundle.putString(KEY_ARTICLE_URL, getArticleUrlIntent());
-            showArticleFragment = new ShowArticleFragment();
             showArticleFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_show_article_frame_layout, showArticleFragment)
@@ -63,9 +63,7 @@ public class ShowArticleActivity extends BaseActivity {
     /**
      * Get article url from extra intent.
      */
-    private String getArticleUrlIntent() {
-        return getIntent().getStringExtra(ARTICLE_URL);
-    }
+    private String getArticleUrlIntent() { return getIntent().getStringExtra(ARTICLE_URL); }
 
     /**
      * Attaches the share intent to the share action provider.
