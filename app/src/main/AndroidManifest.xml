@@ -4,6 +4,7 @@
     package="org.desperu.mynews">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
         android:name=".utils.AppNotifications"
@@ -37,7 +38,11 @@
         <activity
             android:name=".controllers.activities.SearchResultsActivity"
             android:label="@string/search_results_activity"
-            android:parentActivityName=".controllers.activities.MainActivity" />
+            android:parentActivityName=".controllers.activities.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SEND" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".controllers.activities.NotificationsActivity"
             android:label="@string/notifications_activity"

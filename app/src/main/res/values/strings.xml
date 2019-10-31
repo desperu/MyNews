@@ -14,6 +14,8 @@
     <string name="navigation_drawer_help">Help</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- Share -->
+    <string name="share_title">Share</string>
 
     <!-- Fragments names -->
     <string name="tab_title_1">Top Stories</string>

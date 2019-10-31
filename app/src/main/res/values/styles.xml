@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorDark</item>
         <item name="android:itemBackground">@color/colorWhite</item>
+        <item name="listPopupWindowStyle">@style/ShareActionTheme</item>
     </style>
 
     <!-- TOOLBAR THEME -->
@@ -29,6 +30,11 @@
     <!-- Date Picker Dialog Theme -->
     <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <!-- Share Action Provider Popup Theme -->
+    <style name="ShareActionTheme" parent="Theme.AppCompat.Light">
+        <item name="android:popupBackground">@color/colorWhite</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

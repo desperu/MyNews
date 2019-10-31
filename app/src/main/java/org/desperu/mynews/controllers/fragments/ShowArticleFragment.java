@@ -98,4 +98,12 @@ public class ShowArticleFragment extends BaseFragment {
                 swipeRefreshLayout.setEnabled(webView.getScrollY() == 0));
         swipeRefreshLayout.setOnRefreshListener(this::configureAndShowWebViewWithProgressBar);
     }
+
+    /**
+     * Getter for article url.
+     * @return String article url.
+     */
+    public String getArticleUrl() {
+        return this.articleUrl;
+    }
 }
