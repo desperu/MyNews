@@ -22,7 +22,7 @@ public class MostPopularMedium {
     @SerializedName("approved_for_syndication")
     @Expose
     private Integer approvedForSyndication;
-    @SerializedName("media-metadata") // TODO test create one medium model
+    @SerializedName("media-metadata")
     @Expose
     private List<MostPopularMediaMetadatum> mediaMetadata = null;
 

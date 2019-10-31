@@ -24,7 +24,7 @@ import io.reactivex.observers.DisposableObserver;
 import static org.desperu.mynews.MyNewsTools.Constant.*;
 import static org.desperu.mynews.utils.AppNotifications.*;
 
-public class NotificationsAlarmService extends BroadcastReceiver {
+public class NotificationsAlarmReceiver extends BroadcastReceiver {
 
     private static final int NOTIFICATION_ID = 1;
 

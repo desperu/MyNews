@@ -52,7 +52,7 @@ public class ShowArticleFragment extends BaseFragment {
      */
     private void setArticleUrl() {
         if (this.getArguments() != null && articleUrl == null)
-            this.articleUrl = this.getArguments().getString(ShowArticleActivity.KEY_ARTICLE_URL, null);
+            this.articleUrl = this.getArguments().getString(ShowArticleActivity.ARTICLE_URL, null);
     }
 
     /**

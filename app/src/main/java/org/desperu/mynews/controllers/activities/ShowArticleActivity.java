@@ -13,10 +13,8 @@ import org.desperu.mynews.R;
 
 public class ShowArticleActivity extends BaseActivity {
 
-    // For intent extra.
-    public static final String ARTICLE_URL = "nytimes.com";
-    // For bundle. // TODO use one string per data??
-    public static final String KEY_ARTICLE_URL = "articleUrl";
+    // For data
+    public static final String ARTICLE_URL = "articleUrl";
 
     private ShowArticleFragment showArticleFragment;
     private ShareActionProvider miShareAction;
@@ -52,7 +50,7 @@ public class ShowArticleActivity extends BaseActivity {
         if (showArticleFragment == null) {
             showArticleFragment = new ShowArticleFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(KEY_ARTICLE_URL, getArticleUrlIntent());
+            bundle.putString(ARTICLE_URL, getArticleUrlIntent());
             showArticleFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_show_article_frame_layout, showArticleFragment)

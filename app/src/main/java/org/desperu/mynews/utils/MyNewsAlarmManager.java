@@ -19,7 +19,7 @@ public class MyNewsAlarmManager {
      * @param context Context from this method is called.
      */
     public static void configureAlarmManager(Context context) {
-        Intent alarmIntent = new Intent(context, NotificationsAlarmService.class);
+        Intent alarmIntent = new Intent(context, NotificationsAlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
     }
 

@@ -100,10 +100,10 @@ public class ArticleListFragment extends BaseFragment {
     private void getDataFromBundle() {
         if (getArguments() != null) {
             this.fragmentKey = getArguments().getInt(KEY_FRAGMENT, 0);
-            this.queryTerms = getArguments().getString(SearchResultsActivity.KEY_QUERY_TERMS, null);
-            this.beginDate = getArguments().getString(SearchResultsActivity.KEY_BEGIN_DATE, null);
-            this.endDate = getArguments().getString(SearchResultsActivity.KEY_END_DATE, null);
-            this.sections = getArguments().getString(SearchResultsActivity.KEY_SECTIONS, null);
+            this.queryTerms = getArguments().getString(SearchResultsActivity.QUERY_TERMS, null);
+            this.beginDate = getArguments().getString(SearchResultsActivity.BEGIN_DATE, null);
+            this.endDate = getArguments().getString(SearchResultsActivity.END_DATE, null);
+            this.sections = getArguments().getString(SearchResultsActivity.SECTIONS, null);
         }
     }
 

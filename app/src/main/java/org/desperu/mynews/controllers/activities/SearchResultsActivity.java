@@ -11,15 +11,10 @@ import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 public class SearchResultsActivity extends BaseActivity implements ArticleListFragment.OnClickedArticleListener {
 
     // FOR DATA
-    public static final String QUERY_TERMS = "Query terms";
-    public static final String BEGIN_DATE = "Begin date";
-    public static final String END_DATE = "End date";
-    public static final String SECTIONS = "Sections";
-    // For bundle // TODO use one string per data??
-    public static final String KEY_QUERY_TERMS = "queryTerms";
-    public static final String KEY_BEGIN_DATE = "beginDate";
-    public static final String KEY_END_DATE = "endDate";
-    public static final String KEY_SECTIONS = "sections";
+    public static final String QUERY_TERMS = "queryTerms";
+    public static final String BEGIN_DATE = "beginDate";
+    public static final String END_DATE = "endDate";
+    public static final String SECTIONS = "sections";
 
     // --------------
     // BASE METHODS
@@ -65,10 +60,10 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
     private Bundle getIntentDataAndPutInBundle() {
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_FRAGMENT, SEARCH_RESULTS_FRAGMENT);
-        bundle.putString(KEY_QUERY_TERMS, getIntent().getStringExtra(QUERY_TERMS));
-        bundle.putString(KEY_BEGIN_DATE, getIntent().getStringExtra(BEGIN_DATE));
-        bundle.putString(KEY_END_DATE, getIntent().getStringExtra(END_DATE));
-        bundle.putString(KEY_SECTIONS, getIntent().getStringExtra(SECTIONS));
+        bundle.putString(QUERY_TERMS, getIntent().getStringExtra(QUERY_TERMS));
+        bundle.putString(BEGIN_DATE, getIntent().getStringExtra(BEGIN_DATE));
+        bundle.putString(END_DATE, getIntent().getStringExtra(END_DATE));
+        bundle.putString(SECTIONS, getIntent().getStringExtra(SECTIONS));
         return bundle;
     }
 
