@@ -27,7 +27,7 @@ import static org.desperu.mynews.MyNewsTools.Constant.*;
 import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 import static org.desperu.mynews.MyNewsTools.Keys.*;
 
-public class SearchArticlesFragment extends BaseFragment {
+public class SearchAndNotificationFragment extends BaseFragment {
 
     // Edit text to enter query search terms
     @BindView(R.id.fragment_search_and_notifications_edit_text) EditText searchEditText;
@@ -47,6 +47,7 @@ public class SearchArticlesFragment extends BaseFragment {
     @BindView(R.id.fragment_search_and_notifications_checkbox_travel) CheckBox checkBoxTravel;
     // Button, switch, and divider.
     @BindView(R.id.fragment_search_and_notifications_button_search) Button buttonSearch;
+    @BindView(R.id.fragment_search_and_notifications_button_notify_search) Button buttonNotifySearch;
     @BindView(R.id.fragment_search_and_notifications_bottom_divider) View bottomDivider;
     @BindView(R.id.fragment_search_and_notifications_switch_notifications) Switch switchNotifications;
 
@@ -59,18 +60,19 @@ public class SearchArticlesFragment extends BaseFragment {
     @State String endDate = "";
 
     // Callback Search button
-    public interface OnClickedSearchButtonListener {
+    public interface OnClickSearchAndNotifySearchButtonListener {
         void OnClickSearchListener(String queryTerms, String beginDate, String endDate, String sections);
+        void OnClickNotifySearchListener(boolean isNotificationEnabled);
     }
 
-    private SearchArticlesFragment.OnClickedSearchButtonListener searchCallback;
+    private SearchAndNotificationFragment.OnClickSearchAndNotifySearchButtonListener searchCallback;
 
     // Callback Notification Switch
-    public interface OnClickedNotificationSwitchListener {
+    public interface OnClickNotificationSwitchListener {
         void OnClickNotificationListener(boolean isChecked);
     }
 
-    private SearchArticlesFragment.OnClickedNotificationSwitchListener notificationCallback;
+    private SearchAndNotificationFragment.OnClickNotificationSwitchListener notificationCallback;
 
     // --------------
     // BASE METHODS
@@ -93,7 +95,7 @@ public class SearchArticlesFragment extends BaseFragment {
     // CONSTRUCTOR
     // --------------
 
-    public SearchArticlesFragment() {}
+    public SearchAndNotificationFragment() {}
 
     // --------------
     // CONFIGURATION
@@ -116,6 +118,7 @@ public class SearchArticlesFragment extends BaseFragment {
             case SEARCH_FRAGMENT :
                 this.configureDatePicker();
                 this.configureSearchButtonOnClickListener();
+                this.configureNotifySearchButtonOnClickListener();
                 this.createSearchCallbackToParentActivity();
                 bottomDivider.setVisibility(View.GONE);
                 switchNotifications.setVisibility(View.GONE);
@@ -125,6 +128,7 @@ public class SearchArticlesFragment extends BaseFragment {
                 this.createNotificationCallbackToParentActivity();
                 this.hideDateItems();
                 buttonSearch.setVisibility(View.GONE);
+                buttonNotifySearch.setVisibility(View.GONE);
                 break;
         }
     }
@@ -146,11 +150,13 @@ public class SearchArticlesFragment extends BaseFragment {
     // --------------
 
     /**
-     * Save notification layout data.
+     * Save notification data.
+     * @param notifySearch If is called from notify search button.
      */
-    private void saveNotificationsFragmentData() {
-        if (fragmentKey == NOTIFICATION_FRAGMENT) {
-            MyNewsPrefs.savePref(getContext(), NOTIFICATION_SWITCH_STATE, switchNotifications.isChecked());
+    private void saveNotificationsData(boolean notifySearch) {
+        if (fragmentKey == NOTIFICATION_FRAGMENT || notifySearch) {
+            if (notifySearch) MyNewsPrefs.savePref(getContext(), NOTIFICATION_SWITCH_STATE, true);
+            else MyNewsPrefs.savePref(getContext(), NOTIFICATION_SWITCH_STATE, switchNotifications.isChecked());
             MyNewsPrefs.savePref(getContext(), NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
             MyNewsPrefs.savePref(getContext(), NOTIFICATION_SECTIONS, getCheckboxesSections());
             Toast.makeText(getContext(), R.string.toast_notification_data_saved, Toast.LENGTH_LONG).show();
@@ -158,7 +164,7 @@ public class SearchArticlesFragment extends BaseFragment {
     }
 
     /**
-     * Restore notification layout data.
+     * Restore notification data.
      */
     private void restoreNotificationData() {
         if (fragmentKey == NOTIFICATION_FRAGMENT) {
@@ -182,7 +188,7 @@ public class SearchArticlesFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        this.saveNotificationsFragmentData();
+        this.saveNotificationsData(false);
     }
 
     // --------------
@@ -190,24 +196,24 @@ public class SearchArticlesFragment extends BaseFragment {
     // --------------
 
     /**
-     * Configure callback search button to parent activity for manage click item.
+     * Configure callback search and notify search button to parent activity for manage click.
      */
     private void createSearchCallbackToParentActivity(){
         try {
-            searchCallback = (SearchArticlesFragment.OnClickedSearchButtonListener) getActivity();
+            searchCallback = (SearchAndNotificationFragment.OnClickSearchAndNotifySearchButtonListener) getActivity();
         } catch (ClassCastException e) {
-            throw new ClassCastException(e.toString()+ " must implement OnClickedSearchButtonListener");
+            throw new ClassCastException(e.toString()+ " must implement OnClickSearchAndNotifySearchButtonListener");
         }
     }
 
     /**
-     * Configure callback notification switch to parent activity for manage click item.
+     * Configure callback notification switch to parent activity for manage click.
      */
     private void createNotificationCallbackToParentActivity(){
         try {
-            notificationCallback = (SearchArticlesFragment.OnClickedNotificationSwitchListener) getActivity();
+            notificationCallback = (SearchAndNotificationFragment.OnClickNotificationSwitchListener) getActivity();
         } catch (ClassCastException e) {
-            throw new ClassCastException(e.toString()+ " must implement OnClickedNotificationSwitchListener");
+            throw new ClassCastException(e.toString()+ " must implement OnClickNotificationSwitchListener");
         }
     }
 
@@ -272,7 +278,20 @@ public class SearchArticlesFragment extends BaseFragment {
     }
 
     /**
-     * Configure notifications switch.
+     * Configure notify search button on click listener.
+     */
+    private void configureNotifySearchButtonOnClickListener() {
+        buttonNotifySearch.setOnClickListener(v -> {
+            if (getCheckboxesSections().isEmpty()) this.searchErrorDialog(0);
+            else {
+                searchCallback.OnClickNotifySearchListener(MyNewsPrefs.getBoolean(getContext(), NOTIFICATION_SWITCH_STATE, false));
+                this.saveNotificationsData(true);
+            }
+        });
+    }
+
+    /**
+     * Configure notifications switch listener.
      */
     private void configureNotificationSwitchListener() {
         switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -315,7 +334,7 @@ public class SearchArticlesFragment extends BaseFragment {
     /**
      * Get date picker selected.
      * @param selectedDate Date picker selected date.
-     * @param beginOrEndDate To differentiate beginDate and endDate.
+     * @param beginOrEndDate To differentiate beginDate (0) and endDate (1).
      * @return Corresponding string date.
      */
     private String getSelectedDatePicker(String selectedDate, int beginOrEndDate) {
@@ -330,7 +349,7 @@ public class SearchArticlesFragment extends BaseFragment {
 
     /**
      * Create and show dialog box when no section selected or beginDate is bigger than endDate.
-     * @param sectionsOrDates Key for switch dialog between section or date error.
+     * @param sectionsOrDates Key for switch dialog between section (0) or date error (1).
      */
     private void searchErrorDialog(int sectionsOrDates) {
         AlertDialog.Builder errorNoSection = new AlertDialog.Builder(getContext());

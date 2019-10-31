@@ -1,23 +1,14 @@
 package org.desperu.mynews.controllers.activities;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import org.desperu.mynews.controllers.fragments.SearchArticlesFragment;
 import org.desperu.mynews.R;
-import org.desperu.mynews.utils.NotificationsAlarmService;
-
-import java.util.Objects;
+import org.desperu.mynews.controllers.fragments.SearchAndNotificationFragment;
+import org.desperu.mynews.utils.MyNewsAlarmManager;
 
 import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 
-public class NotificationsActivity extends BaseActivity implements SearchArticlesFragment.OnClickedNotificationSwitchListener{
-
-    private PendingIntent pendingIntent;
+public class NotificationsActivity extends BaseActivity implements SearchAndNotificationFragment.OnClickNotificationSwitchListener{
 
     // --------------
     // BASE METHODS
@@ -28,10 +19,9 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
 
     @Override
     protected void configureDesign() {
-        this.configureAndShowSearchArticlesFragment();
+        this.configureAndShowSearchOrNotificationFragment();
         this.configureToolBar();
         this.configureUpButton();
-        this.configureAlarmManager();
     }
 
     @Override
@@ -42,29 +32,21 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
     // -----------------
 
     /**
-     * Configure and show search articles fragment.
+     * Configure and show search or notification fragment.
      */
-    private void configureAndShowSearchArticlesFragment() {
-        SearchArticlesFragment searchArticlesFragment = (SearchArticlesFragment) getSupportFragmentManager()
+    private void configureAndShowSearchOrNotificationFragment() {
+        SearchAndNotificationFragment searchAndNotificationFragment = (SearchAndNotificationFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.activity_search_and_notifications_frame_layout);
 
-        if (searchArticlesFragment == null) {
-            searchArticlesFragment = new SearchArticlesFragment();
+        if (searchAndNotificationFragment == null) {
+            searchAndNotificationFragment = new SearchAndNotificationFragment();
             Bundle bundle = new Bundle();
             bundle.putInt(KEY_FRAGMENT, NOTIFICATION_FRAGMENT);
-            searchArticlesFragment.setArguments(bundle);
+            searchAndNotificationFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_search_and_notifications_frame_layout, searchArticlesFragment)
+                    .add(R.id.activity_search_and_notifications_frame_layout, searchAndNotificationFragment)
                     .commit();
         }
-    }
-
-    /**
-     * Configure alarm manager for notifications.
-     */
-    private void configureAlarmManager() {
-        Intent alarmIntent = new Intent(getApplicationContext(), NotificationsAlarmService.class);
-        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, 0);
     }
 
     // -----------------
@@ -85,26 +67,8 @@ public class NotificationsActivity extends BaseActivity implements SearchArticle
      * @param isChecked State of switch notifications.
      */
     private void configureNotifications(boolean isChecked) {
-        if (isChecked) this.startNotificationsAlarm();
-        else this.stopNotificationsAlarm();
-    }
-
-    /**
-     * Enable notification alarm.
-     */
-    private void startNotificationsAlarm() {
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Objects.requireNonNull(manager).setRepeating(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        Toast.makeText(this, R.string.toast_notification_enable, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Disable notification alarm.
-     */
-    private void stopNotificationsAlarm() {
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Objects.requireNonNull(manager).cancel(pendingIntent);
-        Toast.makeText(this, R.string.toast_notification_disable, Toast.LENGTH_SHORT).show();
+        MyNewsAlarmManager.configureAlarmManager(getApplicationContext());
+        if (isChecked) MyNewsAlarmManager.startNotificationsAlarm(getApplicationContext());
+        else MyNewsAlarmManager.stopNotificationsAlarm(getApplicationContext());
     }
 }

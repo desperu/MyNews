@@ -24,7 +24,7 @@ public final class MyNewsTools {
         // To sort articles.
         public static final String SORT_BY = "newest";
 
-        // SearchArticlesFragment and NotificationAlarmService.
+        // SearchAndNotificationFragment and NotificationAlarmService.
         // Begin date, default value for api request.
         public static final String BEGIN_DATE_DEFAULT = "01/01/1800";
 
@@ -42,7 +42,7 @@ public final class MyNewsTools {
      */
     public static final class Keys {
 
-        // SearchArticlesFragment, for notifications.
+        // SearchAndNotificationFragment, for notifications.
         public static final String NOTIFICATION_SWITCH_STATE = "NotificationSwitchState";
         public static final String NOTIFICATION_QUERY_TERMS = "NotificationQueryTerms";
         public static final String NOTIFICATION_SECTIONS = "NotificationSections";

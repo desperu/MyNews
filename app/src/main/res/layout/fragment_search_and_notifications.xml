@@ -163,6 +163,17 @@
             android:textSize="@dimen/fragment_search_and_notifications_search_button_text_size"
             android:text="@string/fragment_search_articles_button_search" />
 
+        <Button
+            android:id="@+id/fragment_search_and_notifications_button_notify_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/fragment_search_and_notifications_search_button_margin"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/fragment_search_and_notifications_search_button_text_size"
+            android:text="@string/fragment_search_articles_button_notify_search" />
+
         <View
             android:id="@+id/fragment_search_and_notifications_bottom_divider"
             android:layout_width="match_parent"
