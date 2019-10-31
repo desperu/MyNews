@@ -77,9 +77,6 @@ public class ArticleListFragment extends BaseFragment {
         this.executeHttpRequestWithRetrofit(fragmentKey);
     }
 
-    @Override
-    protected void updateDesign() {  }
-
     public ArticleListFragment() {}
 
     /**

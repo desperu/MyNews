@@ -31,9 +31,6 @@ public class SearchResultsActivity extends BaseActivity implements ArticleListFr
         this.configureUpButton();
     }
 
-    @Override
-    protected void updateDesign() { }
-
     // -----------------
     // CONFIGURATION
     // -----------------

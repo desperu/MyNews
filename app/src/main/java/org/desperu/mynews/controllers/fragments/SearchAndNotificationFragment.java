@@ -88,9 +88,6 @@ public class SearchAndNotificationFragment extends BaseFragment {
         this.configureAskedFragment(fragmentKey);
     }
 
-    @Override
-    protected void updateDesign() { }
-
     // --------------
     // CONSTRUCTOR
     // --------------

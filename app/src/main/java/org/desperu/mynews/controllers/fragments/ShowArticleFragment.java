@@ -38,9 +38,6 @@ public class ShowArticleFragment extends BaseFragment {
         this.configureSwipeRefreshLayout();
     }
 
-    @Override
-    protected void updateDesign() { }
-
     public ShowArticleFragment() { }
 
     // --------------

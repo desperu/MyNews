@@ -10,7 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 import org.desperu.mynews.R;
 
 import butterknife.ButterKnife;
-import icepick.Icepick;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -20,33 +19,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getActivityLayout();
     protected abstract void configureDesign();
-    protected abstract void updateDesign();
 
     // -----------------
     // METHODS OVERRIDE
     // -----------------
 
-    // TODO check if need icepick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getActivityLayout());
         ButterKnife.bind(this);
-        Icepick.restoreInstanceState(this, savedInstanceState);
         this.configureDesign();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        this.updateDesign();
-    }
-
-    // TODO useless
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Icepick.saveInstanceState(this, outState);
     }
 
     // --------------

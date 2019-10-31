@@ -25,9 +25,6 @@ public class SearchArticlesActivity extends BaseActivity implements SearchAndNot
         this.configureUpButton();
     }
 
-    @Override
-    protected void updateDesign() { }
-
     // -----------------
     // CONFIGURATION
     // -----------------

@@ -25,7 +25,7 @@
     <!-- Main Activity -->
     <!-- Dialog About -->
     <string name="activity_main_dialog_about_title">About</string>
-    <string name="activity_main_dialog_about_message">"<p>This application is developed by Desperu.\nSource code on <a href="https://github.com/desperu/MyNews">github.com</a>.\n\nIf you have an issue with this application, please search <a href="https://github.com/desperu/MyNews/issues">here</a>, create a new issue if there is not yours. \nYou must create an account if you have not.\n\nYou need help to use MyNews application?\nFind the documentation <a href="https://github.com/desperu/MyNews/blob/master/Documentation/Documentation%20Fonctionnelle%20MyNews.pdf">here</a>.</p>"</string>
+    <string name="activity_main_dialog_about_message">"<p>This application is developed by Desperu.\nSource code on <a href="https://github.com/desperu/MyNews">github.com</a>.\n\nIf you have an issue with this application, please search <a href="https://github.com/desperu/MyNews/issues">here</a>", create a new issue if there isn't yours. \nYou must create an account if you haven't.\n\nYou need help to use MyNews application?\nFind the documentation "<a href="https://github.com/desperu/MyNews/blob/master/Documentation/Documentation%20Fonctionnelle%20MyNews.pdf">here</a>.</p>"</string>
     <string name="activity_main_dialog_about_positive_button">OK</string>
 
     <!-- Article list fragment -->

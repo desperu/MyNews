@@ -56,9 +56,6 @@ public class MainActivity extends BaseActivity implements ArticleListFragment.On
         MyNewsUtils.manageArticleHistory(getBaseContext());
     }
 
-    @Override
-    protected void updateDesign() { }
-
     // -----------------
     // CONFIGURATION
     // -----------------

@@ -18,7 +18,6 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract int getFragmentLayout();
     protected abstract void configureDesign();
-    protected abstract void updateDesign();
 
     // -----------------
     // METHODS OVERRIDE
@@ -31,12 +30,6 @@ public abstract class BaseFragment extends Fragment {
         Icepick.restoreInstanceState(this, savedInstanceState);
         this.configureDesign();
         return(view);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        this.updateDesign();
     }
 
     @Override

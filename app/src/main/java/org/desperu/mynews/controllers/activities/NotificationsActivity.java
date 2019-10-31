@@ -24,9 +24,6 @@ public class NotificationsActivity extends BaseActivity implements SearchAndNoti
         this.configureUpButton();
     }
 
-    @Override
-    protected void updateDesign() { }
-
     // -----------------
     // CONFIGURATION
     // -----------------

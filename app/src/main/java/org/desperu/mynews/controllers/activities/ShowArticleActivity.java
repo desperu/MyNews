@@ -33,9 +33,6 @@ public class ShowArticleActivity extends BaseActivity {
         this.configureUpButton();
     }
 
-    @Override
-    protected void updateDesign() { }
-
     // --------------
     // CONFIGURATION
     // --------------
