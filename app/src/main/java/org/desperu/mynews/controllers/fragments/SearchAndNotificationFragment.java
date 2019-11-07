@@ -150,17 +150,18 @@ public class SearchAndNotificationFragment extends BaseFragment {
     /**
      * Save notification data.
      * @param notifySearch If is called from notify search button.
+     * @param showToast Hide toast data when enable notifications, to not show too toasts.
      */
-    private void saveNotificationsData(boolean notifySearch) {
+    private void saveNotificationsData(boolean notifySearch, boolean showToast) {
         if (fragmentKey == NOTIFICATION_FRAGMENT || notifySearch) {
             if (notifySearch) MyNewsPrefs.savePref(getContext(), NOTIFICATION_SWITCH_STATE, true);
             else MyNewsPrefs.savePref(getContext(), NOTIFICATION_SWITCH_STATE, switchNotifications.isChecked());
             MyNewsPrefs.savePref(getContext(), NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
-            if (getCheckboxesSections().isEmpty())
+            if (getCheckboxesSections().isEmpty() && switchNotifications.isChecked())
                 Toast.makeText(getContext(), R.string.toast_notification_section_data_not_saved, Toast.LENGTH_LONG).show();
             else {
                 MyNewsPrefs.savePref(getContext(), NOTIFICATION_SECTIONS, getCheckboxesSections());
-                Toast.makeText(getContext(), R.string.toast_notification_data_saved, Toast.LENGTH_LONG).show();
+                if (showToast) Toast.makeText(getContext(), R.string.toast_notification_data_saved, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -190,7 +191,7 @@ public class SearchAndNotificationFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        this.saveNotificationsData(false);
+        this.saveNotificationsData(false, true);
     }
 
     // --------------
@@ -287,7 +288,7 @@ public class SearchAndNotificationFragment extends BaseFragment {
             if (this.getCheckboxesSections().isEmpty()) this.searchErrorDialog(SECTIONS_DIALOG);
             else {
                 this.searchCallback.OnClickNotifySearchListener(MyNewsPrefs.getBoolean(getContext(), NOTIFICATION_SWITCH_STATE, false));
-                this.saveNotificationsData(true);
+                this.saveNotificationsData(true, true);
             }
         });
     }
@@ -301,7 +302,10 @@ public class SearchAndNotificationFragment extends BaseFragment {
                 if (this.getCheckboxesSections().isEmpty()) {
                     this.searchErrorDialog(SECTIONS_DIALOG);
                     this.switchNotifications.setChecked(false);
-                } else this.notificationCallback.OnClickNotificationListener(true);
+                } else {
+                    this.notificationCallback.OnClickNotificationListener(true);
+                    this.saveNotificationsData(false, false);
+                }
 
             } else this.notificationCallback.OnClickNotificationListener(false);
         });
