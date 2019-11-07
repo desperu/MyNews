@@ -24,8 +24,9 @@ import butterknife.BindView;
 import icepick.State;
 
 import static org.desperu.mynews.MyNewsTools.Constant.*;
-import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
 import static org.desperu.mynews.MyNewsTools.Keys.*;
+import static org.desperu.mynews.MyNewsTools.FragmentsKeys.*;
+import static org.desperu.mynews.MyNewsTools.SearchKeys.*;
 
 public class SearchAndNotificationFragment extends BaseFragment {
 
@@ -155,8 +156,12 @@ public class SearchAndNotificationFragment extends BaseFragment {
             if (notifySearch) MyNewsPrefs.savePref(getContext(), NOTIFICATION_SWITCH_STATE, true);
             else MyNewsPrefs.savePref(getContext(), NOTIFICATION_SWITCH_STATE, switchNotifications.isChecked());
             MyNewsPrefs.savePref(getContext(), NOTIFICATION_QUERY_TERMS, getSearchQueryTerms());
-            MyNewsPrefs.savePref(getContext(), NOTIFICATION_SECTIONS, getCheckboxesSections());
-            Toast.makeText(getContext(), R.string.toast_notification_data_saved, Toast.LENGTH_LONG).show();
+            if (getCheckboxesSections().isEmpty())
+                Toast.makeText(getContext(), R.string.toast_notification_section_data_not_saved, Toast.LENGTH_LONG).show();
+            else {
+                MyNewsPrefs.savePref(getContext(), NOTIFICATION_SECTIONS, getCheckboxesSections());
+                Toast.makeText(getContext(), R.string.toast_notification_data_saved, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -262,14 +267,14 @@ public class SearchAndNotificationFragment extends BaseFragment {
      */
     private void configureSearchButtonOnClickListener() {
         buttonSearch.setOnClickListener(v -> {
-            if (getCheckboxesSections().isEmpty()) this.searchErrorDialog(0);
-            else if (Integer.parseInt(getSelectedDatePicker(beginDate, 0))
-                    > Integer.parseInt(getSelectedDatePicker(endDate, 1)))
-                this.searchErrorDialog(1);
+            if (getCheckboxesSections().isEmpty()) this.searchErrorDialog(SECTIONS_DIALOG);
+            else if (Integer.parseInt(getSelectedDatePicker(beginDate, BEGIN_DATE))
+                    > Integer.parseInt(getSelectedDatePicker(endDate, END_DATE)))
+                this.searchErrorDialog(DATES_DIALOG);
             else { searchCallback.OnClickSearchListener(getSearchQueryTerms(),
-                        getSelectedDatePicker(beginDate, 0),
-                        getSelectedDatePicker(endDate, 1),
-                        getCheckboxesSections());
+                    this.getSelectedDatePicker(beginDate, BEGIN_DATE),
+                    this.getSelectedDatePicker(endDate, END_DATE),
+                    this.getCheckboxesSections());
             }
         });
     }
@@ -279,9 +284,9 @@ public class SearchAndNotificationFragment extends BaseFragment {
      */
     private void configureNotifySearchButtonOnClickListener() {
         buttonNotifySearch.setOnClickListener(v -> {
-            if (getCheckboxesSections().isEmpty()) this.searchErrorDialog(0);
+            if (this.getCheckboxesSections().isEmpty()) this.searchErrorDialog(SECTIONS_DIALOG);
             else {
-                searchCallback.OnClickNotifySearchListener(MyNewsPrefs.getBoolean(getContext(), NOTIFICATION_SWITCH_STATE, false));
+                this.searchCallback.OnClickNotifySearchListener(MyNewsPrefs.getBoolean(getContext(), NOTIFICATION_SWITCH_STATE, false));
                 this.saveNotificationsData(true);
             }
         });
@@ -293,12 +298,12 @@ public class SearchAndNotificationFragment extends BaseFragment {
     private void configureNotificationSwitchListener() {
         switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                if (getCheckboxesSections().isEmpty()) {
-                    this.searchErrorDialog(0);
-                    switchNotifications.setChecked(false);
-                } else notificationCallback.OnClickNotificationListener(true);
+                if (this.getCheckboxesSections().isEmpty()) {
+                    this.searchErrorDialog(SECTIONS_DIALOG);
+                    this.switchNotifications.setChecked(false);
+                } else this.notificationCallback.OnClickNotificationListener(true);
 
-            } else notificationCallback.OnClickNotificationListener(false);
+            } else this.notificationCallback.OnClickNotificationListener(false);
         });
     }
 
@@ -331,29 +336,27 @@ public class SearchAndNotificationFragment extends BaseFragment {
     /**
      * Get date picker selected.
      * @param selectedDate Date picker selected date.
-     * @param beginOrEndDate To differentiate beginDate (0) and endDate (1).
+     * @param beginOrEndDate Key to switch between beginDate and endDate.
      * @return Corresponding string date.
      */
     private String getSelectedDatePicker(String selectedDate, int beginOrEndDate) {
-        if (selectedDate.length() == 0) {
-            if (beginOrEndDate == 0)
-                selectedDate = BEGIN_DATE_DEFAULT;
-            if (beginOrEndDate == 1)
-                selectedDate = MyNewsUtils.dateToString(new Date());
+        if (selectedDate.isEmpty()) {
+            if (beginOrEndDate == BEGIN_DATE) selectedDate = BEGIN_DATE_DEFAULT;
+            if (beginOrEndDate == END_DATE) selectedDate = MyNewsUtils.dateToString(new Date());
         }
         return MyNewsUtils.dateToStringForNyTimes(MyNewsUtils.stringToDate(selectedDate));
     }
 
     /**
      * Create and show dialog box when no section selected or beginDate is bigger than endDate.
-     * @param sectionsOrDates Key for switch dialog between section (0) or date error (1).
+     * @param sectionsOrDates Key for switch dialog between section error and date error.
      */
     private void searchErrorDialog(int sectionsOrDates) {
         AlertDialog.Builder errorNoSection = new AlertDialog.Builder(getContext());
-        if (sectionsOrDates == 0) {
+        if (sectionsOrDates == SECTIONS_DIALOG) {
             errorNoSection.setTitle(R.string.fragment_search_articles_dialog_no_section_title);
             errorNoSection.setMessage(R.string.fragment_search_articles_dialog_no_section_message);
-        } else if (sectionsOrDates == 1) {
+        } else if (sectionsOrDates == DATES_DIALOG) {
             errorNoSection.setTitle(R.string.fragment_search_articles_dialog_date_problem_title);
             errorNoSection.setMessage(R.string.fragment_search_articles_dialog_date_problem_message);
         }

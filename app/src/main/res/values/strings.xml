@@ -62,7 +62,9 @@
     <!-- Enable / Disable notifications -->
     <string name="toast_notification_enable">Notification enabled !</string>
     <string name="toast_notification_disable">Notification disabled !</string>
-    <string name="toast_notification_data_saved">Notification data were saved !</string>
+    <!-- Notifications data -->
+    <string name="toast_notification_data_saved">Notification data saved !</string>
+    <string name="toast_notification_section_data_not_saved">Notification sections data not saved !\nNo section selected !</string>
     <!-- Notifications body -->
     <string name="notification_ticker">"MyNews : "</string>
     <string name="notification_title">Find articles ! Click to see !</string>
