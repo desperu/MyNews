@@ -113,7 +113,8 @@ public class NyTimesViewHolder extends RecyclerView.ViewHolder {
             } else imageUrl = nyTimesResults.getMultimedia().get(0).getUrl();
 
             // For Most Popular.
-        } else if (nyTimesResults.getMedia() != null && !nyTimesResults.getMedia().get(0).getMediaMetadata().isEmpty())
+        } else if (nyTimesResults.getMedia() != null && !nyTimesResults.getMedia().isEmpty()
+                && !nyTimesResults.getMedia().get(0).getMediaMetadata().isEmpty())
             imageUrl = nyTimesResults.getMedia().get(0).getMediaMetadata().get(0).getUrl();
 
         return imageUrl;
